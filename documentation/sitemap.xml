@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+
+
+  
+  
+  <url>
+    <loc>/bestpractices.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/contactus.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/existing.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/faqs.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/guestbook.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/high-availability.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/k8s-primitives.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/known-issues.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/kubernetes-anywhere.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/kubernetes-volumes.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/minio.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/mongodb.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/js/mydoc_scroll.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/overview.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/persistent-vols-claims.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/policy-based-mgmt.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/prerequisites.html</loc>
+  </url>
+  
+  
+  
+  
+  
+  
+  
+  <url>
+    <loc>/statefulsets.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>/storageclass.html</loc>
+  </url>
+  
+  
+</urlset>
