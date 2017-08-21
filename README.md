@@ -14,4 +14,4 @@ signed our contributor license agreement (CLA), our bot will update the issue wh
 questions about the CLA process, please refer to our [FAQ](https://cla.vmware.com/faq). For more detailed information,
 refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## License
+
