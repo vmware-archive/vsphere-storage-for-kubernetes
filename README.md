@@ -1,26 +1,11 @@
+## vSphere Cloud Provider Overview
+Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider. Cloud provider is an interface which helps in extending Kubernetes with cluster of instances managed by virtualization technologies, public/private cloud platforms and required networking for these instances.
+  
+Kubernetes cloud provider is an interface to integrate various nodes (i.e. hosts), load balancers and networking routes. This interface allows extending Kubernetes to use various cloud and virtualization solutions as base infrastructure to run on. 
 
+<img src="documentation/images/vSphere.png"/>
 
-# vsphere-storage-for-kubernetes
-
-## Overview
-
-## Try it out
-
-### Prerequisites
-
-* Prereq 1
-* Prereq 2
-* Prereq 3
-
-### Build & Run
-
-1. Step 1
-2. Step 2
-3. Step 3
-
-## Documentation
-
-## Releases & Major Branches
+vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere Storage (VMFS, vSAN, NFS) has proven features like policy based management, QoS, high availability and data reliability for containers using Kubernetes.
 
 ## Contributing
 
