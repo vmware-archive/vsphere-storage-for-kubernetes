@@ -3,7 +3,7 @@ Containers are stateless and ephemeral but applications are stateful and need pe
   
 Kubernetes cloud provider is an interface to integrate various nodes (i.e. hosts), load balancers and networking routes. This interface allows extending Kubernetes to use various cloud and virtualization solutions as base infrastructure to run on. 
 
-<img src="documentation/images/vSphere.png"/>
+<img src="documentation/images/vSphere.png" width="70%" height="70%"/>
 
 vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere Storage (VMFS, vSAN, NFS) has proven features like policy based management, QoS, high availability and data reliability for containers using Kubernetes.
 
@@ -14,4 +14,11 @@ signed our contributor license agreement (CLA), our bot will update the issue wh
 questions about the CLA process, please refer to our [FAQ](https://cla.vmware.com/faq). For more detailed information,
 refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
+
+## Contact Us
+You can reach us via:
+
+* [containers@vmware.com](containers@vmware.com)
+* [Issues](https://github.com/vmware/kubernetes/issues)
+* [VMware{code} Kubernetes Slack](https://vmwarecode.slack.com/messages/kubernetes) channel
 
