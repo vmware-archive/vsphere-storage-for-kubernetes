@@ -7,6 +7,10 @@ Kubernetes cloud provider is an interface to integrate various nodes (i.e. hosts
 
 vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere Storage (VMFS, vSAN, NFS) has proven features like policy based management, QoS, high availability and data reliability for containers using Kubernetes.
 
+## Detailed documentation
+
+Detailed documentation can be found on our [GitHub Documentation Page](http://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+
 ## Contributing
 
 The vsphere-storage-for-kubernetes project team welcomes contributions from the community. If you wish to contribute code and you have not
