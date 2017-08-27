@@ -387,22 +387,22 @@ $('#toc').on('click', 'a', function() {
 
   <h2 id="introduction">Introduction</h2>
 
-<p>Containers have changed the way applications are packaged and deployed. Not only containers are efficient from infrastructure utilization point of view, they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. Docker is the most commonly used container runtime technology and this user guide outlines how vSphere is compatible with Docker ecosystem.</p>
+<p>Containers have changed the way applications are packaged and deployed. Not only containers are efficient from infrastructure utilization point of view, they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. This user guide outlines integration of vSphere storage with Kubernetes.</p>
 
 <h2 id="persistent-storage-in-container-world">Persistent Storage in Container World</h2>
 
-<p>Although it is relatively easy to run stateless Microservices using container technology, stateful applications require slightly different treatment. There are multiple factors which need to be considered when you think about handling persistent data using containers such as:</p>
+<p>Although it is relatively easy to run stateless Microservices using container technology, stateful applications require slightly different treatment. There are multiple factors which need to be considered when handling persistent data using containers, such as:</p>
 
 <ul>
   <li>Containers are ephemeral by nature, so the data that needs to be persisted has to survive through the restart/re-scheduling of a container.</li>
-  <li>When containers are re-scheduled, they can die on one host and might get scheduled on a different host. In such a case the storage should also be shifted and made available on new host for the container to start gracefully.</li>
-  <li>The application should not have to worry about the volume/data and underlying infrastructure should handle the complexity of unmounting and mounting etc.</li>
-  <li>Certain applications have a strong sense of identity (For example. Kafka, Elastic etc.) and the disk used by a container with certain identity is tied to it. It is important that if a container with a certain ID gets re-scheduled for some reason then the disk only associated with that ID is re-attached on a new host.</li>
+  <li>When containers are re-scheduled, they can die on one host and might get scheduled on a different host. In such a case the storage should also be shifted and made available on the new host for the container to start gracefully.</li>
+  <li>The application should not have to worry about the volume &amp; data. The underlying infrastructure should handle the complexity of unmounting and mounting.</li>
+  <li>Certain applications have a strong sense of identity (e.g.; Kafka, Elastic) and the disk used by a container with certain identity is tied to it. It is important that if a container with a certain ID gets re-scheduled for some reason then the disk associated with that ID is re-attached to the new container instance.</li>
 </ul>
 
 <h2 id="kubernetes-storage-primitives">Kubernetes Storage Primitives</h2>
 
-<p>Kubernetes provides abstractions ensure that the storage details are separated from allocation and usage of storage.
+<p>Kubernetes provides abstractions to ensure that the storage details are separated from allocation and usage of storage.
 Kubernetes has various API resources to provision, categorize and consume the storage.</p>
 
 <p><strong>API Resources</strong>:</p>
@@ -434,7 +434,7 @@ Kubernetes has various API resources to provision, categorize and consume the st
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Aug 20, 2017 <br />
+ Site last generated: Aug 26, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
