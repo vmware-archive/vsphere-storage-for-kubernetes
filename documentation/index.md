@@ -5,7 +5,7 @@ title: Kubernetes - vSphere Cloud Provider
 
 ## Introduction 
 
-Containers have changed the way applications are packaged and deployed. Not only are containers efficient from an infrastructure utilization point of view, they also provide strong isolation between processes on the same host. They are lightweight and once packaged can run anywhere. Docker is the most commonly used container runtime technology and this user guide outlines how vSphere is compatible with Docker ecosystem. 
+Containers have changed the way applications are packaged and deployed. Not only containers are efficient from infrastructure utilization point of view, they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. This user guide outlines integration of vSphere storage with Kubernetes. 
 
 ## Persistent Storage in Container World
 
