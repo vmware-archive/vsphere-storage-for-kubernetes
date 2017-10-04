@@ -59,7 +59,7 @@ For vSAN policies few additional parameters in StorageClass can be specified:
 
 * **diskStripes:** The minimum number of capacity devices across which each replica of a object is striped. A value higher than 1 might result in better performance, but also results in higher use of system resources. Default value is 1. Maximum value is 12.
 
-* **forceProvisioning:** If the option is set to Yes, the object is provisioned even if theNumber of failures to tolerate, Number of disk stripes per object, and Flash read cache reservation policies specified in the storage policy cannot be satisfied by the datastore
+* **forceProvisioning:** If the option is set to Yes, the object is provisioned even if the Number of failures to tolerate, Number of disk stripes per object, and Flash read cache reservation policies specified in the storage policy cannot be satisfied by the datastore
 
 * **hostFailuresToTolerate:** Defines the number of host and device failures that a virtual machine object can tolerate. For n failures tolerated, each piece of data written is stored in n+1 places, including parity copies if using RAID 5 or RAID 6.
 
