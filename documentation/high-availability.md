@@ -2,7 +2,7 @@
 title: High Availability of Kubernetes Cluster
 ---
 
-Kubernetes ensures that all the the Pods are restarted in case the node goes down. The persistent storage API objects ensure that same PVs are mounted back to the new Pods on restart or if they are recreated. 
+Kubernetes ensures that all the Pods are restarted in case the node goes down. The persistent storage API objects ensure that same PVs are mounted back to the new Pods on restart or if they are recreated. 
 
 But what happens if the node/host is the VM and the physical host fails? vSphere HA  leverages multiple ESXi hosts configured as a cluster to provide rapid recovery from outages and cost-effective high availability for applications running in virtual machines. vSphere HA provides a base level of protection for your virtual machines by restarting virtual machines in the event of a host failure 
  
