@@ -77,4 +77,4 @@ spec:
           storage: 1Gi
 ```
 
-This will create Persistent Volume Claims for each replica and provision a volume for each claim if an existing volume could be bound to the claim.
+This will create Persistent Volume Claims for each replica and provision a volume for each claim if an existing volume could not be bound to the claim.
