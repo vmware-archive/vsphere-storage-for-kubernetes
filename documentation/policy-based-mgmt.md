@@ -168,7 +168,7 @@ No events.
 
 Persistent Volume is automatically created and is bounded to this pvc
 
-**Verify if persistent volume claim is created**
+**Verify if persistent volume is created**
 
 ```
 $ kubectl describe pv pvc-80f7b5c1-94b6-11e6-a24f-005056a79d2d
