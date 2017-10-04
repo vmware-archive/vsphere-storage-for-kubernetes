@@ -2,7 +2,7 @@
 title: StatefulSets
 ---
 
-StatefulSets are valuable for applications which require any stable identifiers or stable storage. vSphere Cloud Provider suppoorts StatefulSets and vSphere volumes can be consumed by StatefulSets.
+StatefulSets are valuable for applications which require any stable identifiers or stable storage. vSphere Cloud Provider supports StatefulSets and vSphere volumes can be consumed by StatefulSets.
 
 **Note:**
 
