@@ -3,8 +3,8 @@ title: vSphere Cloud Provider
 ---
 
 ## Overview
-Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider. Cloud provider is an interface which helps in extending Kubernetes with cluster of instances managed by virtualization technologies, public/private cloud platforms and required networking for these instances. 
- 
+Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider.
+
  ![Image](images/vSphere.png)
  
  
@@ -19,9 +19,9 @@ Cloud provider provides following interfaces to effectively integrate cloud plat
 
 
 ## vSphere Storage Concepts
-vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere Storage (VMFS, vSAN, NFS) has proven features like policy based management, QoS, high availability and data reliability for containers using Kubernetes.
+vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere has a proven Software Defined Storage platform that integrates with block, file and HyperConverged offerings such as VMware VSAN. These storage offerings are exposed as VMFS, NFS and VSAN datastores respectively. SDS platform in vSphere has enterprise grade features like Storage Policy Based Management(SPBM) which enables customers to gurantee QoS requested by their business critical applications and enforce SLAs. vSphere provides various data services out of the box such high availability and data reliability for containers using Kubernetes.
  
-Datastores is an abstraction which hides storage details and provide uniform interface for storing persistent data. Datastores enables simplified storage management with features like grouping them in folders. Depending upon the backend storage the datastores can be vSAN, VMFS or NFS.
+Datastores is an abstraction which hides storage details and provide uniform interface for storing persistent data. Datastores enables simplified storage management with features like grouping them in folders. Depending on the backend storage used, the datastores can be of the type vSAN, VMFS or NFS.
  
 * vSAN is a hyper-converged infrastructure storage which provides excellent performance as well as reliability. vSAN advantage is simplified storage management with features like policy driven administration. 
  
@@ -30,7 +30,14 @@ Datastores is an abstraction which hides storage details and provide uniform int
 * NFS (Network File System) is distributed file protocol to access storage over network like local storage. vSphere supports NFS as backend to store virtual machines files.
 
 ## Kubernetes Storage support
-vSphere supports all the the Kubernetes storage primitives which brings enterprise grade storage features to Kubernetes. vSphere uses vSAN and VMFS datastores, these datastores store the volumes as VMDK files.
+vSphere Cloud Provider supports every storage primitive exposed by Kubernetes -
+* Volumes
+* Persistent Volumes (PV)
+* Persistent Volumes Claims (PVC)
+* Storage Class
+* Stateful Sets
+
+Persistent volumes requested by stateful contenarized applications can be provisioned on VSAN, VMFS or NFS datastores.
 
 Kubernetes volumes are defined in Pod specification. They reference VMDK files and these VMDK files are mounted as volumes when the container is running. When the Pod is deleted the Kubernetes volume is unmounted and the data in VMDK files persists.
 
@@ -39,11 +46,3 @@ Kubernetes volumes are defined in Pod specification. They reference VMDK files a
  
  
   
-vSphere is cloud provider which implements Instances interface and supports following Kubernetes storages primitives:
-
-* Volumes
-* Persistent Volumes (PV)
-* Persistent Volumes Claims (PVC)
-* Storage Class
-* Stateful Sets
-
