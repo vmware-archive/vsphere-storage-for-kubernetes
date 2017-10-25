@@ -4,7 +4,7 @@ title: Configurations on Existing Kubernetes Cluster
 
 If a Kubernetes cluster has not been deployed using Kubernetes-Anywhere, follow the instructions below to enable the vSphere Cloud Provider. These steps are not needed when using Kubernetes-Anywhere, they will be done as part of the deployment.
 
-We have automated all of the steps mentioned below. For more details, please visit [https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md](https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md). If pre-requisites are not applicable on your setup, then follow below steps manually.
+All the steps mentioned below have been automated. For more details, please visit [https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md](https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md). If pre-requisites are not applicable, then follow below steps manually.
 
 
 ## Create a VM folder for Node VMs

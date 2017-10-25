@@ -1,60 +1,93 @@
 ---
 title: Troubleshooting Kubernetes vSphere Cloud Provider
 ---
-This document is aimed to help debug issues in the Kuberentes vSphere Cloud Provider.
+To troubleshoot issues with Kuberenetes cluster deployment, please visit [https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/)
 
-For general Kubernetes Issue, Please visit [https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/)
-
-## What logs can I inspect?
-For digging deeper and help gather data for the technical support we need to see the log files.
-
-For vSphere Cloud Provider most often we need to look into Controller-Manager, Kubelet and API-server logs.
+## Logs to inspect
+To debug vSphere Cloud Provider Issues, Controller-Manager, API-server and Kubelet logs should be checked.
 
 Logs for Controller-Manager and API server should be available on the Master node VM and Logs for Kubelet is located on both Master and Worker Nodes.
 
-To locate the log files for Controller-Manager and API server, we need to find the `Container ID` from Pods. `Container ID` can be obtained by inspecting Pod running in the kube-system namespace or using `docer ps -a` command
+To locate the log files for Controller-Manager and API server, `Container ID` from Pods should be obtained. `Container ID` can be obtained by inspecting Pod running in the `kube-system` namespace or using `docker ps -a` command.
 
+Pod names for Controller-Manager and API server can be retrived using following command.
+
+```
+kubectl get pods --namespace=kube-system
+```
+
+
+### Controller-Manager Logs
 Login into the master node and execute following command.
 
 ```
-# kubectl describe pod kube-controller-manager-kubeadm-master --namespace=kube-system | grep "Container ID"
+# kubectl describe pod <Controller-Manager Pod Name> --namespace=kube-system | grep "Container ID"
     Container ID:  docker://74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
 ```
 
-if you are unable to find controller-manager pod, use `docker ps -a` as below to grab `Container ID`.
+if controller-manager pod is not found, use `docker ps -a` as below to grab the `Container ID` of the controller-manager pod.
 
 ```
 # docker ps | grep controller-manager
 74a15e75d136        gcr.io/google_containers/kube-controller-manager-amd64   "kube-controller-m..."   23 minutes ago      Up 23 minutes                           k8s_kube-controller-manager_kube-controller-manager-kubeadm-master_kube-system_22d908089b353bf8749a89843022bff3_0
 12df71e6d4a8        gcr.io/google_containers/pause-amd64:3.0                 "/pause"                 23 minutes ago      Up 23 minutes                           k8s_POD_kube-controller-manager-kubeadm-master_kube-system_22d908089b353bf8749a89843022bff3_0
 
-
-
 # docker inspect 74a15e75d136 | grep Id
         "Id": "74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a",
 ```
-Once the `Container ID` is obtained, logs can be obtained from `/var/lib/docker/containers/` directory. Docker creates the directory for each container and keeps logs in that directory.
+
+Once the `Container ID` for controller manager is obtained, logs can be obtained from the `/var/lib/docker/containers/` directory.
 
 ```
 # ls /var/lib/docker/containers/74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
 74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a-json.log  checkpoints  config.v2.json  hostconfig.json
 ```
 
-**Note:** On `systemd-based` setup, you may need to use `journalctl` instead. You need to know the service name to get the logs for controller-manager.
-- Here is the example.
+**Note:** On the `systemd-based` setup, `journalctl` should be used.
+- Below is the command to collect controller-manager logs.
   ```
   journalctl -u kube-controller-manager.service > controller-manager.log
   ```
 
-Kubelet generally runs as the service and not in the container or Pod in the Kubernetes cluster. Kubelet logs can be obtained using `journalctl` as shown below.
+### API Server Logs
+Login into the master node and execute following command.
+
+```
+# kubectl describe pod <API Server Pod Name> --namespace=kube-system | grep "Container ID"
+    Container ID:  docker://b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
+```
+
+if API Server pod is not found, use `docker ps -a` as below to grab the `Container ID` of the API-Server pod.
+
+```
+# docker ps -a | grep apiserver
+b6fdc5d41e50        gcr.io/google_containers/kube-apiserver-amd64            "kube-apiserver --..."   5 hours ago         Up 5 hours                              k8s_kube-apiserver_kube-apiserver-kubeadm-master_kube-system_16e5059388b998793f4191a20f2de9c2_1
+abe6e03e5bd5        gcr.io/google_containers/pause-amd64:3.0                 "/pause"                 5 hours ago         Up 5 hours                              k8s_POD_kube-apiserver-kubeadm-master_kube-system_16e5059388b998793f4191a20f2de9c2_1
+
+
+# docker inspect b6fdc5d41e50 | grep Id
+        "Id": "b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c",
+```
+
+Once the `Container ID` for API server is obtained, logs can be obtained from the `/var/lib/docker/containers/` directory.
+
+```
+# ls /var/lib/docker/containers/b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
+b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c-json.log  checkpoints  config.v2.json  hostconfig.json
+```
+
+### Kubelet Logs
+
+Kubelet runs as the service and not in the container or Pod in the Kubernetes cluster. Kubelet logs can be obtained using `journalctl` as shown below.
 
 ```
 journalctl -u kubelet > kubelet.log
 ```
 
-## How can I modify the log level?
 
-Log levels can be adjusted using `--v` option in the pod manifests files. To help debug vSphere Cloud Provider, we recommended increasing log level for Controller-Manager. Manifest files are generally located at `/etc/kubernetes/manifests/`.
+## Modify log level
+
+Log levels can be adjusted using `--v` option in the pod manifests files. To help debug vSphere Cloud Provider, It is recommended to increase the log level for Controller-Manager. Manifest files are generally located at `/etc/kubernetes/manifests/`.
 
 ```
 # cd /etc/kubernetes/manifests/
@@ -82,9 +115,16 @@ spec:
     - --kubeconfig=/etc/kubernetes/controller-manager.conf
     - --v=9
 ```
-After increasing the log level, you need to restart the `kubelet`, which will restart the API server and Controller-Manager with updated pod manifest file.
+After increasing the log level, Kubelet needs to be restarted. When Kubelet is restarted, the API server and Controller-Manager Pods are also restarted with updated manifest files. To restart the Kubelet use following command.
 
+```
+systemctl restart kubelet 
+```
 
-## What information is needed to provide to technical support for analysis?
+In addition to logs, the output of `kubectl describe` command on targeted resources like pod, pvc, pv can be captured. It helps to narrow down the problem quickly.
 
-We recommend to provide controller-manager log with increased log level, kubelet logs and Kubernetes server version when you file an issue at [https://github.com/vmware/kubernetes/issues](https://github.com/vmware/kubernetes/issues)
+```
+kubectl describe pod <podname> --namespace=<namespace_name>
+kubectl describe pvc <pvcname> --namespace=<namespace_name>
+kubectl describe pv <pvname> --namespace=<namespace_name>
+```
