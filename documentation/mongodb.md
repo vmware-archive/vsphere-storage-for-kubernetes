@@ -11,11 +11,12 @@ A StorageClass provides a mechanism for the administrators to describe the “cl
  
 ```						
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1 
-Metadata:
-name: platinum
+apiVersion: storage.k8s.io/v1
+metadata:
+ name: platinum
 provisioner: Kubernetes.io/vsphere-volume
-	diskformat: thin
+parameters:
+ diskformat: thin
 ```					
 				
 **Note:** Although all volumes are created on the same vSAN datastore, you can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs. Please refer to VSAN storage capability section mentioned in vSphere CP document 
@@ -26,19 +27,19 @@ provisioner: Kubernetes.io/vsphere-volume
 A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.
 
 ```						
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: pvc128gb
-annotations:
- volume.beta.Kubernetes.io/storage-class: 
-"platinum"
+ name: pvc128gb
+ annotations:
+  volume.beta.Kubernetes.io/storage-class: "platinum"
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 128Gi 
+ accessModes:
+  - ReadWriteOnce
+ resources:
+  requests:
+   storage: 128Gi
 ```
 	
 					
