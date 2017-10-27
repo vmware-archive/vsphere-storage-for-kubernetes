@@ -55,6 +55,9 @@ entries:
       - title: Best Practices
         url: /bestpractices.html
         output: web
+      - title: Troubleshooting
+        url: /troubleshooting.html
+        output: web
   - title: Applications & Examples
     output: web
     folderitems:
