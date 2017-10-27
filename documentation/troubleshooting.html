@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>FAQs | Kubernetes vSphere Cloud Provider</title>
+<title>Troubleshooting | Kubernetes vSphere Cloud Provider</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -100,7 +100,7 @@
                 
                 
                 
-                <li class="active"><a href="faqs.html">FAQs</a></li>
+                <li><a href="faqs.html">FAQs</a></li>
                 
                 
                 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="FAQs">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="Troubleshooting">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -276,7 +276,7 @@
             
             
             
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li class="active"><a href="troubleshooting.html">Troubleshooting</a></li>
             
             
             
@@ -320,7 +320,7 @@
             
             
             
-            <li class="active"><a href="faqs.html">FAQs</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
             
             
             
@@ -351,7 +351,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">FAQs</h1>
+   <h1 class="post-title-main">Troubleshooting</h1>
 </div>
 
 
@@ -388,66 +388,130 @@ $('#toc').on('click', 'a', function() {
 
     
 
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//faqs.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//troubleshooting.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
 
     
 
-  <h2 id="is-vsphere-cloud-provider-ready-for-production-">Is vSphere Cloud Provider ready for production ?</h2>
-<p>vSphere Cloud Provider is still in beta.</p>
+  <p>To troubleshoot issues with Kuberenetes cluster deployment, please visit <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/">https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/</a></p>
 
-<h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for-">What is the biggest Kubernetes cluster it has been tested for ?</h2>
-<p>It has been tested on eight node cluster so far.</p>
+<h2 id="logs-to-inspect">Logs to inspect</h2>
+<p>Following logs are needed to debug VCP issues</p>
 
-<h2 id="where-can-i-find-required-roles-and-privileges-for-the-vcenter-user-for-vsphere-cloud-provider-">Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider ?</h2>
-<p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities">section</a>.</p>
+<ul>
+  <li>Controller-Manager logs</li>
+  <li>API-server logs</li>
+  <li>Kubelet logs</li>
+</ul>
 
-<h2 id="where-can-i-find-the-list-of-vsan-vmfs-and-nfs-features-supported-by-vsphere-cloud-provider-">Where can I find the list of vSAN, VMFS and NFS features supported by vSphere Cloud Provider ?</h2>
-<p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">section</a>. Please report in case you find any features are missing.</p>
+<h3 id="controller-manager-logs">Controller-Manager Logs</h3>
+<p>Login into the master node and execute following command.</p>
 
-<h2 id="how-is-running-containers-on-vsphere-integrated-containers-different-from-running-them-on-kubernetes-on-vsphere-">How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere ?</h2>
-<p>VIC is infrastructure platform to run containerized workloads alongside traditional applications whereas vSphere Cloud provider provides an interface to run and take advantage of vSphere storage for workloads running on Kubernetes</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># kubectl describe pod &lt;Controller-Manager Pod Name&gt; --namespace=kube-system | grep "Container ID"
+    Container ID:  docker://74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
+</code></pre>
+</div>
+<p>Note: For the above command name of the Controller-Manager Pod can be retrived using <code class="highlighter-rouge">kubectl get pods --namespace=kube-system</code> command. If the controller-manager pod is not found, use <code class="highlighter-rouge">docker ps -a</code> as below to grab the <code class="highlighter-rouge">Container ID</code> of the controller-manager pod.</p>
 
-<h2 id="can-i-run-it-on-a-single-node-cluster-on-my-laptop-">Can I run it on a single node cluster on my laptop ?</h2>
-<p>Yes as long as laptop supports nested virtualization you can try it on your laptop.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># docker ps | grep controller-manager
+74a15e75d136        gcr.io/google_containers/kube-controller-manager-amd64   "kube-controller-m..."   23 minutes ago      Up 23 minutes                           k8s_kube-controller-manager_kube-controller-manager-kubeadm-master_kube-system_22d908089b353bf8749a89843022bff3_0
+12df71e6d4a8        gcr.io/google_containers/pause-amd64:3.0                 "/pause"                 23 minutes ago      Up 23 minutes                           k8s_POD_kube-controller-manager-kubeadm-master_kube-system_22d908089b353bf8749a89843022bff3_0
 
-<h2 id="which-kubernetes-distribution-is-supported-">Which Kubernetes distribution is supported ?</h2>
-<p>vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">section.</a></p>
+# docker inspect 74a15e75d136 | grep Id
+        "Id": "74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a",
+</code></pre>
+</div>
 
-<h2 id="can-we-deploy-multiple-kubernetes-cluster-on-one-vcenter">Can we deploy multiple Kubernetes Cluster on one vCenter?</h2>
-<p>Yes. Using resource pool and maintaining the VMs from each Kubernetes cluster in their respective VM folder you can run multiple Kubernetes cluster on vCenter.</p>
+<p>Once the <code class="highlighter-rouge">Container ID</code> for controller manager is obtained, logs can be obtained from the <code class="highlighter-rouge">/var/lib/docker/containers/</code> directory.</p>
 
-<h2 id="can-kubernetes-cluster-access-storage-from-another-vcenter">Can Kubernetes Cluster access storage from another vCenter?</h2>
-<p>Yes. vSphere supports shared storage across multiple vCenters. User can use shared storage in multiple Kubernetes Clusters.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># ls /var/lib/docker/containers/74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
+74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a-json.log  checkpoints  config.v2.json  hostconfig.json
+</code></pre>
+</div>
 
-<h2 id="which-operating-system-are-supported-">Which Operating System are supported ?</h2>
-<p>We support Photon, Ubuntu, Core OS, please check this section for <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">details</a></p>
+<p><strong>Note:</strong> On the <code class="highlighter-rouge">systemd-based</code> setup, <code class="highlighter-rouge">journalctl</code> should be used.
+- Below is the command to collect controller-manager logs.
+  <code class="highlighter-rouge">
+  journalctl -u kube-controller-manager.service &gt; controller-manager.log
+ </code></p>
 
-<h2 id="how-kubernetes-volumes-can-be-made-resilient-to-failures-on-vsan-datastore">How Kubernetes volumes can be made resilient to failures on vSAN datastore?</h2>
-<p>Please check the HA section for <a href="/vsphere-storage-for-kubernetes/documentation/ha.html">details.</a></p>
+<h3 id="api-server-logs">API Server Logs</h3>
+<p>Login into the master node and execute following command.</p>
 
-<h2 id="can-i-enable-sdrs-on-vms-hosting-kubernetes-cluster">Can I enable SDRS on VMs hosting kubernetes cluster?</h2>
-<p>No.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># kubectl describe pod &lt;API Server Pod Name&gt; --namespace=kube-system | grep "Container ID"
+    Container ID:  docker://b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
+</code></pre>
+</div>
+<p>Note: For the above command name of the API server Pod can be retrived using <code class="highlighter-rouge">kubectl get pods --namespace=kube-system</code> command.
+If the API Server pod is not found, use <code class="highlighter-rouge">docker ps -a</code> as below to grab the <code class="highlighter-rouge">Container ID</code> of the API-Server pod.</p>
 
-<h2 id="can-we-have-a-setting-to-ensure-all-dynamic-pvs-with-have-default-policy-retain-instead-of-delete-or-can-we-request-the-desired-policy-from-the-moment-we-request-the-pv-via-the-pvc">Can we have a setting to ensure all dynamic PVs with have default policy Retain (instead of delete)? Or can we request the desired policy from the moment we request the PV via the PVC?</h2>
-<p>If the volume was dynamically provisioned, then the default reclaim policy is set to “delete”.  This means that, by default, when the PVC is deleted, the underlying PV and storage asset will also be deleted.
-If you want to retain the data stored on the volume, then you must change the reclaim policy from “delete” to “retain” after the PV is provisioned. You cannot directly set to retain PV from PVC request for dynamic volumes. <a href="https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/">Details</a></p>
+<div class="highlighter-rouge"><pre class="highlight"><code># docker ps -a | grep apiserver
+b6fdc5d41e50        gcr.io/google_containers/kube-apiserver-amd64            "kube-apiserver --..."   5 hours ago         Up 5 hours                              k8s_kube-apiserver_kube-apiserver-kubeadm-master_kube-system_16e5059388b998793f4191a20f2de9c2_1
+abe6e03e5bd5        gcr.io/google_containers/pause-amd64:3.0                 "/pause"                 5 hours ago         Up 5 hours                              k8s_POD_kube-apiserver-kubeadm-master_kube-system_16e5059388b998793f4191a20f2de9c2_1
 
-<h2 id="how-do-we-resize-the-existing-dynamic-volumes-if-we-update-the-pvc-with-the-new-desired-size-is-it-enough">How do we resize the existing dynamic volumes? If we update the PVC with the new desired size, is it enough?</h2>
-<p>Support for resizing existing dynamic volume is not yet there.
-Proposal is out for <a href="https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md">review.</a></p>
 
-<h2 id="can-we-create-readwritemany-volumes-with-vsphere-storage-with-pods-on-different-machines">Can we create ReadWriteMany volumes with VSphere storage, with pods on different machines?</h2>
-<p>ReadWriteMany is not supported with Pods on different machine. This is supported on the collocated pods on the same node.</p>
+# docker inspect b6fdc5d41e50 | grep Id
+        "Id": "b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c",
+</code></pre>
+</div>
 
-<h2 id="is-it-mandatory-to-have-all-the-machines-in-the-same-datastore--if-so-its-a-very-strong-limitation-for-us">Is it mandatory to have all the machines in the same datastore ? If so, it’s a very strong limitation for us.</h2>
-<p>It is not mandatory to keep all node VMs on the same datastore.  But make sure node VM has access to volumes datastores.</p>
+<p>Once the <code class="highlighter-rouge">Container ID</code> for API server is obtained, logs can be obtained from the <code class="highlighter-rouge">/var/lib/docker/containers/</code> directory.</p>
 
-<h2 id="can-we-have-the-disk-uuid-enabled-by-default-so-we-dont-need-to-do-it-machine-by-machine-what-would-be-the-risks-of-having-it-by-default">Can we have the disk uuid enabled by default, so we don’t need to do it machine by machine? What would be the risks of having it by default.</h2>
-<p>You can enable disk UUID by default, while creating VM. Just add this parameter at
-Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Configuration</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># ls /var/lib/docker/containers/b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
+b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c-json.log  checkpoints  config.v2.json  hostconfig.json
+</code></pre>
+</div>
 
-<h2 id="is-it-mandatory-to-have-all-the-machines-in-the-same-directory">Is it mandatory to have all the machines in the same directory?</h2>
-<p>Current code base requires Master and Node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.</p>
+<h3 id="kubelet-logs">Kubelet Logs</h3>
+<p>Kubelet runs as the service and not in the container or Pod in the Kubernetes cluster. Kubelet logs can be obtained using <code class="highlighter-rouge">journalctl</code> as shown below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>journalctl -u kubelet &gt; kubelet.log
+</code></pre>
+</div>
+
+<h2 id="modify-log-level">Modify log level</h2>
+<p>Log levels can be adjusted using <code class="highlighter-rouge">--v</code> option in the pod manifests files. To help debug vSphere Cloud Provider, It is recommended to increase the log level for Controller-Manager. Manifest files are generally located at <code class="highlighter-rouge">/etc/kubernetes/manifests/</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># cd /etc/kubernetes/manifests/
+# ls
+etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml
+</code></pre>
+</div>
+
+<p>Open YAML/JSON file and find <code class="highlighter-rouge">--v</code> option in the container’s command. Increase it to 9. if this option is not present then add –v=9 to the container’s command for the controller-manager, so that we can help debug issues in the vSphere Cloud Provider.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># cat kube-controller-manager.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+.
+.
+spec:
+  containers:
+  - command:
+    - kube-controller-manager
+    - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+    .
+    .
+    .
+    - --kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --v=9
+</code></pre>
+</div>
+<p>After increasing the log level, Kubelet needs to be restarted. When Kubelet is restarted, the API server and Controller-Manager Pods are also restarted with updated manifest files. To restart the Kubelet use following command.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>systemctl restart kubelet 
+</code></pre>
+</div>
+
+<h2 id="details-of-a-specific-resource">Details of a specific Resource</h2>
+
+<p>In addition to logs, the output of <code class="highlighter-rouge">kubectl describe</code> command on targeted resources like pod, pvc, pv can be captured. It helps to narrow down the problem quickly.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>kubectl describe pod &lt;podname&gt; --namespace=&lt;namespace_name&gt;
+kubectl describe pvc &lt;pvcname&gt; --namespace=&lt;namespace_name&gt;
+kubectl describe pv &lt;pvname&gt; --namespace=&lt;namespace_name&gt;
+</code></pre>
+</div>
 
   
 

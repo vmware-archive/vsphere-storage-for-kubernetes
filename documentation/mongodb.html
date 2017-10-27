@@ -274,6 +274,13 @@
             
             
             
+            
+            
+            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            
+            
+            
+            
         </ul>
         
         
@@ -392,11 +399,12 @@ $('#toc').on('click', 'a', function() {
 <p>A StorageClass provides a mechanism for the administrators to describe the “classes” of storage they offer. Different classes map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. The YAML format defines a “platinum” level StorageClass.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1 
-Metadata:
-name: platinum
+apiVersion: storage.k8s.io/v1
+metadata:
+ name: platinum
 provisioner: Kubernetes.io/vsphere-volume
-	diskformat: thin
+parameters:
+ diskformat: thin
 </code></pre>
 </div>
 
@@ -406,19 +414,19 @@ provisioner: Kubernetes.io/vsphere-volume
 
 <p>A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>apiVersion: v1
+<div class="highlighter-rouge"><pre class="highlight"><code>
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: pvc128gb
-annotations:
- volume.beta.Kubernetes.io/storage-class: 
-"platinum"
+ name: pvc128gb
+ annotations:
+  volume.beta.Kubernetes.io/storage-class: "platinum"
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 128Gi 
+ accessModes:
+  - ReadWriteOnce
+ resources:
+  requests:
+   storage: 128Gi
 </code></pre>
 </div>
 
@@ -506,7 +514,7 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Aug 20, 2017 <br />
+ Site last generated: Oct 27, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

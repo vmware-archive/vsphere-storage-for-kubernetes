@@ -274,6 +274,13 @@
             
             
             
+            
+            
+            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            
+            
+            
+            
         </ul>
         
         
@@ -386,7 +393,7 @@ $('#toc').on('click', 'a', function() {
     
 
   <h2 id="overview">Overview</h2>
-<p>Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider. Cloud provider is an interface which helps in extending Kubernetes with cluster of instances managed by virtualization technologies, public/private cloud platforms and required networking for these instances.</p>
+<p>Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider.</p>
 
 <p><img src="images/vSphere.png" alt="Image" /></p>
 
@@ -402,9 +409,9 @@ $('#toc').on('click', 'a', function() {
 </ul>
 
 <h2 id="vsphere-storage-concepts">vSphere Storage Concepts</h2>
-<p>vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere Storage (VMFS, vSAN, NFS) has proven features like policy based management, QoS, high availability and data reliability for containers using Kubernetes.</p>
+<p>vSphere is one of the cloud providers of Kubernetes and thus allows Kubernetes Pods use enterprise grade storage. vSphere has a proven Software Defined Storage platform that integrates with block, file and HyperConverged offerings such as VMware VSAN. These storage offerings are exposed as VMFS, NFS and VSAN datastores respectively. SDS platform in vSphere has enterprise grade features like Storage Policy Based Management(SPBM) which enables customers to guarantee QoS requested by their business critical applications and enforce SLAs. vSphere provides various data services out of the box such high availability and data reliability for containers using Kubernetes.</p>
 
-<p>Datastores is an abstraction which hides storage details and provide uniform interface for storing persistent data. Datastores enables simplified storage management with features like grouping them in folders. Depending upon the backend storage the datastores can be vSAN, VMFS or NFS.</p>
+<p>Datastores is an abstraction which hides storage details and provide uniform interface for storing persistent data. Datastores enables simplified storage management with features like grouping them in folders. Depending on the backend storage used, the datastores can be of the type vSAN, VMFS or NFS.</p>
 
 <ul>
   <li>
@@ -419,21 +426,18 @@ $('#toc').on('click', 'a', function() {
 </ul>
 
 <h2 id="kubernetes-storage-support">Kubernetes Storage support</h2>
-<p>vSphere supports all the the Kubernetes storage primitives which brings enterprise grade storage features to Kubernetes. vSphere uses vSAN and VMFS datastores, these datastores store the volumes as VMDK files.</p>
+<p>vSphere Cloud Provider supports every storage primitive exposed by Kubernetes -
+* Volumes
+* Persistent Volumes (PV)
+* Persistent Volumes Claims (PVC)
+* Storage Class
+* Stateful Sets</p>
+
+<p>Persistent volumes requested by stateful contenarized applications can be provisioned on VSAN, VMFS or NFS datastores.</p>
 
 <p>Kubernetes volumes are defined in Pod specification. They reference VMDK files and these VMDK files are mounted as volumes when the container is running. When the Pod is deleted the Kubernetes volume is unmounted and the data in VMDK files persists.</p>
 
 <p><img src="images/Picture1.png" alt="Image" /></p>
-
-<p>vSphere is cloud provider which implements Instances interface and supports following Kubernetes storages primitives:</p>
-
-<ul>
-  <li>Volumes</li>
-  <li>Persistent Volumes (PV)</li>
-  <li>Persistent Volumes Claims (PVC)</li>
-  <li>Storage Class</li>
-  <li>Stateful Sets</li>
-</ul>
 
 
   
@@ -452,7 +456,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Aug 20, 2017 <br />
+ Site last generated: Oct 27, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

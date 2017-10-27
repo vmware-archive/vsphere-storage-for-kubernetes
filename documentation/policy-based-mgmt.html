@@ -274,6 +274,13 @@
             
             
             
+            
+            
+            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            
+            
+            
+            
         </ul>
         
         
@@ -447,7 +454,7 @@ parameters:
     <p><strong>diskStripes:</strong> The minimum number of capacity devices across which each replica of a object is striped. A value higher than 1 might result in better performance, but also results in higher use of system resources. Default value is 1. Maximum value is 12.</p>
   </li>
   <li>
-    <p><strong>forceProvisioning:</strong> If the option is set to Yes, the object is provisioned even if theNumber of failures to tolerate, Number of disk stripes per object, and Flash read cache reservation policies specified in the storage policy cannot be satisfied by the datastore</p>
+    <p><strong>forceProvisioning:</strong> If the option is set to Yes, the object is provisioned even if the Number of failures to tolerate, Number of disk stripes per object, and Flash read cache reservation policies specified in the storage policy cannot be satisfied by the datastore</p>
   </li>
   <li>
     <p><strong>hostFailuresToTolerate:</strong> Defines the number of host and device failures that a virtual machine object can tolerate. For n failures tolerated, each piece of data written is stored in n+1 places, including parity copies if using RAID 5 or RAID 6.</p>
@@ -561,7 +568,7 @@ No events.
 
 <p>Persistent Volume is automatically created and is bounded to this pvc</p>
 
-<p><strong>Verify if persistent volume claim is created</strong></p>
+<p><strong>Verify if persistent volume is created</strong></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe pv pvc-80f7b5c1-94b6-11e6-a24f-005056a79d2d
 Name:		pvc-80f7b5c1-94b6-11e6-a24f-005056a79d2d
@@ -630,7 +637,7 @@ pvpod       1/1     Running   0          48m
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Aug 20, 2017 <br />
+ Site last generated: Oct 27, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
