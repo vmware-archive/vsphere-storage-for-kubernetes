@@ -55,7 +55,7 @@ entries:
       - title: Best Practices
         url: /bestpractices.html
         output: web
-      - title: Trouble Shooting
+      - title: Troubleshooting
         url: /troubleshooting.html
         output: web
   - title: Applications & Examples

@@ -1,21 +1,14 @@
 ---
-title: Troubleshooting Kubernetes vSphere Cloud Provider
+title: Troubleshooting
 ---
 To troubleshoot issues with Kuberenetes cluster deployment, please visit [https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/)
 
 ## Logs to inspect
-To debug vSphere Cloud Provider Issues, Controller-Manager, API-server and Kubelet logs should be checked.
-
-Logs for Controller-Manager and API server should be available on the Master node VM and Logs for Kubelet is located on both Master and Worker Nodes.
-
-To locate the log files for Controller-Manager and API server, `Container ID` from Pods should be obtained. `Container ID` can be obtained by inspecting Pod running in the `kube-system` namespace or using `docker ps -a` command.
-
-Pod names for Controller-Manager and API server can be retrived using following command.
-
-```
-kubectl get pods --namespace=kube-system
-```
-
+Following logs are needed to debug VCP issues
+ 
+ * Controller-Manager logs
+ * API-server logs 
+ * Kubelet logs
 
 ### Controller-Manager Logs
 Login into the master node and execute following command.
@@ -24,8 +17,7 @@ Login into the master node and execute following command.
 # kubectl describe pod <Controller-Manager Pod Name> --namespace=kube-system | grep "Container ID"
     Container ID:  docker://74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
 ```
-
-if controller-manager pod is not found, use `docker ps -a` as below to grab the `Container ID` of the controller-manager pod.
+Note: For the above command name of the Controller-Manager Pod can be retrived using `kubectl get pods --namespace=kube-system` command. If the controller-manager pod is not found, use `docker ps -a` as below to grab the `Container ID` of the controller-manager pod.
 
 ```
 # docker ps | grep controller-manager
@@ -56,8 +48,8 @@ Login into the master node and execute following command.
 # kubectl describe pod <API Server Pod Name> --namespace=kube-system | grep "Container ID"
     Container ID:  docker://b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
 ```
-
-if API Server pod is not found, use `docker ps -a` as below to grab the `Container ID` of the API-Server pod.
+Note: For the above command name of the API server Pod can be retrived using `kubectl get pods --namespace=kube-system` command.
+If the API Server pod is not found, use `docker ps -a` as below to grab the `Container ID` of the API-Server pod.
 
 ```
 # docker ps -a | grep apiserver
@@ -77,7 +69,6 @@ b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c-json.log  check
 ```
 
 ### Kubelet Logs
-
 Kubelet runs as the service and not in the container or Pod in the Kubernetes cluster. Kubelet logs can be obtained using `journalctl` as shown below.
 
 ```
@@ -86,7 +77,6 @@ journalctl -u kubelet > kubelet.log
 
 
 ## Modify log level
-
 Log levels can be adjusted using `--v` option in the pod manifests files. To help debug vSphere Cloud Provider, It is recommended to increase the log level for Controller-Manager. Manifest files are generally located at `/etc/kubernetes/manifests/`.
 
 ```
@@ -120,6 +110,8 @@ After increasing the log level, Kubelet needs to be restarted. When Kubelet is r
 ```
 systemctl restart kubelet 
 ```
+
+## Details of a specific Resource
 
 In addition to logs, the output of `kubectl describe` command on targeted resources like pod, pvc, pv can be captured. It helps to narrow down the problem quickly.
 
