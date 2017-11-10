@@ -23,7 +23,7 @@ Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])
 
 ## Enable disk UUID on Node virtual machines
 
-The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. 
+The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.
 
 For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [GOVC tool](https://github.com/vmware/govmomi/tree/master/govc)
 
@@ -48,7 +48,7 @@ Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=
 
 Note: if you want to use Administrator account then this step can be skipped.
 
-vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
+vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (`vsphere.conf`) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
 
 <table>
 <thead>
@@ -86,7 +86,17 @@ vSphere Cloud Provider requires the following minimal set of privileges to inter
 </tbody>
 </table>
 
-**Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
+Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize [Kubernetes RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/) to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.
+
+In some cases, however, you may still want to customize the privileges for vSphere Cloud Provider user:
+1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. If you are still using 1.6 or older release, you may want to remove SPBM related privileges to keep required privileges to a minimal.
+2. Kubernetes RBAC mode was stabilized as of 1.8 release. If you are using 1.7 or older release, you may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It's recommended to assign different roles to the same user instead of switching to a different user, in which case you'll need to restart kubelet, which might be a concern in production environment.
+
+Here are [some examples](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html) to customize roles and privileges for vSphere Cloud Provider user.
+
+## Create the vSphere cloud config file (vsphere.conf).
+
+Note: Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf).
 
 This config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
 
@@ -99,20 +109,20 @@ This config file needs to be placed in the shared directory which should be acce
         server = "IP/FQDN for vCenter"
         port = "443" #Optional
         insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
-        datacenter = "Datacenter name" 
+        datacenter = "Datacenter name"
         datastore = "Datastore name" #Datastore to use for provisioning volumes using storage classes/dynamic provisioning
         working-dir = "vCenter VM folder path in which node VMs are located"
         vm-name = "VM name of the Master Node" #Optional
-        vm-uuid = "UUID of the Node VM" # Optional        
+        vm-uuid = "UUID of the Node VM" # Optional
 [Disk]
     scsicontrollertype = pvscsi
 ```
 
-Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. If ```vm-name``` is specified then ```vm-uuid``` is not used. If both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
+Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. If ```vm-name``` is specified then ```vm-uuid``` is not used. If both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name.
 
 **```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file)
- 
-``` 
+
+```
 [Global]
         vm-name = "VM name of the Worker Node"
 ```
@@ -128,7 +138,7 @@ Below is summary of supported parameters in the `vsphere.conf` file
 * ```datastore``` is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.
 * ```vm-name``` is recently added configuration parameter. This is optional parameter. When this parameter is present, ```vsphere.conf``` file on the worker node does not need vCenter credentials.
 
-  **Note:** ```vm-name``` is added in the release 1.6.4. Prior releases does not support this parameter. 
+  **Note:** ```vm-name``` is added in the release 1.6.4. Prior releases does not support this parameter.
 
 * ```working-dir``` can be set to empty ( working-dir = ""), if Node VMs are located in the root VM folder.
 * ```vm-uuid``` is the VM Instance UUID of virtual machine. ```vm-uuid``` can be set to empty (```vm-uuid = ""```). If set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
@@ -151,7 +161,7 @@ Below is summary of supported parameters in the `vsphere.conf` file
 ## Add flags to controller-manager, API server and Kubelet
 
 Add flags to controller-manager, API server and Kubelet to enable vSphere Cloud Provider.
-* Add following flags to kubelet running on every node and to the controller-manager and API server pods manifest files. 
+* Add following flags to kubelet running on every node and to the controller-manager and API server pods manifest files.
 
 ```
 --cloud-provider=vsphere

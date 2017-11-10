@@ -52,6 +52,9 @@ entries:
       - title: Configurations on existing Kubernetes Cluster
         url: /existing.html
         output: web
+      - title: Customize roles and privileges
+        url: /vcp-roles.html
+        output: web
       - title: Best Practices
         url: /bestpractices.html
         output: web
@@ -64,7 +67,7 @@ entries:
         - title: Running Stateful application - Guestbook app
           url: /guestbook.html
           output: web
-        - title: Running MongoDB on vSphere 
+        - title: Running MongoDB on vSphere
           url: /mongodb.html
           output: web
         - title: Deploying S3 Stateful containers - Minio
@@ -75,7 +78,7 @@ entries:
     folderitems:
         - title: FAQs
           url: /faqs.html
-          output: web  
+          output: web
         - title: Known Issues
           url: /known-issues.html
           output: web
