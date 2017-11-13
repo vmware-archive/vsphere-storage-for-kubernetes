@@ -33,6 +33,7 @@ Yes. vSphere supports shared storage across multiple vCenters. User can use shar
 ## Which Operating System are supported ?
 We support Photon, Ubuntu, Core OS, please check this section for [details](/vsphere-storage-for-kubernetes/documentation/prereq.html)
 
+
 ## How Kubernetes volumes can be made resilient to failures on vSAN datastore?
 Please check the HA section for [details.](/vsphere-storage-for-kubernetes/documentation/ha.html)
 
@@ -60,3 +61,7 @@ Customize hardware -> VM Options -> Configuration Parameters -> Edit Configurati
 
 ## Is it mandatory to have all the machines in the same directory?
 Current code base requires Master and Node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.
+
+
+## Can Kubernetes Cluster span across multiple vCenters?
+With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.

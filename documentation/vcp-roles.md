@@ -2,6 +2,12 @@
 title: Customize roles and privileges for different user cases
 ---
 
+With Kubernetes version 1.9.x vSphere cloud provider supports kubernetes cluster spanning across multiple vCenters. Make sure that all above privileges are correctly set for all vCenters.
+
+In general vSphere user designated for vSphere cloud provider should have
+* **Read access** on *parent entities of the node VMs* like folder, host, datacenter etc.
+* **VirtualMachine.Inventory.Create/Delete** on the defined *resource pool*. Used to create/delete dummy VMs.
+
 ## Minimal set of vSphere roles/privileges required for static only persistent volume provisioning.
 
 **Note:** Datastore.FileManagement is only required for the role `manage-k8s-volumes`, if PVC is created to bind with statically provisioned PV, and reclaim policy set to delete. When PVC is deleted, associated statically provisioned PV will also be deleted.
