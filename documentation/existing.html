@@ -269,6 +269,13 @@
             
             
             
+            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
+            
+            
+            
+            
+            
+            
             <li><a href="bestpractices.html">Best Practices</a></li>
             
             
@@ -451,7 +458,7 @@ $('#toc').on('click', 'a', function() {
 
 <p>Note: if you want to use Administrator account then this step can be skipped.</p>
 
-<p>vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter. Please refer <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html">vSphere Documentation Center</a> to know about steps for creating a Custom Role, User and Role Assignment.</p>
+<p>vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (<code class="highlighter-rouge">vsphere.conf</code>) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html">vSphere Documentation Center</a> to know about steps for creating a Custom Role, User and Role Assignment.</p>
 
 <table>
 <thead>
@@ -489,7 +496,17 @@ $('#toc').on('click', 'a', function() {
 </tbody>
 </table>
 
-<p><strong>Step-5</strong> Create the vSphere cloud config file (<code class="highlighter-rouge">vsphere.conf</code>). Cloud config template can be found <a href="https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf">here</a></p>
+<p>Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize <a href="https://kubernetes.io/docs/admin/authorization/rbac/">Kubernetes RBAC Authorization</a> to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.</p>
+
+<p>In some cases, however, you may still want to customize the privileges for vSphere Cloud Provider user:
+1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. If you are still using 1.6 or older release, you may want to remove SPBM related privileges to keep required privileges to a minimal.
+2. Kubernetes RBAC mode was stabilized as of 1.8 release. If you are using 1.7 or older release, you may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It’s recommended to assign different roles to the same user instead of switching to a different user, in which case you’ll need to restart kubelet, which might be a concern in production environment.</p>
+
+<p>Here are <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html">some examples</a> to customize roles and privileges for vSphere Cloud Provider user.</p>
+
+<h2 id="create-the-vsphere-cloud-config-file-vsphereconf">Create the vSphere cloud config file (vsphere.conf).</h2>
+
+<p>Note: Cloud config template can be found <a href="https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf">here</a>.</p>
 
 <p>This config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.</p>
 
@@ -501,11 +518,11 @@ $('#toc').on('click', 'a', function() {
         server = "IP/FQDN for vCenter"
         port = "443" #Optional
         insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
-        datacenter = "Datacenter name" 
+        datacenter = "Datacenter name"
         datastore = "Datastore name" #Datastore to use for provisioning volumes using storage classes/dynamic provisioning
         working-dir = "vCenter VM folder path in which node VMs are located"
         vm-name = "VM name of the Master Node" #Optional
-        vm-uuid = "UUID of the Node VM" # Optional        
+        vm-uuid = "UUID of the Node VM" # Optional
 [Disk]
     scsicontrollertype = pvscsi
 </code></pre>
@@ -609,7 +626,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Oct 27, 2017 <br />
+ Site last generated: Nov 13, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
