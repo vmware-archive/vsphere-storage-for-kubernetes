@@ -23,9 +23,7 @@ title: Customize roles and privileges for different user cases
 </tr>
 <tr>
   <td>manage-k8s-volumes</td>
-  <td>Datastore.FileManagement (Low level file operations
-)<br>
-</td>
+  <td>Datastore.FileManagement (Low level file operations)<br></td>
   <td>Datastore</td>
   <td>No</td>
 </tr>
@@ -37,6 +35,7 @@ title: Customize roles and privileges for different user cases
 </tr>
 </tbody>
 </table>
+
 
 ## Minimal set of vSphere roles/privileges required for dynamic persistent volume provisioning with storage policy based volume placement.
 
