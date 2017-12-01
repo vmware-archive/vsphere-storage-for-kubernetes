@@ -40,7 +40,7 @@ parameters:
   fstype: ext3
 ```
 
-If datastore is the member of DataStore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.
+If datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.
 
 ```
    datastore:	DatastoreCluster/VSANDatastore
