@@ -39,7 +39,7 @@ vSphere Cloud Provider supports every storage primitive exposed by Kubernetes -
 * Storage Class
 * Stateful Sets
 
-Persistent volumes requested by stateful containerized applications can be provisioned on VSAN, VVol,VMFS or NFS datastores.
+Persistent volumes requested by stateful containerized applications can be provisioned on VSAN, VVol, VMFS or NFS datastores.
 
 Kubernetes volumes are defined in Pod specification. They reference VMDK files and these VMDK files are mounted as volumes when the container is running. When the Pod is deleted the Kubernetes volume is unmounted and the data in VMDK files persists.
 
