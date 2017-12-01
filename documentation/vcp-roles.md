@@ -2,9 +2,9 @@
 title: Customize roles and privileges for different user cases
 ---
 
-With Kubernetes version 1.9.x vSphere cloud provider supports kubernetes cluster spanning across multiple vCenters. Make sure that all above privileges are correctly set for all vCenters.
+With Kubernetes version 1.9.x vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters. Make sure that all above privileges are correctly set for all vCenters.
 
-In general vSphere user designated for vSphere cloud provider should have
+In general, vSphere user designated for vSphere Cloud Provider should have
 * **Read access** on *parent entities of the node VMs* like folder, host, datacenter etc.
 * **VirtualMachine.Inventory.Create/Delete** on the defined *resource pool*. Used to create/delete dummy VMs.
 
