@@ -4,11 +4,11 @@ title: Storage Policy Based Management for dynamic provisioning of volumes
 
 ## Overview
 
-One of the most important features of vSphere for Storage Management is Policy based Management. Storage Policy Based Management (SPBM) is a storage policy framework that provides a single unified control plane across a broad range of data services and storage solutions. SPBM enables vSphere administrators to overcome upfront storage provisioning challenges, such as capacity planning, differentiated service levels and managing capacity headroom
+One of the most important features of vSphere for Storage Management is Policy based Management(SPBM). SPBM provides a single unified control plane across a broad range of data services and storage solutions. SPBM enables vSphere administrators to overcome upfront storage provisioning challenges, such as capacity planning, differentiated service levels and managing capacity headroom
  
-As we discussed in previously StorageClass specifies provisioner and parameters. And using these parameters you can define the policy for that particular PV which will be dynamically provisioned. 
- 
-You can specify the existing vCenter Storage Policy Based Management (SPBM) policy to configure a persistent volume with SPBM policy. storagePolicyName parameter is used for this.
+StorageClass specifies provisioner and parameters which can be used to define the intended policy for a PV which will be dynamically provisioned. 
+
+Existing SPBM policies can be used to configure a persistent volume with requested dataservices via storagePolicyName parameter.
  
 **Note:**
 
