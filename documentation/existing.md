@@ -2,22 +2,22 @@
 title: Configurations on Existing Kubernetes Cluster
 ---
 
-Enabling vSphere Cloud Provider
+## Enabling vSphere Cloud Provider
 
-## Preferred method
+### Preferred method
 If user has deployed Kubernetes cluster on vSphere then use automated way of enabling vSphere Cloud Provider. For more details, please visit [https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md](https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md). If pre-requisites are not applicable, then follow manual steps mentioned below.
 
 **Note: If Kubernetes cluster is spanning across multiple vCenters then please use below manual steps.**
 
-## Manual steps (if needed) to enable vSphere Cloud Provider
+### Manual steps (if needed) to enable vSphere Cloud Provider
 
-### Step 1: Create a VM folder for Node VMs 
+#### Step 1: Create a VM folder for Node VMs 
 
 **Note: This is required only if Kubernetes version is 1.8.x or below.**
 
 Create a VM folder. Follow instructions mentioned in this [link](https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html) and move Kubernetes Node VMs to this folder.
 
-### Step 2: Make sure node VM names are compliant
+#### Step 2: Make sure node VM names are compliant
 
 **Note: This is required only if Kubernetes version is 1.8.x or below.**
 
@@ -29,7 +29,7 @@ Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])
   * VM names cannot have capital letters, any special characters except `.` and `-`.
   * VM names cannot be shorter than 3 chars and longer than 63
 
-### Step 3: Enable disk UUID on Node virtual machines
+#### Step 3: Enable disk UUID on Node virtual machines
 
 The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.
 
@@ -52,7 +52,7 @@ For each of the virtual machine nodes that will be participating in the cluster,
 
 Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
-### Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities
+#### Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities
 
 Note: if you want to use Administrator account then this step can be skipped.
 
@@ -102,38 +102,39 @@ In some cases, however, you may still want to customize the privileges for vSphe
 
 Here are [some examples](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html) to customize roles and privileges for vSphere Cloud Provider user.
 
-### Step 5: Create the vSphere cloud config file (vsphere.conf).
+#### Step 5: Create the vSphere cloud config file (vsphere.conf).
 
-#### For Kubernetes version 1.9.x and above
+##### For Kubernetes version 1.9.x and above
 
 vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet, controller-manager, and API server.
 
 **```vsphere.conf```**
-```
 
+```
 [Global]
-        # properties in this section will be used for all specified vCenters unless overriden in VirtualCenter section.
-        user = "vCenter username for cloud provider"
-        password = "password"        
-        port = "443" #Optional
-        insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
-        datacenters = "list of datacenters where Kubernetes node VMs are present"
+# properties in this section will be used for all specified vCenters unless overriden in VirtualCenter section.
+
+user = "vCenter username for cloud provider"
+password = "password"        
+port = "443" #Optional
+insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
+datacenters = "list of datacenters where Kubernetes node VMs are present"
         
 [VirtualCenter "1.2.3.4"]
-        # Override specific properties for this Virtual Center.
+# Override specific properties for this Virtual Center.
         user = "vCenter username for cloud provider"
         password = "password"
         # port, insecure-flag, datacenters will be used from Global section.
         
 [VirtualCenter "1.2.3.5"]
-        # Override specific properties for this Virtual Center.
+# Override specific properties for this Virtual Center.
         port = "448"
         insecure-flag = "0"
         # user, password, datacenters will be used from Global section.
         
 [Workspace]
-        # Specify properties which will be used for various vSphere Cloud Provider functionality.
-        # e.g. Dynamic provisioing, Storage Profile Based Volume provisioning etc.
+# Specify properties which will be used for various vSphere Cloud Provider functionality.
+# e.g. Dynamic provisioing, Storage Profile Based Volume provisioning etc.
         server = "IP/FQDN for vCenter"
         datacenter = "Datacenter name"
         folder = "vCenter VM folder path in which dummy VMs should be created."
@@ -159,7 +160,7 @@ Below is summary of supported parameters in the `vsphere.conf` file for Kubernet
 * ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created. It is optional parameter.
 * ```folder``` VM Folder path where Node VMs can be present.
 
-#### For Kubernetes version 1.8.x or below
+##### For Kubernetes version 1.8.x or below
 
 vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
 
@@ -221,40 +222,35 @@ Below is summary of supported parameters in the `vsphere.conf` file
 
         datastore = "DatastoreStorageFolder/datastore1"
 
-### Step 6: Add flags to controller-manager, API server and Kubelet
+#### Step 6: Add flags to controller-manager, API server and Kubelet
 
-#### For Kubernetes version 1.9.x
+##### For Kubernetes version 1.9.x
 
 * Add following flags to 
   - kubelet running on master node 
   - controller-manager manifest file
   - API server manifest file
 
-```
---cloud-provider=vsphere
---cloud-config=<Path of the vsphere.conf file>
-```
+        --cloud-provider=vsphere
+        --cloud-config=<Path of the vsphere.conf file>
 
 * Add following flags to kubelet running on each worker node.
-```
---cloud-provider=vsphere
-```
 
-#### For Kubernetes version 1.8.x or below
+        --cloud-provider=vsphere
+
+##### For Kubernetes version 1.8.x or below
 
 Add following flags to 
 - kubelet running on all nodes
 - controller-manager manifest file (typically running on master node)
 - API server manifest file (typically running on master node)
 
-```
---cloud-provider=vsphere
---cloud-config=<Path of the vsphere.conf file>
-```
+        --cloud-provider=vsphere
+        --cloud-config=<Path of the vsphere.conf file>
 
 Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`
 
-### Step 7: Restart Kubelet on all nodes
+#### Step 7: Restart Kubelet on all nodes
 
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
