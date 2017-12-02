@@ -22,6 +22,3 @@ This section lists the major known issues with Kubernetes vSphere Cloud Provider
 ## vCenter Port other than 443
 * For Kubernetes 1.6 and 1.7 releases (except Release v1.7.3 and onwards, Release v1.6.8 and onwards) vCenter Port other than 443 is not supported.
 
-## Kubernetes-Anywhere
-
-* Destroying a Kubernetes cluster operation using Kubernetes-anywhere is flaky [Link](https://github.com/Kubernetes/Kubernetes-anywhere/issues/285)
