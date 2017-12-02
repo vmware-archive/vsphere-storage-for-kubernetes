@@ -2,7 +2,7 @@
 title: Configurations on Existing Kubernetes Cluster
 ---
 
-# Enabling vSphere Cloud Provider
+Enabling vSphere Cloud Provider
 
 ## Preferred method
 If user has deployed Kubernetes cluster on vSphere then use automated way of enabling vSphere Cloud Provider. For more details, please visit [https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md](https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md). If pre-requisites are not applicable, then follow manual steps mentioned below.
