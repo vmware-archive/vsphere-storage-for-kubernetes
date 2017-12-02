@@ -399,7 +399,7 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <p>With PV and PVCs one can only provision storage statically i.e. PVs first needs to be created before a Pod claims it. However with StorageClass API Kubernetes enables dynamic volume provisioning which is very unique to Kubernetes. This avoids pre-provisioning of storage and storage is provisioned automatically when a user requests it.</p>
+  <p>With PV and PVCs one can only provision storage statically i.e. PVs first needs to be created before a Pod claims it. However, with StorageClass API Kubernetes enables dynamic volume provisioning. This avoids pre-provisioning of storage and storage is provisioned automatically when a user requests it.</p>
 
 <p>StorageClass API object specifies a provisioner and parameters  which are used to decide which volume plugin to be used and provisioner specific parameters.
 Provisioner could be AWS EBS, vSphere, OpenStack and so on.</p>
@@ -417,7 +417,7 @@ Provisioner could be AWS EBS, vSphere, OpenStack and so on.</p>
     <p><strong>storagePolicyName</strong> is an optional field which is the name of the SPBM policy to be applied. The newly created persistent volume will have the SPBM policy configured with it.</p>
   </li>
   <li>
-    <p><strong>VSAN Storage Capability Parameters</strong> (cacheReservation, diskStripes, forceProvisioning, hostFailuresToTolerate, iopsLimit and objectSpaceReservation) are supported by vSphere provisioner for vSAN storage. The persistent volume created with these parameters will have these vSAN storage capabilities configured with it. For more detail about these parameters go to <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">Storage Policy Management section</a>.</p>
+    <p><strong>VSAN Storage Capability Parameters</strong> (cacheReservation, diskStripes, forceProvisioning, hostFailuresToTolerate, iopsLimit and objectSpaceReservation) are supported by vSphere provisioner for vSAN storage. The persistent volume created with these parameters will have these vSAN storage capabilities configured with it. For more detail about these parameters go to <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">Storage Policy Management section</a>.</p>
   </li>
 </ul>
 
@@ -427,39 +427,24 @@ Provisioner could be AWS EBS, vSphere, OpenStack and so on.</p>
 
 <p>Let us look at an example of how to use StorageClass for dynamic provisioning.</p>
 
-<p><strong>Note:</strong> Here you don’t need to create vmdk it is created dynamically.</p>
+<p><strong>Note:</strong> With StorageClass, VMDK need not be created manually for Persistent Volume. VMDK will be created dynamically by <code class="highlighter-rouge">vsphere-volume</code> provisioner.</p>
 
 <p><strong>Create Storage Class</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#vpshere-volume-sc-fast.yaml
-
-kind: StorageClass
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat vpshere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
-metadata:
+kind: StorageClass
+metadata: 
   name: fast
 provisioner: kubernetes.io/vsphere-volume
-parameters:
-    diskformat: zeroedthick
-    fstype:     ext3
+parameters: 
+  datastore: VSANDatastore
+  diskformat: thin
+  fstype: ext3
 </code></pre>
 </div>
 
-<p>You can also specify the datastore in the Storageclass as shown below YAML for dynamic provisioning. The volume will be created on the datastore specified in the storage class. This field is optional. If not specified as shown in above YAML, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-sc-slow.yaml
-
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: fast
-provisioner: kubernetes.io/vsphere-volume
-parameters:
-    diskformat: zeroedthick
-    datastore: VSANDatastore
-</code></pre>
-</div>
-
-<p>If datastore is member of DataStore Cluster or within some sub folder, the datastore folder path needs to be provided in the datastore parameter as below.</p>
+<p>If datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>   datastore:	DatastoreCluster/VSANDatastore
 </code></pre>
@@ -471,21 +456,21 @@ parameters:
 </code></pre>
 </div>
 
-<p><strong>Verifying storage class is created</strong></p>
+<p><strong>Verify storage class is created</strong></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe storageclass fast
 Name:           fast
 IsDefaultClass: No
 Annotations:    &lt;none&gt;
 Provisioner:    kubernetes.io/vsphere-volume
-Parameters:     diskformat=zeroedthick,fstype=ext3
+Parameters:     diskformat=thin,fstype=ext3,datastore=VSANDatastore
 No events.
 </code></pre>
 </div>
 
 <p><strong>Create Persistent Volume Claim</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Vsphere-volume-pvcsc.yaml
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat Vsphere-volume-pvcsc.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -543,7 +528,7 @@ Capacity:       2Gi
 Message:
 Source:
     Type:       vSphereVolume (a Persistent Disk resource in vSphere)
-    VolumePath: [datastore1] kubevols/kubernetes-dynamic-pvc-83295256-f8e0-11e6-8263-005056b2349c.vmdk
+    VolumePath: [VSANDatastore] kubevols/kubernetes-dynamic-pvc-83295256-f8e0-11e6-8263-005056b2349c.vmdk
     FSType:     ext3
 No events.
 </code></pre>
@@ -553,8 +538,7 @@ No events.
 
 <p><strong>Create Pod which uses Persistent Volume Claim with storage class.</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-pvcscpod.yaml
-
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat vsphere-volume-pvcscpod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -603,7 +587,7 @@ pvpod       1/1      Running   0          48m
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Nov 13, 2017 <br />
+ Site last generated: Dec 1, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

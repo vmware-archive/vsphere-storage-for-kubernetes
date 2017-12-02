@@ -399,7 +399,13 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <h2 id="minimal-set-of-vsphere-rolesprivileges-required-for-static-only-persistent-volume-provisioning">Minimal set of vSphere roles/privileges required for static only persistent volume provisioning.</h2>
+  <p>With Kubernetes version 1.9.x vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters. Make sure that all above privileges are correctly set for all vCenters.</p>
+
+<p>In general, vSphere user designated for vSphere Cloud Provider should have
+* <strong>Read access</strong> on <em>parent entities of the node VMs</em> like folder, host, datacenter etc.
+* <strong>VirtualMachine.Inventory.Create/Delete</strong> on the defined <em>resource pool</em>. Used to create/delete dummy VMs.</p>
+
+<h2 id="minimal-set-of-vsphere-rolesprivileges-required-for-static-only-persistent-volume-provisioning">Minimal set of vSphere roles/privileges required for static only persistent volume provisioning.</h2>
 
 <p><strong>Note:</strong> Datastore.FileManagement is only required for the role <code class="highlighter-rouge">manage-k8s-volumes</code>, if PVC is created to bind with statically provisioned PV, and reclaim policy set to delete. When PVC is deleted, associated statically provisioned PV will also be deleted.</p>
 
@@ -525,7 +531,7 @@ https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/existing.h
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Nov 13, 2017 <br />
+ Site last generated: Dec 1, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

@@ -402,22 +402,78 @@ $('#toc').on('click', 'a', function() {
   <p>Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider:</p>
 
 <ul>
-  <li>We recommend Kubernetes version 1.6.5 and vSphere version 6.0.x</li>
-  <li>We support Photon, Ubuntu, CoreOs and Centos. it has been tested on Photon 1.0 GA, Ubuntu 16.04, CoreOS 4.11.2 and Centos 7.3</li>
-  <li>vSphere setup to deploy the Kubernetes cluster.</li>
-  <li>vSphere shared storage. It can be any one of VSAN, sharedVMFS, sharedNFS.
+  <li>Kubernetes version - v1.6.5 and above</li>
+</ul>
+
+<p>Following table summarizes key features introduced in vSphere Cloud Provider in each Kubernetes release</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kubernetes Release</th>
+      <th>vSphere Cloud Provider feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>v1.6.3</td>
+      <td>Dynamic volume provisioning using vSAN storage capabilities</td>
+    </tr>
+    <tr>
+      <td>v1.6.5</td>
+      <td>Integration with vSphere HA</td>
+    </tr>
+    <tr>
+      <td>v1.7.0</td>
+      <td>Integration with vSphere Storage Policy Based Management(SPBM) for dynamic volume provisioning</td>
+    </tr>
+    <tr>
+      <td>v1.7.0</td>
+      <td>Enhanced vSphere Cloud Provider debuggabilty via integration with metrices exposed for Kubernetes storage APIs</td>
+    </tr>
+    <tr>
+      <td>v1.8.0</td>
+      <td>vSphere Cloud Provider refactoring for better debuggability, logging and code maintenance</td>
+    </tr>
+    <tr>
+      <td>v1.8.2</td>
+      <td>Performance improvement for large scale deployment</td>
+    </tr>
+    <tr>
+      <td>v1.9.0</td>
+      <td>Multi vCenter Support</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>vSphere version - 6.0.x and above</p>
+  </li>
+  <li>Container Host operating systems -
     <ul>
-      <li>Shared storage allows all the nodes in the Kubernetes cluster to access the storage blocks.</li>
+      <li>Photon - v1.0 GA</li>
+      <li>Ubuntu - v16.04</li>
+      <li>CoreOs - v4.11.2</li>
+      <li>Centos  - v7.3</li>
+      <li>RHEL OS -  v7.4</li>
     </ul>
   </li>
-  <li>vCenter user with required set of privileges.
+  <li>vSphere setup to deploy the Kubernetes cluster.
     <ul>
-      <li>To know privileges required to install Kubernetes Cluster using Kubernetes-Anywhere, please check this <a href="https://github.com/Kubernetes/Kubernetes-anywhere/blob/master/phase1/vsphere/README.md#prerequisites">link</a></li>
-      <li>If you are not installing Kubernetes cluster using Kubernetes-Anywhere and just enabling vSphere Cloud Provider on Kubernetes cluster already deployed on vSphere, Please refer this <a href="https://kubernetes.io/docs/getting-started-guides/vsphere/#enable-vsphere-cloud-provider">link</a> to know about privileges required for Cloud Provider.</li>
+      <li>For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.</li>
+      <li>For Kubernetes version 1.8.x and below: vSphere Cloud Provider supports Kubernetes cluster deployed only in one vCenter.</li>
     </ul>
   </li>
+  <li>vSphere supported storage.
+    <ul>
+      <li>It can be HCI offering such as VMware vSAN or block and file storage offerings like VMFS and NFS.</li>
+      <li>With kuberneters version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.</li>
+    </ul>
+  </li>
+  <li>vCenter user with required set of privileges.</li>
   <li>VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html">link</a> for instruction on installing VMware tools.</li>
-  <li>Node VM name requirements
+  <li>Node VM name requirements needed only until Kuberneters version 1.8.x.
     <ul>
       <li>VM names can not begin with numbers.</li>
       <li>VM names can not have capital letters, any special characters except <code class="highlighter-rouge">.</code> and <code class="highlighter-rouge">-</code>.</li>
@@ -426,6 +482,7 @@ $('#toc').on('click', 'a', function() {
   </li>
   <li>The disk.EnableUUID parameter must be set to “TRUE” for each Node VM. Please refer this <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#enable-disk-uuid-on-node-virtual-machines">section.</a></li>
 </ul>
+
 
   
 
@@ -443,7 +500,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Nov 13, 2017 <br />
+ Site last generated: Dec 1, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
