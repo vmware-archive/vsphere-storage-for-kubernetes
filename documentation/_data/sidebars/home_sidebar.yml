@@ -46,9 +46,6 @@ entries:
       - title: Prerequistes
         url: /prerequisites.html
         output: web
-      - title: Kubernetes Anywhere
-        url: /kubernetes-anywhere.html
-        output: web
       - title: Configurations on existing Kubernetes Cluster
         url: /existing.html
         output: web
