@@ -2,25 +2,25 @@
 title: FAQs
 ---
 
-## Is vSphere Cloud Provider ready for production ?
+## Is vSphere Cloud Provider ready for production?
 vSphere Cloud Provider is still in beta.
 
-## What is the biggest Kubernetes cluster it has been tested for ?
+## What is the biggest Kubernetes cluster it has been tested for?
 It has been tested on eight node cluster so far.
 
-## Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider ?
+## Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider?
  Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/existing.html#create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities).
 
-## Where can I find the list of vSAN, VMFS and NFS features supported by vSphere Cloud Provider ?
+## Where can I find the list of vSAN, VMFS and NFS features supported by vSphere Cloud Provider?
 Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html). Please report in case you find any features are missing.
 
-## How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere ?
+## How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere?
 VIC is infrastructure platform to run containerized workloads alongside traditional applications whereas vSphere Cloud provider provides an interface to run and take advantage of vSphere storage for workloads running on Kubernetes
 
-## Can I run it on a single node cluster on my laptop ?
+## Can I run it on a single node cluster on my laptop?
 Yes as long as laptop supports nested virtualization you can try it on your laptop.
 
-## Which Kubernetes distribution is supported ?
+## Which Kubernetes distribution is supported?
 vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this [section.](/vsphere-storage-for-kubernetes/documentation/prereq.html)
 
 ## Can we deploy multiple Kubernetes Cluster on one vCenter?
@@ -30,7 +30,7 @@ Yes. Using resource pool and maintaining the VMs from each Kubernetes cluster in
 ## Can Kubernetes Cluster access storage from another vCenter?
 Yes. vSphere supports shared storage across multiple vCenters. User can use shared storage in multiple Kubernetes Clusters.
 
-## Which Operating System are supported ?
+## Which Operating System are supported?
 We support Photon, Ubuntu, Core OS, please check this section for [details](/vsphere-storage-for-kubernetes/documentation/prereq.html)
 
 
@@ -51,7 +51,7 @@ Proposal is out for [review.](https://github.com/gnufied/community/blob/91b41028
 ## Can we create ReadWriteMany volumes with VSphere storage, with pods on different machines?
 ReadWriteMany is not supported with Pods on different machine. This is supported on the collocated pods on the same node.
 
-## Is it mandatory to have all the machines in the same datastore ? If so, it's a very strong limitation for us.
+## Is it mandatory to have all the machines in the same datastore? If so, it's a very strong limitation for us.
 It is not mandatory to keep all node VMs on the same datastore.  But make sure node VM has access to volumes datastores.
 
 
