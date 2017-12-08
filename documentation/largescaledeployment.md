@@ -1,7 +1,7 @@
 ---
 title: Recommended configuration for large scale cluster deployment
 ---
-Kubernetes vSphere Cloud Provider is tested with 500 nodes.
+vSphere Cloud Provider is successfully validated with a kubernetes cluster with 500 nodes.
 
 Below is the cluster configuration recommended for 500 node cluster.
 
