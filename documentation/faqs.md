@@ -2,17 +2,22 @@
 title: FAQs
 ---
 
-## Is vSphere Cloud Provider ready for production?
-vSphere Cloud Provider is still in beta.
-
 ## What is the biggest Kubernetes cluster it has been tested for?
-It has been tested on eight node cluster so far.
+It has been tested on 500 node cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
+
 
 ## Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider?
  Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/existing.html#create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities).
 
-## Where can I find the list of vSAN, VMFS and NFS features supported by vSphere Cloud Provider?
-Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html). Please report in case you find any features are missing.
+
+## Which vSphere Datastore types are supported by vSphere Cloud Provider?
+VMFS, NFS, vSAN and VVOl datastore types are supported by vSphere Cloud Provider.
+
+## Where is the details about Storage Policy Based Management (SPBM) for dynamic provisioning of volumes?
+Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html). 
+Also refer to [Storage Policy Management inside kubernetes](https://github.com/kubernetes/examples/blob/master/staging/volumes/vsphere/README.md#storage-policy-management-inside-kubernetes) for more details.
+Please report in case you find any features are missing.
+
 
 ## How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere?
 VIC is infrastructure platform to run containerized workloads alongside traditional applications whereas vSphere Cloud provider provides an interface to run and take advantage of vSphere storage for workloads running on Kubernetes

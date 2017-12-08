@@ -35,7 +35,7 @@ spec:
   - name: test-volume
     # This VMDK volume must already exist.
     vsphereVolume:
-      volumePath: "[datastore1] volumes/myDisk"
+      volumePath: "[datastore1] volumes/myDisk.vmdk"
       fsType: ext4
 
 ```

@@ -43,7 +43,7 @@ entries:
   - title: Deployment
     output: web
     folderitems:
-      - title: Prerequistes
+      - title: Prerequisites
         url: /prerequisites.html
         output: web
       - title: Configurations on existing Kubernetes Cluster
