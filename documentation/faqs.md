@@ -3,7 +3,7 @@ title: FAQs
 ---
 
 ## What is the biggest Kubernetes cluster it has been tested for?
-It has been tested on 500 node cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
+It has been tested on 500 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
 
 
 ## Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider?
@@ -13,10 +13,9 @@ It has been tested on 500 node cluster so far. Please refer to this [section](/v
 ## Which vSphere Datastore types are supported by vSphere Cloud Provider?
 VMFS, NFS, vSAN and VVOl datastore types are supported by vSphere Cloud Provider.
 
-## Where is the details about Storage Policy Based Management (SPBM) for dynamic provisioning of volumes?
+## Can SPBM be used with dynamic volume provisioning?
 Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html). 
 Also refer to [Storage Policy Management inside kubernetes](https://github.com/kubernetes/examples/blob/master/staging/volumes/vsphere/README.md#storage-policy-management-inside-kubernetes) for more details.
-Please report in case you find any features are missing.
 
 
 ## How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere?

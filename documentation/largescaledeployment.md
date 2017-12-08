@@ -18,7 +18,7 @@ Capacity:
 
 Worker nodes are allocated 2 GB and 2 CPUs.
 
-**Note:** CPU/Memory allocation for nodes can be adjusted based on the workload requirement. Above is the minimum recommended allocation.
+**Note:** CPU/Memory allocation for nodes can be adjusted based on the workload requirement. Above is the minimum required allocation.
 
 
 **Configure CPU and Memory Requests for Kubernetes System Pods**
@@ -48,7 +48,7 @@ CPU/Memory Requests set on system pods.
 
 **Note:** Here resource `requests` is set on system pods and not the `limit`, so that if Pod requires more CPU/Memory then available CPU/Memory can be utilized during the peak time.
 
-For rest of the Pods on the master node (Proxy, DNS and flannel) we have 40% cpu available.
+For rest of the Pods (Proxy, DNS and flannel etc.) on the master node 40% cpu is available.
 
 Refer [Managing Compute Resources for Containers](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to know more about CPU and Memory Requests in Kubernetes.
 
