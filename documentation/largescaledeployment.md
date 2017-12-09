@@ -1,9 +1,9 @@
 ---
 title: Recommended configuration for large scale cluster deployment
 ---
-vSphere Cloud Provider is successfully validated with 500 node Kubernetes cluster.
+vSphere Cloud Provider is successfully validated with 500 nodes Kubernetes cluster.
 
-Below is the cluster configuration recommended for 500 node Kubernetes cluster.
+Below is the configuration recommended for 500 nodes Kubernetes cluster.
 
 **Node CPU and Memory Capacity Allocation**
 
