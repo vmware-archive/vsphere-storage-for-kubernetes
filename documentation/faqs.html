@@ -248,7 +248,7 @@
             
             
             
-            <li><a href="prerequisites.html">Prerequistes</a></li>
+            <li><a href="prerequisites.html">Prerequisites</a></li>
             
             
             
@@ -392,17 +392,18 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <h2 id="is-vsphere-cloud-provider-ready-for-production">Is vSphere Cloud Provider ready for production?</h2>
-<p>vSphere Cloud Provider is still in beta.</p>
-
-<h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for">What is the biggest Kubernetes cluster it has been tested for?</h2>
-<p>It has been tested on eight node cluster so far.</p>
+  <h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for">What is the biggest Kubernetes cluster it has been tested for?</h2>
+<p>It has been tested on 500 node Kubernetes cluster so far. Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html">section</a> for details about recommended configuration.</p>
 
 <h2 id="where-can-i-find-required-roles-and-privileges-for-the-vcenter-user-for-vsphere-cloud-provider">Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider?</h2>
 <p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities">section</a>.</p>
 
-<h2 id="where-can-i-find-the-list-of-vsan-vmfs-and-nfs-features-supported-by-vsphere-cloud-provider">Where can I find the list of vSAN, VMFS and NFS features supported by vSphere Cloud Provider?</h2>
-<p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">section</a>. Please report in case you find any features are missing.</p>
+<h2 id="which-vsphere-datastore-types-are-supported-by-vsphere-cloud-provider">Which vSphere Datastore types are supported by vSphere Cloud Provider?</h2>
+<p>VMFS, NFS, vSAN and VVOl datastore types are supported by vSphere Cloud Provider.</p>
+
+<h2 id="can-spbm-be-used-with-dynamic-volume-provisioning">Can SPBM be used with dynamic volume provisioning?</h2>
+<p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">section</a>. 
+Also refer to <a href="https://github.com/kubernetes/examples/blob/master/staging/volumes/vsphere/README.md#storage-policy-management-inside-kubernetes">Storage Policy Management inside kubernetes</a> for more details.</p>
 
 <h2 id="how-is-running-containers-on-vsphere-integrated-containers-different-from-running-them-on-kubernetes-on-vsphere">How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere?</h2>
 <p>VIC is infrastructure platform to run containerized workloads alongside traditional applications whereas vSphere Cloud provider provides an interface to run and take advantage of vSphere storage for workloads running on Kubernetes</p>
@@ -468,7 +469,7 @@ Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Co
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 1, 2017 <br />
+ Site last generated: Dec 8, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

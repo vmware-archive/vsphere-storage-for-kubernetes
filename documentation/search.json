@@ -112,6 +112,17 @@
 
 
 {
+"title": "Recommended configuration for large scale cluster deployment",
+"tags": "",
+"keywords": "",
+"url": "largescaledeployment.html",
+"summary": ""
+}
+,
+
+
+
+{
 "title": "Deploying S3 Stateful Containers - Minio",
 "tags": "",
 "keywords": "",

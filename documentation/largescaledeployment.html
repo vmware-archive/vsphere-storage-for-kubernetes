@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Best Practices | Kubernetes vSphere Cloud Provider</title>
+<title>Recommended configuration for large scale cluster deployment | Kubernetes vSphere Cloud Provider</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="Best Practices">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="Recommended configuration for large scale cluster deployment">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -269,7 +269,7 @@
             
             
             
-            <li class="active"><a href="bestpractices.html">Best Practices</a></li>
+            <li><a href="bestpractices.html">Best Practices</a></li>
             
             
             
@@ -351,7 +351,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">Best Practices</h1>
+   <h1 class="post-title-main">Recommended configuration for large scale cluster deployment</h1>
 </div>
 
 
@@ -388,23 +388,108 @@ $('#toc').on('click', 'a', function() {
 
     
 
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//bestpractices.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//largescaledeployment.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
 
     
 
-  <p>This section describes the vSphere specific configurations:</p>
+  <p>vSphere Cloud Provider is successfully validated with 500 nodes Kubernetes cluster.</p>
 
-<p><strong>vSphere HA</strong></p>
+<p>Below is the configuration recommended for 500 nodes Kubernetes cluster.</p>
 
-<ul>
-  <li>vSphere Cloud Provider supports vSphere HA. To ensure high availability of node VMs, it is recommended to enable HA on the cluster.<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.avail.doc/GUID-4BC60283-B638-472F-B1D2-1E4E57EAD213.html">Details</a></li>
-</ul>
+<p><strong>Node CPU and Memory Capacity Allocation</strong></p>
 
-<p><strong>Use Resource Pool</strong></p>
+<p>To handle workload for 500 node Kubernetes cluster master node is configured to use 8 cpus and 8 GB memory.</p>
 
-<ul>
-  <li>It is recommended to place Kubernetes node VMs in the resource pool to ensure guaranteed performance. <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.resmgmt.doc/GUID-0F6C6709-A5DA-4D38-BE08-6CB1002DD13D.html">Details</a></li>
-</ul>
+<div class="highlighter-rouge"><pre class="highlight"><code>Capacity:
+ cpu:     8
+ memory:  8174428Ki
+</code></pre>
+</div>
+<p><strong>Note:</strong> Here 8 CPU cores means 8000 milli-cores.</p>
+
+<p>Worker nodes are allocated 2 GB and 2 CPUs.</p>
+
+<p><strong>Note:</strong> CPU/Memory allocation for nodes can be adjusted based on the workload requirement. Above is the minimum required allocation.</p>
+
+<p><strong>Configure CPU and Memory Requests for Kubernetes System Pods</strong></p>
+
+<p>It is recommended to set guaranteed CPU and Memory reservation for Kubernetes System Pods so that these pods does not go out of resources.</p>
+
+<p>CPU/Memory Requests is set in the Pod manifest files located at <code class="highlighter-rouge">/etc/kubernetes/manifests</code> as mentioned below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>containers:
+    image: gcr.io/google_containers/etcd-amd64:3.0.17
+    name: etcd
+    resources:
+      requests:
+        cpu: 1200m
+        memory: 1650Mi
+</code></pre>
+</div>
+
+<p>CPU/Memory Requests set on system pods.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pod</th>
+      <th>CPU Requests</th>
+      <th>Memory Requests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>apiserver</td>
+      <td>1200m (15%)</td>
+      <td>1650Mi</td>
+    </tr>
+    <tr>
+      <td>controller-manager</td>
+      <td>1600m (20%)</td>
+      <td>2200Mi</td>
+    </tr>
+    <tr>
+      <td>scheduler</td>
+      <td>800m (10%)</td>
+      <td>1100Mi</td>
+    </tr>
+    <tr>
+      <td>etcd</td>
+      <td>1200m (15%)</td>
+      <td>1650Mi</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Note:</strong> Here resource <code class="highlighter-rouge">requests</code> is set on system pods and not the <code class="highlighter-rouge">limit</code>, so that if Pod requires more CPU/Memory then available CPU/Memory can be utilized during the peak time.</p>
+
+<p>For rest of the Pods (Proxy, DNS and flannel etc.) on the master node 40% cpu is available.</p>
+
+<p>Refer <a href="https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/">Managing Compute Resources for Containers</a> to know more about CPU and Memory Requests in Kubernetes.</p>
+
+<p>Below is the summary of master node resources captured during scale testing 500 node Kubernetes cluster.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Namespace                  Name                               CPU Requests  CPU Limits  Memory Requests  Memory Limits
+---------                  ----                               ------------  ----------  ---------------  -------------
+kube-system                etcd-node-01                       1200m (15%)   0 (0%)      1650Mi (20%)     0 (0%)
+kube-system                kube-apiserver-node-01             1200m (15%)   0 (0%)      1650Mi (20%)     0 (0%)
+kube-system                kube-controller-manager-node-01    1600m (20%)   0 (0%)      2200Mi (27%)     0 (0%)
+kube-system                kube-dns-545bc4bfd4-ghdjf          260m (3%)     0 (0%)      110Mi (1%)       170Mi (2%)
+kube-system                kube-flannel-ds-7b5tp              0 (0%)        0 (0%)      0 (0%)           0 (0%)
+kube-system                kube-proxy-mk8jp                   0 (0%)        0 (0%)      0 (0%)           0 (0%)
+kube-system                kube-scheduler-node-01             800m (10%)    0 (0%)      1100Mi (13%)     0 (0%)
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ------------  ----------  ---------------  -------------
+  5060m (63%)   0 (0%)      6710Mi (85%)     170Mi (2%)
+</code></pre>
+</div>
+
+<p><strong>Flannel Network Configuration</strong></p>
+
+<p>Most of the deployment uses 17.0.0.0/24 as the default flannel network setting. This allows registering only 254 nodes. To deploy more than 254 nodes flannel network should be set to 17.0.0.0/8.</p>
+
 
   
 
