@@ -11,7 +11,7 @@ Following logs are needed to debug VCP issues
  * Kubelet logs
 
 ### Controller-Manager Logs
-Login into the master node and execute following command.
+Login to the master node and execute the following command.
 
 ```
 # kubectl describe pod <Controller-Manager Pod Name> --namespace=kube-system | grep "Container ID"
@@ -42,7 +42,7 @@ Once the `Container ID` for controller manager is obtained, logs can be obtained
   ```
 
 ### API Server Logs
-Login into the master node and execute following command.
+Login to the master node and execute the following command.
 
 ```
 # kubectl describe pod <API Server Pod Name> --namespace=kube-system | grep "Container ID"
