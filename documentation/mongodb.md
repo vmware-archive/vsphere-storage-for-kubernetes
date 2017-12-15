@@ -19,9 +19,9 @@ parameters:
  diskformat: thin
 ```
 
-**Note:** Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs. Please refer to VSAN storage capability section mentioned in vSphere CP document 
-					
-						
+**Note:** Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs.
+
+
 **Claim Persistent Volume**
 
 A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.
