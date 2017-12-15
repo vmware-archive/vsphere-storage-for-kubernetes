@@ -1,5 +1,5 @@
 ---
-title: Kubernetes - vSphere Cloud Provider
+title: vSphere Storage for Kubernetes
 ---
 
 
@@ -19,15 +19,6 @@ Although it is relatively easy to run stateless Microservices using container te
 ## Kubernetes Storage Primitives
 
 Kubernetes provides abstractions to ensure that the storage details are separated from allocation and usage of storage.
-Kubernetes has various API resources to provision, categorize and consume the storage. 
-
-**API Resources**:
-
-* Volumes
-* Persistent Volumes
-* Persistent Volumes Claims
-* Storage Class
-* Statefulsets
 
 Please refer [Kubernetes documentation](https://kubernetes.io/docs/concepts/storage/volumes/) for details.
 

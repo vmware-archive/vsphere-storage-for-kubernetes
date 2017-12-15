@@ -17,11 +17,11 @@ metadata:
 provisioner: Kubernetes.io/vsphere-volume
 parameters:
  diskformat: thin
-```					
-				
-**Note:** Although all volumes are created on the same vSAN datastore, you can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs. Please refer to VSAN storage capability section mentioned in vSphere CP document 
-					
-						
+```
+
+**Note:** Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs.
+
+
 **Claim Persistent Volume**
 
 A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.
@@ -68,7 +68,7 @@ spec:
 
 Storage was created and provisioned from vSAN for containers for the MongoDB service by using dynamic provisioning in YAML files. Storage volumes were claimed as persistent ones to preserve the data on the volumes. All mongo servers are combined into one Kubernetes pod per node.
 
-In Kubernetes, as each pod gets one IP address assigned, each service within a pod must have a distinct port. As the mongos are the services by which you access your shard from other applications, the standard MongoDB port 27017 is assigned to them.
+In Kubernetes, as each pod gets one IP address assigned, each service within a pod must have a distinct port. As the mongos are the services by which user can access shard from other applications, the standard MongoDB port 27017 is assigned to them.
 
 
 Please refer this [Reference Architecture](https://storagehub.vmware.com/#!/vmware-vsan/vmware-vsan-tm-as-persistent-storage-for-mongodb-in-containers) for detailed understanding of how persistent storage for containers is consumed by MongoDB services on vSAN.

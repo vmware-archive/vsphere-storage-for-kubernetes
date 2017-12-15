@@ -11,7 +11,7 @@ Following logs are needed to debug VCP issues
  * Kubelet logs
 
 ### Controller-Manager Logs
-Login into the master node and execute following command.
+Login to the master node and execute the following command.
 
 ```
 # kubectl describe pod <Controller-Manager Pod Name> --namespace=kube-system | grep "Container ID"
@@ -42,7 +42,7 @@ Once the `Container ID` for controller manager is obtained, logs can be obtained
   ```
 
 ### API Server Logs
-Login into the master node and execute following command.
+Login to the master node and execute the following command.
 
 ```
 # kubectl describe pod <API Server Pod Name> --namespace=kube-system | grep "Container ID"
@@ -85,7 +85,7 @@ Log levels can be adjusted using `--v` option in the pod manifests files. To hel
 etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml
 ```
 
-Open YAML/JSON file and find `--v` option in the container's command. Increase it to 9. if this option is not present then add --v=9 to the container's command for the controller-manager, so that we can help debug issues in the vSphere Cloud Provider.
+Open YAML/JSON file and find `--v` option in the container's command. Increase value for this option to 9. If this option is not present then add --v=9 to the container's command for the controller-manager. This helps debug issues in the vSphere Cloud Provider.
 
 ```
 # cat kube-controller-manager.yaml
