@@ -2,7 +2,7 @@
 title: Contact Us
 ---
 
-You can reach us via:
+Please reach us via:
 
 * [hatchway@vmware.com](hatchway@vmware.com)
 * [Issues](https://github.com/vmware/kubernetes/issues)

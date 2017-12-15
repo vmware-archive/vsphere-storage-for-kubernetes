@@ -54,7 +54,7 @@ Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=
 
 #### Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities
 
-Note: if you want to use Administrator account then this step can be skipped.
+Note: if vCenter Administrator account is specified in the `vsphere.conf` file, then this step can be skipped.
 
 vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (`vsphere.conf`) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
 
@@ -96,9 +96,11 @@ vSphere Cloud Provider interacts with vCenter through the user configured in vSp
 
 Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize [Kubernetes RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/) to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.
 
-In some cases, however, you may still want to customize the privileges for vSphere Cloud Provider user:
-1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. If you are still using 1.6 or older release, you may want to remove SPBM related privileges to keep required privileges to a minimal.
-2. Kubernetes RBAC mode was stabilized as of 1.8 release. If you are using 1.7 or older release, you may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It's recommended to assign different roles to the same user instead of switching to a different user, in which case you'll need to restart kubelet, which might be a concern in production environment.
+In some cases, however, Administrator may still want to customize the privileges for vSphere Cloud Provider user:
+
+1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. For 1.6 or older release, remove SPBM related privileges to keep required privileges to a minimal.
+2. Kubernetes RBAC mode was stabilized as of 1.8 release. For 1.7 or older release, Administrator may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It's recommended to assign different roles to the same vCenter user instead of switching to a different vCenter user, in which case Kubelet needs to be restarted, which might be a concern in production environment.
+
 
 Here are [some examples](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html) to customize roles and privileges for vSphere Cloud Provider user.
 
