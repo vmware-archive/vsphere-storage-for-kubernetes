@@ -4,8 +4,8 @@ title: Running Stateful application - Guestbook App
  
 Guestbook is PHP application with Redis as backend. In this section, we will demonstrate how to use  Kubernetes deployed on vSphere to run Guestbook Application with persistent storage. At the end of this demo, a sample guestbook app will be available inside Kubernetes where the data is resident inside VMDKs managed by vSphere.
 
-The data in the VMDK is independent of the lifecycle of the pods and persists even if pods are deleted.					
-						
+The data in the VMDK is independent of the lifecycle of the pods and persists even if pods are deleted.
+
 **Storage Setup** 
 							
 The backing VMDK files are needed when dynamic provisioning is not used. The VMDK files need to exist before creating the service in k8s that uses them.
@@ -164,7 +164,3 @@ $ kubectl describe service frontend| grep NodePort
 Type:                 NodePort
 NodePort:      <unset> 32400/TCP 
 ```
-
-Check the nodes on which the frontend is running 				
- 
- 

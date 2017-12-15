@@ -17,8 +17,8 @@ metadata:
 provisioner: Kubernetes.io/vsphere-volume
 parameters:
  diskformat: thin
-```					
-				
+```
+
 **Note:** Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs. Please refer to VSAN storage capability section mentioned in vSphere CP document 
 					
 						

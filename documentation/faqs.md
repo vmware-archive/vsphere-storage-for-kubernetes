@@ -3,7 +3,15 @@ title: FAQs
 ---
 
 ## What is the biggest Kubernetes cluster it has been tested for?
-It has been tested on 500 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
+It has been tested on 500 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeplox ment.html) for details about recommended configuration.
+
+
+## Can vSphere Cloud Provider support Kubernetes Cluster spanning across multiple vCenters, ESXi Clusters and Datacenters?
+With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.
+
+
+## Can Kubernetes Cluster span across multiple vCenters?
+With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.
 
 
 ## Which Roles and Privileges are required for the vCenter User, used by vSphere Cloud Provider?
@@ -54,7 +62,7 @@ If volume needs to be retained, then reclaim policy needs to be changed from “
 
 ## How to resize dynamic volumes once provisioned?
 Support for resizing existing dynamic volume is not yet there.
-Proposal is avaiallbe [here](https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md). vSphere Cloud Provider does not support resize of volume. Please track this [issue](https://github.com/vmware/kubernetes/issues/168).
+Proposal is available [here](https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md). vSphere Cloud Provider does not support resize of volume. Please track this [issue](https://github.com/vmware/kubernetes/issues/168).
 
 
 ## Is ReadWriteMany volume supported with vSphere Cloud Provider?
@@ -70,9 +78,8 @@ To enable disk.EnableUUID option for the Node VM, Select VM and select `Edit Set
 Customize hardware -> VM Options -> Configuration Parameters -> Edit Configuration. Check to see if the parameter disk.EnableUUID is set, if it is there then make sure it is set to TRUE. If the parameter is not there, select Add Row and add it. This can be set on the template VM before cloning node VMs from the template.
 
 
-## Is it mandatory to have all the machines in the same directory?
-Current code base requires Master and Node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.
+## Is it mandatory to have all Kubernetes Cluster VMs in the same directory?
+Kubernetes release 1.8 and below requires Master and worker node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.
 
+Kubernetes release 1.9 and above does not require all Kubernetes Cluster VMs to be present in the same directory.
 
-## Can Kubernetes Cluster span across multiple vCenters?
-With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.
