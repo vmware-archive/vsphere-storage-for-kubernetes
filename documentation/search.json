@@ -68,21 +68,10 @@
 
 
 {
-"title": "Kubernetes - vSphere Cloud Provider",
+"title": "vSphere Storage for Kubernetes",
 "tags": "",
 "keywords": "",
 "url": "",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Kubernetes Storage Primitives supported by vSphere",
-"tags": "",
-"keywords": "",
-"url": "k8s-primitives.html",
 "summary": ""
 }
 ,

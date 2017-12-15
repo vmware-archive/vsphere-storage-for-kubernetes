@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Troubleshooting | Kubernetes vSphere Cloud Provider</title>
+<title>Troubleshooting | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Kubernetes vSphere Cloud Provider</span></a>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -404,7 +404,7 @@ $('#toc').on('click', 'a', function() {
 </ul>
 
 <h3 id="controller-manager-logs">Controller-Manager Logs</h3>
-<p>Login into the master node and execute following command.</p>
+<p>Login to the master node and execute the following command.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># kubectl describe pod &lt;Controller-Manager Pod Name&gt; --namespace=kube-system | grep "Container ID"
     Container ID:  docker://74a15e75d1365164cec2c005030a7957ddb3d3c9ee487c6b40df35b0a4e4f95a
@@ -435,7 +435,7 @@ $('#toc').on('click', 'a', function() {
  </code></p>
 
 <h3 id="api-server-logs">API Server Logs</h3>
-<p>Login into the master node and execute following command.</p>
+<p>Login to the master node and execute the following command.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># kubectl describe pod &lt;API Server Pod Name&gt; --namespace=kube-system | grep "Container ID"
     Container ID:  docker://b6fdc5d41e50b22406c411d709f64cda7442545f5d5872145f27ba0fc4dd501c
@@ -477,7 +477,7 @@ etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yam
 </code></pre>
 </div>
 
-<p>Open YAML/JSON file and find <code class="highlighter-rouge">--v</code> option in the container’s command. Increase it to 9. if this option is not present then add –v=9 to the container’s command for the controller-manager, so that we can help debug issues in the vSphere Cloud Provider.</p>
+<p>Open YAML/JSON file and find <code class="highlighter-rouge">--v</code> option in the container’s command. Increase value for this option to 9. If this option is not present then add –v=9 to the container’s command for the controller-manager. This helps debug issues in the vSphere Cloud Provider.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># cat kube-controller-manager.yaml
 apiVersion: v1
@@ -529,7 +529,7 @@ kubectl describe pv &lt;pvname&gt; --namespace=&lt;namespace_name&gt;
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 8, 2017 <br />
+ Site last generated: Dec 15, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

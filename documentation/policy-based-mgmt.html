@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Storage Policy Based Management for dynamic provisioning of volumes | Kubernetes vSphere Cloud Provider</title>
+<title>Storage Policy Based Management for dynamic provisioning of volumes | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Kubernetes vSphere Cloud Provider</span></a>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -440,7 +440,7 @@ parameters:
 
 <h2 id="virtual-san-policy-support">Virtual SAN policy support</h2>
 
-<p>Vsphere Infrastructure(VI) Admins will have the ability to specify custom Virtual SAN Storage Capabilities during dynamic volume provisioning. You can now define storage requirements, such as performance and availability, in the form of storage capabilities during dynamic volume provisioning. The storage capability requirements are converted into a Virtual SAN policy which are then pushed down to the Virtual SAN layer when a persistent volume (virtual disk) is being created. The virtual disk is distributed across the Virtual SAN datastore to meet the requirements.</p>
+<p>vSphere Infrastructure Administrator will have the ability to specify custom Virtual SAN Storage Capabilities during dynamic volume provisioning. Administrator can now define storage requirements, such as performance and availability, in the form of storage capabilities during dynamic volume provisioning. The storage capability requirements are converted into a Virtual SAN policy which are then pushed down to the Virtual SAN layer when a persistent volume (virtual disk) is being created. The virtual disk is distributed across the Virtual SAN datastore to meet the requirements.</p>
 
 <p>The official vSAN policy documentation describes in detail about each of the individual storage capabilities that are supported by vSAN. The user can specify these storage capabilities as part of storage class definition based on his application needs.</p>
 
@@ -470,7 +470,7 @@ parameters:
 <p><strong>Note:</strong></p>
 
 <ul>
-  <li>Here you don’t need to create persistent volume it is created dynamically</li>
+  <li>Here persistent volume is created dynamically.</li>
   <li>vSAN storage capability based provisioning of persistent volumes is available in 1.6.5 release.</li>
 </ul>
 
@@ -493,7 +493,7 @@ parameters:
 <p>Here a persistent volume will be created with the Virtual SAN capabilities - hostFailuresToTolerate to 2 and cachereservation is 20% read cache reserved for storage object. Also the persistent volume will be zeroedthickdisk.</p>
 
 <p>The official vSAN policy documentation describes in detail about each of the individual storage capabilities that are supported by vSAN and can be configured on the virtual disk.
-You can also specify the datastore in the Storageclass as shown in above example. The volume will be created on the datastore specified in the storage class. This field is optional. If not specified as shown in example 1, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.</p>
+User can also specify the datastore in the Storageclass as shown in above example. The volume will be created on the datastore specified in the storage class. This field is optional. If not specified as shown in example 1, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-sc-vsancapabilities.yaml
 
@@ -510,7 +510,7 @@ parameters:
 </code></pre>
 </div>
 
-<p><strong>Note:</strong> If you do not apply a storage policy during dynamic provisioning on a vSAN datastore, it will use a default Virtual SAN policy.</p>
+<p><strong>Note:</strong> If storage policy is not set during dynamic provisioning on a vSAN datastore, default Virtual SAN policy is applied on the volume.</p>
 
 <p><strong>Create the storageclass</strong></p>
 
@@ -637,7 +637,7 @@ pvpod       1/1     Running   0          48m
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 8, 2017 <br />
+ Site last generated: Dec 15, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

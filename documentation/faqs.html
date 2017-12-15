@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>FAQs | Kubernetes vSphere Cloud Provider</title>
+<title>FAQs | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Kubernetes vSphere Cloud Provider</span></a>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -393,9 +393,15 @@ $('#toc').on('click', 'a', function() {
     
 
   <h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for">What is the biggest Kubernetes cluster it has been tested for?</h2>
-<p>It has been tested on 500 node Kubernetes cluster so far. Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html">section</a> for details about recommended configuration.</p>
+<p>It has been tested on 500 node Kubernetes cluster so far. Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/largescaledeplox ment.html">section</a> for details about recommended configuration.</p>
 
-<h2 id="where-can-i-find-required-roles-and-privileges-for-the-vcenter-user-for-vsphere-cloud-provider">Where can I find required Roles and Privileges for the vCenter User for vSphere Cloud Provider?</h2>
+<h2 id="can-vsphere-cloud-provider-support-kubernetes-cluster-spanning-across-multiple-vcenters-esxi-clusters-and-datacenters">Can vSphere Cloud Provider support Kubernetes Cluster spanning across multiple vCenters, ESXi Clusters and Datacenters?</h2>
+<p>With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.</p>
+
+<h2 id="can-kubernetes-cluster-span-across-multiple-vcenters">Can Kubernetes Cluster span across multiple vCenters?</h2>
+<p>With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.</p>
+
+<h2 id="which-roles-and-privileges-are-required-for-the-vcenter-user-used-by-vsphere-cloud-provider">Which Roles and Privileges are required for the vCenter User, used by vSphere Cloud Provider?</h2>
 <p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities">section</a>.</p>
 
 <h2 id="which-vsphere-datastore-types-are-supported-by-vsphere-cloud-provider">Which vSphere Datastore types are supported by vSphere Cloud Provider?</h2>
@@ -405,53 +411,50 @@ $('#toc').on('click', 'a', function() {
 <p>Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">section</a>. 
 Also refer to <a href="https://github.com/kubernetes/examples/blob/master/staging/volumes/vsphere/README.md#storage-policy-management-inside-kubernetes">Storage Policy Management inside kubernetes</a> for more details.</p>
 
-<h2 id="how-is-running-containers-on-vsphere-integrated-containers-different-from-running-them-on-kubernetes-on-vsphere">How is running containers on vSphere Integrated Containers different from running them on Kubernetes on vSphere?</h2>
-<p>VIC is infrastructure platform to run containerized workloads alongside traditional applications whereas vSphere Cloud provider provides an interface to run and take advantage of vSphere storage for workloads running on Kubernetes</p>
-
-<h2 id="can-i-run-it-on-a-single-node-cluster-on-my-laptop">Can I run it on a single node cluster on my laptop?</h2>
-<p>Yes as long as laptop supports nested virtualization you can try it on your laptop.</p>
+<h2 id="can-single-node-cluster-deployed-on-laptop">Can single node cluster deployed on laptop?</h2>
+<p>Yes, as long as laptop supports nested virtualization single node cluster can be deplyed on the laptop.</p>
 
 <h2 id="which-kubernetes-distribution-is-supported">Which Kubernetes distribution is supported?</h2>
-<p>vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">section.</a></p>
+<p>vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">section</a>.</p>
 
-<h2 id="can-we-deploy-multiple-kubernetes-cluster-on-one-vcenter">Can we deploy multiple Kubernetes Cluster on one vCenter?</h2>
-<p>Yes. Using resource pool and maintaining the VMs from each Kubernetes cluster in their respective VM folder you can run multiple Kubernetes cluster on vCenter.</p>
+<h2 id="can-multiple-kubernetes-clusters-be-deployed-on-one-vcenter-server">Can multiple Kubernetes Clusters be deployed on one vCenter Server?</h2>
+<p>Yes, Using resource pool and maintaining the VMs from each Kubernetes cluster in their respective VM folder, multiple Kubernetes clusters can be deployed on one vCenter server.</p>
 
 <h2 id="can-kubernetes-cluster-access-storage-from-another-vcenter">Can Kubernetes Cluster access storage from another vCenter?</h2>
 <p>Yes. vSphere supports shared storage across multiple vCenters. User can use shared storage in multiple Kubernetes Clusters.</p>
 
 <h2 id="which-operating-system-are-supported">Which Operating System are supported?</h2>
-<p>We support Photon, Ubuntu, Core OS, please check this section for <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">details</a></p>
+<p>VCP is validated on Photon, Ubuntu, Core OS, RHEL. please check this <a href="/vsphere-storage-for-kubernetes/documentation/prereq.html">section</a> for details.</p>
 
 <h2 id="how-kubernetes-volumes-can-be-made-resilient-to-failures-on-vsan-datastore">How Kubernetes volumes can be made resilient to failures on vSAN datastore?</h2>
-<p>Please check the HA section for <a href="/vsphere-storage-for-kubernetes/documentation/ha.html">details.</a></p>
+<p>Please check the <a href="/vsphere-storage-for-kubernetes/documentation/ha.html">HA section</a> for details.</p>
 
-<h2 id="can-i-enable-sdrs-on-vms-hosting-kubernetes-cluster">Can I enable SDRS on VMs hosting kubernetes cluster?</h2>
+<h2 id="is-sdrs-supported-on-vms-hosting-kubernetes-cluster">Is SDRS supported on VMs hosting kubernetes cluster?</h2>
 <p>No.</p>
 
-<h2 id="can-we-have-a-setting-to-ensure-all-dynamic-pvs-with-have-default-policy-retain-instead-of-delete-or-can-we-request-the-desired-policy-from-the-moment-we-request-the-pv-via-the-pvc">Can we have a setting to ensure all dynamic PVs with have default policy Retain (instead of delete)? Or can we request the desired policy from the moment we request the PV via the PVC?</h2>
-<p>If the volume was dynamically provisioned, then the default reclaim policy is set to “delete”.  This means that, by default, when the PVC is deleted, the underlying PV and storage asset will also be deleted.
-If you want to retain the data stored on the volume, then you must change the reclaim policy from “delete” to “retain” after the PV is provisioned. You cannot directly set to retain PV from PVC request for dynamic volumes. <a href="https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/">Details</a></p>
+<h2 id="can-reclaim-policy-be-set-to-retain-on-dynamic-pvs-once-volumes-are-provisioned-with-default-reclaim-policy-delete">Can Reclaim Policy be set to <code class="highlighter-rouge">Retain</code> on dynamic PVs once volumes are provisioned with default reclaim policy <code class="highlighter-rouge">delete</code>?</h2>
+<p>If the volume was dynamically provisioned, then the default reclaim policy is set to “delete”. This means by default, when the PVC is deleted, the underlying PV and storage asset will also be deleted.
+If volume needs to be retained, then reclaim policy needs to be changed from “delete” to “retain”. Please refer this <a href="https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/">link</a> for more details.</p>
 
-<h2 id="how-do-we-resize-the-existing-dynamic-volumes-if-we-update-the-pvc-with-the-new-desired-size-is-it-enough">How do we resize the existing dynamic volumes? If we update the PVC with the new desired size, is it enough?</h2>
+<h2 id="how-to-resize-dynamic-volumes-once-provisioned">How to resize dynamic volumes once provisioned?</h2>
 <p>Support for resizing existing dynamic volume is not yet there.
-Proposal is out for <a href="https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md">review.</a></p>
+Proposal is available <a href="https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md">here</a>. vSphere Cloud Provider does not support resize of volume. Please track this <a href="https://github.com/vmware/kubernetes/issues/168">issue</a>.</p>
 
-<h2 id="can-we-create-readwritemany-volumes-with-vsphere-storage-with-pods-on-different-machines">Can we create ReadWriteMany volumes with VSphere storage, with pods on different machines?</h2>
-<p>ReadWriteMany is not supported with Pods on different machine. This is supported on the collocated pods on the same node.</p>
+<h2 id="is-readwritemany-volume-supported-with-vsphere-cloud-provider">Is ReadWriteMany volume supported with vSphere Cloud Provider?</h2>
+<p>ReadWriteMany volume is not supported by vSphere Cloud Provider.</p>
 
-<h2 id="is-it-mandatory-to-have-all-the-machines-in-the-same-datastore-if-so-its-a-very-strong-limitation-for-us">Is it mandatory to have all the machines in the same datastore? If so, it’s a very strong limitation for us.</h2>
-<p>It is not mandatory to keep all node VMs on the same datastore.  But make sure node VM has access to volumes datastores.</p>
+<h2 id="is-it-mandatory-to-have-all-the-node-vms-in-the-same-datastore">Is it mandatory to have all the node VMs in the same datastore?</h2>
+<p>It is not mandatory to keep all node VMs on the same datastore. But make sure node VM has access to volumes datastores.</p>
 
-<h2 id="can-we-have-the-disk-uuid-enabled-by-default-so-we-dont-need-to-do-it-machine-by-machine-what-would-be-the-risks-of-having-it-by-default">Can we have the disk uuid enabled by default, so we don’t need to do it machine by machine? What would be the risks of having it by default.</h2>
-<p>You can enable disk UUID by default, while creating VM. Just add this parameter at
-Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Configuration</p>
+<h2 id="how-can-diskenableuuid-enabled-on-node-vms">How can disk.EnableUUID enabled on Node VMs?</h2>
+<p>To enable disk.EnableUUID option for the Node VM, Select VM and select <code class="highlighter-rouge">Edit Settings</code>. Find
+Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Configuration. Check to see if the parameter disk.EnableUUID is set, if it is there then make sure it is set to TRUE. If the parameter is not there, select Add Row and add it. This can be set on the template VM before cloning node VMs from the template.</p>
 
-<h2 id="is-it-mandatory-to-have-all-the-machines-in-the-same-directory">Is it mandatory to have all the machines in the same directory?</h2>
-<p>Current code base requires Master and Node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.</p>
+<h2 id="is-it-mandatory-to-have-all-kubernetes-cluster-vms-in-the-same-directory">Is it mandatory to have all Kubernetes Cluster VMs in the same directory?</h2>
+<p>Kubernetes release 1.8 and below requires Master and worker node VMs to be present under one VM folder. Each Kubernetes Cluster deployed in vSphere, should be placed in their respective VM folder, else under root folder.</p>
 
-<h2 id="can-kubernetes-cluster-span-across-multiple-vcenters">Can Kubernetes Cluster span across multiple vCenters?</h2>
-<p>With Kubernetes version 1.9.x vSphere cloud provider supports Kubernetes cluster spanning across multiple ESXi clusters, vSphere Datacenters and vCenters. All Kubernetes node VMs must have access to shared storage.</p>
+<p>Kubernetes release 1.9 and above does not require all Kubernetes Cluster VMs to be present in the same directory.</p>
+
 
   
 
@@ -469,7 +472,7 @@ Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Co
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 8, 2017 <br />
+ Site last generated: Dec 15, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

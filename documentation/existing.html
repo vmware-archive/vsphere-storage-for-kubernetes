@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Configurations on Existing Kubernetes Cluster | Kubernetes vSphere Cloud Provider</title>
+<title>Configurations on Existing Kubernetes Cluster | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Kubernetes vSphere Cloud Provider</span></a>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -458,7 +458,7 @@ $('#toc').on('click', 'a', function() {
 
 <h4 id="step-4-create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities">Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities</h4>
 
-<p>Note: if you want to use Administrator account then this step can be skipped.</p>
+<p>Note: If vCenter Administrator account is specified in the <code class="highlighter-rouge">vsphere.conf</code> file, then this step can be skipped.</p>
 
 <p>vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (<code class="highlighter-rouge">vsphere.conf</code>) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html">vSphere Documentation Center</a> to know about steps for creating a Custom Role, User and Role Assignment.</p>
 
@@ -500,9 +500,12 @@ $('#toc').on('click', 'a', function() {
 
 <p>Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize <a href="https://kubernetes.io/docs/admin/authorization/rbac/">Kubernetes RBAC Authorization</a> to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.</p>
 
-<p>In some cases, however, you may still want to customize the privileges for vSphere Cloud Provider user:
-1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. If you are still using 1.6 or older release, you may want to remove SPBM related privileges to keep required privileges to a minimal.
-2. Kubernetes RBAC mode was stabilized as of 1.8 release. If you are using 1.7 or older release, you may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It’s recommended to assign different roles to the same user instead of switching to a different user, in which case you’ll need to restart kubelet, which might be a concern in production environment.</p>
+<p>In some cases Administrator may still want to customize the privileges for vSphere Cloud Provider user:</p>
+
+<ol>
+  <li>SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. For 1.6 or older release, remove SPBM related privileges to keep required privileges to a minimal.</li>
+  <li>Kubernetes RBAC mode was stabilized as of 1.8 release. For 1.7 or older release, Administrator may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It’s recommended to assign different roles to the same vCenter user instead of switching to a different vCenter user, in which case Kubelet needs to be restarted, which might be a concern in production environment.</li>
+</ol>
 
 <p>Here are <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html">some examples</a> to customize roles and privileges for vSphere Cloud Provider user.</p>
 
@@ -716,7 +719,7 @@ datacenters = "list of datacenters where Kubernetes node VMs are present"
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 8, 2017 <br />
+ Site last generated: Dec 15, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

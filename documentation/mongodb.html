@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Deploying Sharded MongoDB Cluster | Kubernetes vSphere Cloud Provider</title>
+<title>Deploying Sharded MongoDB Cluster | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Kubernetes vSphere Cloud Provider</span></a>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -408,7 +408,7 @@ parameters:
 </code></pre>
 </div>
 
-<p><strong>Note:</strong> Although all volumes are created on the same vSAN datastore, you can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs. Please refer to VSAN storage capability section mentioned in vSphere CP document</p>
+<p><strong>Note:</strong> Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs.</p>
 
 <p><strong>Claim Persistent Volume</strong></p>
 
@@ -455,7 +455,7 @@ spec:
 
 <p>Storage was created and provisioned from vSAN for containers for the MongoDB service by using dynamic provisioning in YAML files. Storage volumes were claimed as persistent ones to preserve the data on the volumes. All mongo servers are combined into one Kubernetes pod per node.</p>
 
-<p>In Kubernetes, as each pod gets one IP address assigned, each service within a pod must have a distinct port. As the mongos are the services by which you access your shard from other applications, the standard MongoDB port 27017 is assigned to them.</p>
+<p>In Kubernetes, as each pod gets one IP address assigned, each service within a pod must have a distinct port. As the mongos are the services by which user can access shard from other applications, the standard MongoDB port 27017 is assigned to them.</p>
 
 <p>Please refer this <a href="https://storagehub.vmware.com/#!/vmware-vsan/vmware-vsan-tm-as-persistent-storage-for-mongodb-in-containers">Reference Architecture</a> for detailed understanding of how persistent storage for containers is consumed by MongoDB services on vSAN.</p>
 
@@ -514,7 +514,7 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2017 VMWare. All rights reserved. <br />
- Site last generated: Dec 8, 2017 <br />
+ Site last generated: Dec 15, 2017 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
