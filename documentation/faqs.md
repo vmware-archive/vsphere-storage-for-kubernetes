@@ -3,7 +3,7 @@ title: FAQs
 ---
 
 ## What is the biggest Kubernetes cluster it has been tested for?
-It has been tested on 500 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
+It has been tested on 1000 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
 
 
 ## Can vSphere Cloud Provider support Kubernetes Cluster spanning across multiple vCenters, ESXi Clusters and Datacenters?

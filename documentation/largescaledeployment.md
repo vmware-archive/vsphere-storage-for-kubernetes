@@ -1,13 +1,13 @@
 ---
 title: Recommended configuration for large scale cluster deployment
 ---
-vSphere Cloud Provider is successfully validated with 500 nodes Kubernetes cluster.
+vSphere Cloud Provider is successfully validated with 1000 nodes Kubernetes cluster.
 
-Below is the configuration recommended for 500 nodes Kubernetes cluster.
+Below is the configuration recommended for 1000 nodes Kubernetes cluster.
 
 **Node CPU and Memory Capacity Allocation**
 
-To handle workload for 500 node Kubernetes cluster master node is configured to use 8 cpus and 8 GB memory.
+To handle workload for 1000 node Kubernetes cluster master node is configured to use 8 cpus and 8 GB memory.
 
 ```
 Capacity:
@@ -52,7 +52,7 @@ For rest of the Pods (Proxy, DNS and flannel etc.) on the master node 40% cpu is
 
 Refer [Managing Compute Resources for Containers](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to know more about CPU and Memory Requests in Kubernetes.
 
-Below is the summary of master node resources captured during scale testing 500 node Kubernetes cluster.
+Below is the summary of master node resources captured during scale testing 1000 node Kubernetes cluster.
 
 ```
 Namespace                  Name                               CPU Requests  CPU Limits  Memory Requests  Memory Limits
