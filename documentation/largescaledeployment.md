@@ -1,9 +1,9 @@
 ---
-title: Recommended configuration for large scale cluster deployment
+title: Maximum scale supported by VCP
 ---
-vSphere Cloud Provider is successfully validated with 1000 nodes Kubernetes cluster.
+**Maximum scale validated - 1000 nodes Kubernetes cluster**
 
-Below is the configuration recommended for 1000 nodes Kubernetes cluster.
+The following configuration is used to validate the scale limits for VCP.
 
 **Node CPU and Memory Capacity Allocation**
 
