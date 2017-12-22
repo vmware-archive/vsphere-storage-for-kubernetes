@@ -28,7 +28,7 @@ Let us look at an example of how to use StorageClass for dynamic provisioning.
 **Create Storage Class**
 
 ```
-$ cat vpshere-volume-sc-fast.yaml
+$ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata: 
@@ -67,7 +67,7 @@ No events.
 **Create Persistent Volume Claim**
 
 ```
-$ cat Vsphere-volume-pvcsc.yaml
+$ cat vsphere-volume-pvcsc.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
