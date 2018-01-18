@@ -3,7 +3,7 @@ title: FAQs
 ---
 
 ## What is the biggest Kubernetes cluster it has been tested for?
-It has been tested on 1000 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/largescaledeployment.html) for details about recommended configuration.
+It has been tested on 1000 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/maximum-scale-limit.html) for details about recommended configuration.
 
 
 ## Can vSphere Cloud Provider support Kubernetes Cluster spanning across multiple vCenters, ESXi Clusters and Datacenters?
@@ -23,7 +23,7 @@ VMFS, NFS, vSAN and VVOl datastore types are supported by vSphere Cloud Provider
 
 
 ## Can SPBM be used with dynamic volume provisioning?
-Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html). 
+Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html).
 Also refer to [Storage Policy Management inside kubernetes](https://github.com/kubernetes/examples/blob/master/staging/volumes/vsphere/README.md#storage-policy-management-inside-kubernetes) for more details.
 
 
@@ -73,7 +73,7 @@ ReadWriteMany volume is not supported by vSphere Cloud Provider.
 It is not mandatory to keep all node VMs on the same datastore. But make sure node VM has access to volumes datastores.
 
 
-## How can disk.EnableUUID enabled on Node VMs? 
+## How can disk.EnableUUID enabled on Node VMs?
 To enable disk.EnableUUID option for the Node VM, Select VM and select `Edit Settings`. Find
 Customize hardware -> VM Options -> Configuration Parameters -> Edit Configuration. Check to see if the parameter disk.EnableUUID is set, if it is there then make sure it is set to TRUE. If the parameter is not there, select Add Row and add it. This can be set on the template VM before cloning node VMs from the template.
 
