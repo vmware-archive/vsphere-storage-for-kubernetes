@@ -4,13 +4,16 @@ title: Maximum scale supported by VCP
 **Maximum scale validated - 1000 nodes Kubernetes cluster**
 
 **Test Scenario**
-1. Creating a kubernetes cluster with 1000 worker nodes and enabling VCP on all of them
-2. Creating a statefulset(nginx) with persistent volume dynamically provisioned where provisioner is VCP.
+
+1. Create a kubernetes cluster with 1000 worker nodes and enabling vSphere Cloud Provider (VCP) on all of them.
+2. Create a statefulset(nginx) with persistent volume dynamically provisioned where provisioner is vsphere-volume.
+
    Kubernetes StatefulSets allows to us verify 4 key workflows in VCP.
-    a. Create vSphere persistent volume
-    b. Attach vSphere persistent volume to a pod
-    c. Detach  vSphere persistent volume from a pod
-    d. Delete vSphere persistent volume
+
+    * Create vSphere persistent volume
+    * Attach vSphere persistent volume to a pod
+    * Detach vSphere persistent volume from a pod
+    * Delete vSphere persistent volume
 3. Once the StatefulSet is created with replicas: 1000,  we see 1000 pods created with vSphere persistent volume attached for each pod. Each pod has a vSphere persistent volume attached to it. Each pod is provisioned on an individual kubernetes worker node.
 4. The datastore used to create volumes is a shared VMFS datastore and disk type is thin.
 
