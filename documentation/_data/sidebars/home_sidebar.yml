@@ -55,7 +55,7 @@ entries:
       - title: Best Practices
         url: /bestpractices.html
         output: web
-      - title: Large Scale Deployment
+      - title: Maximum supported scale limit
         url: /largescaledeployment.html
         output: web
       - title: Troubleshooting
