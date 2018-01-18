@@ -56,7 +56,7 @@ entries:
         url: /bestpractices.html
         output: web
       - title: Maximum supported scale limit
-        url: /largescaledeployment.html
+        url: /maximum-scale-limit.html
         output: web
       - title: Troubleshooting
         url: /troubleshooting.html
