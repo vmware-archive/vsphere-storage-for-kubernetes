@@ -3,7 +3,18 @@ title: Maximum scale supported by VCP
 ---
 **Maximum scale validated - 1000 nodes Kubernetes cluster**
 
-The following configuration is used to validate the scale limits for VCP.
+**Test Scenario**
+1. Creating a kubernetes cluster with 1000 worker nodes and enabling VCP on all of them
+2. Creating a statefulset(nginx) with persistent volume dynamically provisioned where provisioner is VCP.
+   Kubernetes StatefulSets allows to us verify 4 key workflows in VCP.
+    a. Create vSphere persistent volume
+    b. Attach vSphere persistent volume to a pod
+    c. Detach  vSphere persistent volume from a pod
+    d. Delete vSphere persistent volume
+3. Once the StatefulSet is created with replicas: 1000,  we see 1000 pods created with vSphere persistent volume attached for each pod. Each pod has a vSphere persistent volume attached to it. Each pod is provisioned on an individual kubernetes worker node.
+4. The datastore used to create volumes is a shared VMFS datastore and disk type is thin.
+
+The following infrastructure configuration is used to validate the scale limits for VCP.
 
 **Node CPU and Memory Capacity Allocation**
 
@@ -23,7 +34,7 @@ Worker nodes are allocated 2 GB and 2 CPUs.
 
 **Configure CPU and Memory Requests for Kubernetes System Pods**
 
-It is recommended to set guaranteed CPU and Memory reservation for Kubernetes System Pods so that these pods does not go out of resources. 
+It is recommended to set guaranteed CPU and Memory reservation for Kubernetes System Pods so that these pods does not go out of resources.
 
 CPU/Memory Requests is set in the Pod manifest files located at `/etc/kubernetes/manifests` as mentioned below.
 
