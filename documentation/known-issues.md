@@ -1,7 +1,7 @@
 ---
 title: Known Issues
 ---
-This section lists the major known issues with Kubernetes vSphere Cloud Provider. For complete list of issues please check our Github issues(https://github.com/vmware/kubernetes/issues) page. If you notice an issue not listed in Github issues page, please do file a bug on the [Github repo](https://github.com/vmware/kubernetes/issues)
+This section lists the major known issues with Kubernetes vSphere Cloud Provider (VCP). For complete list of issues please check our Github issues(https://github.com/vmware/kubernetes/issues) page. If you notice an issue not listed in Github issues page, please do file a bug on the [Github repo](https://github.com/vmware/kubernetes/issues)
 
 ## Release 1.7
 
@@ -21,4 +21,7 @@ This section lists the major known issues with Kubernetes vSphere Cloud Provider
 
 ## vCenter Port other than 443
 * For Kubernetes 1.6 and 1.7 releases (except Release v1.7.3 and onwards, Release v1.6.8 and onwards) vCenter Port other than 443 is not supported.
+
+## Validation with Virtual Hardware version (VM version) 13
+* Validation of VCP against Container Hosts running on VM version 13 is ongoing. [Link](https://github.com/vmware/kubernetes/issues/450)
 

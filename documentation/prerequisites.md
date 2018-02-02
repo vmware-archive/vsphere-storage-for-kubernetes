@@ -18,7 +18,7 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
 | v1.8.2 | Performance improvement for large scale deployment |
 | v1.9.0 | Multi vCenter Support |
 
-* vSphere version - 6.0.x and above
+* vSphere version - 6.0.x (Virtual Hardware 11) and above
 
 * Container Host operating systems -
     - Photon - v1.0 GA
@@ -36,7 +36,6 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
     - With kuberneters version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.
 * vCenter user with required set of privileges.
 * VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this [link](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html) for instruction on installing VMware tools.
-* Virtual Hardware Version (VM version) 11 is required for VMs serving as Container Hosts.
 * Node VM name requirements needed only until Kuberneters version 1.8.x.
     - VM names can not begin with numbers.
     - VM names can not have capital letters, any special characters except `.` and `-`.
