@@ -18,7 +18,7 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
 | v1.8.2 | Performance improvement for large scale deployment |
 | v1.9.0 | Multi vCenter Support |
 
-* vSphere version - 6.0.x and above
+* vSphere version - 6.0.x (Virtual Hardware 11) and above
 
 * Container Host operating systems -
     - Photon - v1.0 GA
@@ -26,6 +26,7 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
     - CoreOs - v4.11.2
     - Centos  - v7.3
     - RHEL OS -  v7.4
+    - SLES - v12 SP3
 
 * vSphere setup to deploy the Kubernetes cluster.
    - For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.
