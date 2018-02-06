@@ -55,6 +55,9 @@ entries:
       - title: Best Practices
         url: /bestpractices.html
         output: web
+      - title: Kubernetes upgrade with VCP
+        url: /kubernetes-upgrade.html
+        output: web
       - title: Maximum supported scale limit
         url: /maximum-scale-limit.html
         output: web
