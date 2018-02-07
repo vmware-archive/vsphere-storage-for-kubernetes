@@ -40,7 +40,7 @@ Before proceeding:
 
 * Upgrade the Kubernetes package versions on the $HOST node by using a Linux distribution-specific package manager. You can refer this [link](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/) for distro specific instructions.
 
-### Update the kubelet configuration on work nodes
+### Update the kubelet configuration on worker nodes
 * Remove the **--cloud-config** paramater from kubelet configuration file.
 * Remove the vsphere.conf (vSphere configuration file) from /etc/kubernetes
 * Restart the kubelet
