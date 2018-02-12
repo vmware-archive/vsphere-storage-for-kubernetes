@@ -23,5 +23,5 @@ This section lists the major known issues with Kubernetes vSphere Cloud Provider
 * For Kubernetes 1.6 and 1.7 releases (except Release v1.7.3 and onwards, Release v1.6.8 and onwards) vCenter Port other than 443 is not supported.
 
 ## Validation with Virtual Hardware version (VM version) 13
-* VMs created from **ISO** with Virtual Hardware version 13 is not supported in Kubernetes release 1.9.0.
+* VMs created from **ISO** with Virtual Hardware version 13 is not supported in Kubernetes release 1.9 but supported in earlier Kubernetes releases.
 
