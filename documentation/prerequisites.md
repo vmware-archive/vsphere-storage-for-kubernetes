@@ -18,7 +18,7 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
 | v1.8.2 | Performance improvement for large scale deployment |
 | v1.9.0 | Multi vCenter Support |
 
-* vSphere version - 6.0.x (Virtual Hardware 11) and above
+* vSphere version - 6.0.x (Virtual Hardware 11) and above. (**Note:** Standalone ESX is not supported.)
 
 * Container Host operating systems -
     - Photon - v1.0 GA
