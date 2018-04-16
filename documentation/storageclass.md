@@ -40,11 +40,12 @@ parameters:
   fstype: ext3
 ```
 
-If datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.
+For Kubernetes version 1.8.X or older, if datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.
 
 ```
    datastore:	DatastoreCluster/VSANDatastore
 ```
+For Kubernetes version 1.9.X datastore name is sufficient to identify the datastore.
 
 **Create the Storageclass**
 
