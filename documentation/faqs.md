@@ -48,7 +48,7 @@ VCP is validated on Photon, Ubuntu, Core OS, RHEL. please check this [section](/
 
 
 ## How Kubernetes volumes can be made resilient to failures on vSAN datastore?
-Please check the [HA section](/vsphere-storage-for-kubernetes/documentation/ha.html) for details.
+Please check the [HA section](/vsphere-storage-for-kubernetes/documentation/high-availability.html) for details.
 
 
 ## Is SDRS supported on VMs hosting kubernetes cluster?
