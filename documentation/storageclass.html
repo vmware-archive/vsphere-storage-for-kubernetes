@@ -438,7 +438,7 @@ Provisioner could be AWS EBS, vSphere, OpenStack and so on.</p>
 
 <p><strong>Create Storage Class</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cat vpshere-volume-sc-fast.yaml
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata: 
@@ -451,11 +451,12 @@ parameters:
 </code></pre>
 </div>
 
-<p>If datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.</p>
+<p>For Kubernetes version 1.8.X or older, if datastore is a member of datastore Cluster or within some subfolder, the datastore folder path needs to be provided in the datastore parameter as below.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>   datastore:	DatastoreCluster/VSANDatastore
 </code></pre>
 </div>
+<p>For Kubernetes version 1.9.X datastore name is sufficient to identify the datastore.</p>
 
 <p><strong>Create the Storageclass</strong></p>
 
@@ -477,7 +478,7 @@ No events.
 
 <p><strong>Create Persistent Volume Claim</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cat Vsphere-volume-pvcsc.yaml
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat vsphere-volume-pvcsc.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -594,7 +595,7 @@ pvpod       1/1      Running   0          48m
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: Feb 6, 2018 <br />
+ Site last generated: May 2, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
