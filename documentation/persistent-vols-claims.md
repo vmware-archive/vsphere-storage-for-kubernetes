@@ -3,9 +3,9 @@ title: Persistent Volumes & Persistent Volumes Claims
 ---
 
 In case of Kubernetes Volumes, once the Pod is deleted the specification of the volume in the Pod is also lost. Even though VMDK file persists but from Kubernetes's perspective the volume is deleted.
- 
+
 Persistent Volumes API resource solves this problem where PVs have lifecycle independent of the Pods and not created when Pod is spawned. PVs are units of storage provisioned in advance, they are Kubernetes objects backed by vSphere storage. PVs are created, deleted using kubectl commands.
- 
+
 In order to use these PVs user needs to create PersistentVolumeClaims which is nothing but a request for PVs. A claim must specify the access mode and storage capacity, once a claim is created PV is automatically bound to this claim. Kubernetes will bind a PV to PVC based on access mode and storage capacity but claim can also mention volume name, selectors and volume class for a better match.
 This design of PV-PVCs not only abstract storage provisioning and consumption but also ensures security through access control.
 
@@ -21,6 +21,12 @@ First ssh into ESX and then use following command to create vmdk,
 
 ```
 vmkfstools -c 2G /vmfs/volumes/datastore1/volumes/myDisk.vmdk
+```
+
+Or use govc:
+
+```
+govc datastore.disk.create -ds datastore1 -size 2G volumes/myDisk.vmdk
 ```
 
 **Create Persistent Volume**
