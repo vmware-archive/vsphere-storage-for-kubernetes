@@ -29,7 +29,14 @@ vmkfstools -c 2G redis-slave.vmdk
 vmkfstools -c 2G redis-master.vmdk 
 ```				
 					
-						
+Or use govc:
+
+```
+govc datastore.mkdir -ds vsanDatastore kubevols
+govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-slave.vmdk
+govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-master.vmdk
+```
+
 ## Guestbook with statically provisioning
 
 In this example we will provision PVs and Guestbook pods will claim these PVs

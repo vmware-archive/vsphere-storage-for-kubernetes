@@ -33,14 +33,7 @@ Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])
 
 The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.
 
-For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [GOVC tool](https://github.com/vmware/govmomi/tree/master/govc)
-
-* Set up GOVC environment
-
-        export GOVC_URL='vCenter IP OR FQDN'
-        export GOVC_USERNAME='vCenter User'
-        export GOVC_PASSWORD='vCenter Password'
-        export GOVC_INSECURE=1
+For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [govc](/vsphere-storage-for-kubernetes/documentation/prerequisites.html)
 
 * Find Node VM Paths
 
