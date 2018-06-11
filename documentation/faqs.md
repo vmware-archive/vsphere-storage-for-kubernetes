@@ -32,7 +32,7 @@ Yes, as long as laptop supports nested virtualization single node cluster can be
 
 
 ## Which Kubernetes distribution is supported?
-vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this [section](/vsphere-storage-for-kubernetes/documentation/prereq.html).
+vSphere Cloud Provider is available in vanilla Kubernetes and all distributions using Kubernetes v1.5 and above should support it. Please refer this [section](/vsphere-storage-for-kubernetes/documentation/prerequisites.html).
 
 
 ## Can multiple Kubernetes Clusters be deployed on one vCenter Server?
@@ -44,7 +44,7 @@ Yes. vSphere supports shared storage across multiple vCenters. User can use shar
 
 
 ## Which Operating System are supported?
-VCP is validated on Photon, Ubuntu, Core OS, RHEL. please check this [section](/vsphere-storage-for-kubernetes/documentation/prereq.html) for details.
+VCP is validated on Photon, Ubuntu, Core OS, RHEL. please check this [section](/vsphere-storage-for-kubernetes/documentation/prerequisites.html) for details.
 
 
 ## How Kubernetes volumes can be made resilient to failures on vSAN datastore?

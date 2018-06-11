@@ -28,6 +28,16 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
     - RHEL OS -  v7.4
     - SLES - v12 SP3
 
+* [govc](https://github.com/vmware/govmomi/releases) v0.18 and above
+
+The [govc CLI](https://github.com/vmware/govmomi/tree/master/govc#govc) can be used for additional configuration and troubleshooting.  Example govc
+configuration:
+
+        export GOVC_URL='vCenter IP OR FQDN'
+        export GOVC_USERNAME='vCenter User'
+        export GOVC_PASSWORD='vCenter Password'
+        export GOVC_INSECURE=1
+
 * vSphere setup to deploy the Kubernetes cluster.
    - For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.
    - For Kubernetes version 1.8.x and below: vSphere Cloud Provider supports Kubernetes cluster deployed only in one vCenter.
