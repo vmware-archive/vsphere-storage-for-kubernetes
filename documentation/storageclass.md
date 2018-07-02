@@ -19,7 +19,7 @@ vSphere is one of the provisioners and it allows following parameters:
 
 **Note:**
 
-All the example yamls can be found [here](https://github.com/Kubernetes/Kubernetes/tree/master/examples/volumes/vsphere) unless otherwise specified. Please download these examples.
+All the example yamls can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) unless otherwise specified. Please download these examples.
 
 Let us look at an example of how to use StorageClass for dynamic provisioning.
 
