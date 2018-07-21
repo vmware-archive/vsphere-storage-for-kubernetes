@@ -43,7 +43,7 @@ configuration:
    - For Kubernetes version 1.8.x and below: vSphere Cloud Provider supports Kubernetes cluster deployed only in one vCenter.
 * vSphere supported storage.
     - It can be HCI offering such as VMware vSAN or block and file storage offerings like VMFS and NFS.
-    - With kuberneters version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.
+    - With Kubernetes version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.
 * vCenter user with required set of privileges.
 * VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this [link](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html) for instruction on installing VMware tools.
 * Node VM name requirements needed only until Kuberneters version 1.8.x.
