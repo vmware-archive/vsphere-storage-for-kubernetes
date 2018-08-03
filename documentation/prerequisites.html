@@ -432,7 +432,7 @@ $('#toc').on('click', 'a', function() {
     </tr>
     <tr>
       <td>v1.7.0</td>
-      <td>Integration with vSphere Storage Policy Based Management(SPBM) for dynamic volume provisioning</td>
+      <td>Integration with vSphere Storage Policy Based Management (SPBM) for dynamic volume provisioning</td>
     </tr>
     <tr>
       <td>v1.7.0</td>
@@ -467,6 +467,20 @@ $('#toc').on('click', 'a', function() {
       <li>SLES - v12 SP3</li>
     </ul>
   </li>
+  <li><a href="https://github.com/vmware/govmomi/releases">govc</a> v0.18 and above</li>
+</ul>
+
+<p>The <a href="https://github.com/vmware/govmomi/tree/master/govc#govc">govc CLI</a> can be used for additional configuration and troubleshooting.  Example govc
+configuration:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    export GOVC_URL='vCenter IP OR FQDN'
+    export GOVC_USERNAME='vCenter User'
+    export GOVC_PASSWORD='vCenter Password'
+    export GOVC_INSECURE=1
+</code></pre>
+</div>
+
+<ul>
   <li>vSphere setup to deploy the Kubernetes cluster.
     <ul>
       <li>For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.</li>
@@ -476,7 +490,7 @@ $('#toc').on('click', 'a', function() {
   <li>vSphere supported storage.
     <ul>
       <li>It can be HCI offering such as VMware vSAN or block and file storage offerings like VMFS and NFS.</li>
-      <li>With kuberneters version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.</li>
+      <li>With Kubernetes version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.</li>
     </ul>
   </li>
   <li>vCenter user with required set of privileges.</li>
@@ -508,7 +522,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: May 2, 2018 <br />
+ Site last generated: Aug 3, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

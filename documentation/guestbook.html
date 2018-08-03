@@ -433,6 +433,14 @@ vmkfstools -c 2G redis-master.vmdk
 </code></pre>
 </div>
 
+<p>Or use govc:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>govc datastore.mkdir -ds vsanDatastore kubevols
+govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-slave.vmdk
+govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-master.vmdk
+</code></pre>
+</div>
+
 <h2 id="guestbook-with-statically-provisioning">Guestbook with statically provisioning</h2>
 
 <p>In this example we will provision PVs and Guestbook pods will claim these PVs</p>
@@ -574,7 +582,7 @@ NodePort:      &lt;unset&gt; 32400/TCP
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: May 2, 2018 <br />
+ Site last generated: Aug 3, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

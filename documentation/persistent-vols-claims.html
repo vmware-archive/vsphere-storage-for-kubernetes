@@ -427,6 +427,12 @@ This design of PV-PVCs not only abstract storage provisioning and consumption bu
 </code></pre>
 </div>
 
+<p>Or use govc:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>govc datastore.disk.create -ds datastore1 -size 2G volumes/myDisk.vmdk
+</code></pre>
+</div>
+
 <p><strong>Create Persistent Volume</strong></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-pv.yaml
@@ -568,7 +574,7 @@ pvpod       1/1     Running   0          48m
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: May 2, 2018 <br />
+ Site last generated: Aug 3, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

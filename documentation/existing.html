@@ -439,19 +439,9 @@ $('#toc').on('click', 'a', function() {
 
 <p>The disk.EnableUUID parameter must be set to “TRUE” for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.</p>
 
-<p>For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using <a href="https://github.com/vmware/govmomi/tree/master/govc">GOVC tool</a></p>
+<p>For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using <a href="/vsphere-storage-for-kubernetes/documentation/prerequisites.html">govc</a></p>
 
 <ul>
-  <li>
-    <p>Set up GOVC environment</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  export GOVC_URL='vCenter IP OR FQDN'
-  export GOVC_USERNAME='vCenter User'
-  export GOVC_PASSWORD='vCenter Password'
-  export GOVC_INSECURE=1
-</code></pre>
-    </div>
-  </li>
   <li>
     <p>Find Node VM Paths</p>
 
@@ -733,7 +723,7 @@ datacenters = "list of datacenters where Kubernetes node VMs are present"
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: May 2, 2018 <br />
+ Site last generated: Aug 3, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>
