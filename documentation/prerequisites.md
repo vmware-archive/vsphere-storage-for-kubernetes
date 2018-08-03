@@ -12,7 +12,7 @@ Following table summarizes key features introduced in vSphere Cloud Provider in 
 | ------ | ------ |
 | v1.6.3 | Dynamic volume provisioning using vSAN storage capabilities |
 | v1.6.5 | Integration with vSphere HA |
-| v1.7.0 | Integration with vSphere Storage Policy Based Management(SPBM) for dynamic volume provisioning |
+| v1.7.0 | Integration with vSphere Storage Policy Based Management (SPBM) for dynamic volume provisioning |
 | v1.7.0 | Enhanced vSphere Cloud Provider debuggabilty via integration with metrices exposed for Kubernetes storage APIs |
 | v1.8.0 | vSphere Cloud Provider refactoring for better debuggability, logging and code maintenance |
 | v1.8.2 | Performance improvement for large scale deployment |
