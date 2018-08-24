@@ -49,6 +49,9 @@ entries:
       - title: Configurations on existing Kubernetes Cluster
         url: /existing.html
         output: web
+      - title: SAML token authentication
+        url: /saml-token-authentication.html
+        output: web
       - title: Customize roles and privileges
         url: /vcp-roles.html
         output: web
@@ -85,9 +88,3 @@ entries:
         - title: Known Issues
           url: /known-issues.html
           output: web
-
-
-
-
-
-

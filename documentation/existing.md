@@ -1,163 +1,176 @@
 ---
-title: Configurations on Existing Kubernetes Cluster
+  title: Configurations on Existing Kubernetes Cluster
 ---
+**Prerequisites**
 
-## Enabling vSphere Cloud Provider
+* All node VMs must be placed in vSphere VM folder. Create a VM folder following the instructions mentioned in this [link](https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html) and move Kubernetes Node VMs to this folder.
+* The disk UUID on the node VMs must be enabled: the `disk.EnableUUID` value must be set to `True`. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [govc](/vsphere-storage-for-kubernetes/documentation/prerequisites.html)
+   * Find Node VM Paths
+        `govc ls /datacenter/vm/<vm-folder-name>`
+   * Set disk.EnableUUID to true for all VMs
+        `govc vm.change -e="disk.enableUUID=1" -vm='VM Path'`
 
-### Preferred method
-If user has deployed Kubernetes cluster on vSphere then use automated way of enabling vSphere Cloud Provider. For more details, please visit [https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md](https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md). If pre-requisites are not applicable, then follow manual steps mentioned below.
+     Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
-**Note: If Kubernetes cluster is spanning across multiple vCenters then please use below manual steps.**
+**Prerequisites for Kubernetes version is 1.8.x or below.**
 
-### Manual steps (if needed) to enable vSphere Cloud Provider
+* The node host name must be same as the VM name.
+* Node host names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*` and must also comply with these restrictions:
+  * They must not begin with numbers.
+  * They must not use capital letters.
+  * They must not have any special characters except `.` and `-`.
+  * They must contain at least three characters but no more than 63 characters.
 
-#### Step 1: Create a VM folder for Node VMs 
+After prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider.
 
-**Note: This is required only if Kubernetes version is 1.8.x or below.**
+## 1. Create and assign roles to the vSphere Cloud Provider user and vSphere entities.
 
-Create a VM folder. Follow instructions mentioned in this [link](https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html) and move Kubernetes Node VMs to this folder.
+The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented [here](/vsphere-storage-for-kubernetes/documentation/vcp-roles.html).
 
-#### Step 2: Make sure node VM names are compliant
-
-**Note: This is required only if Kubernetes version is 1.8.x or below.**
-
-Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*` If Node VMs does not comply with this regex, rename them and make it compliant to this regex.
-
-  Node VM names constraints:
-
-  * VM names cannot begin with numbers.
-  * VM names cannot have capital letters, any special characters except `.` and `-`.
-  * VM names cannot be shorter than 3 chars and longer than 63
-
-#### Step 3: Enable disk UUID on Node virtual machines
-
-The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.
-
-For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [govc](/vsphere-storage-for-kubernetes/documentation/prerequisites.html)
-
-* Find Node VM Paths
-
-        govc ls /datacenter/vm/<vm-folder-name>
-
-* Set disk.EnableUUID to true for all VMs
-
-        govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
-
-Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
-
-#### Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities
-
-Note: If vCenter Administrator account is specified in the `vsphere.conf` file, then this step can be skipped.
-
-vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (`vsphere.conf`) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
-
-<table>
-<thead>
-<tr>
-  <th>Roles</th>
-  <th>Privileges</th>
-  <th>Entities</th>
-  <th>Propagate to Children</th>
-</tr>
-</thead>
-<tbody><tr>
-  <td>manage-k8s-node-vms</td>
-  <td>Resource.AssignVMToPool<br> System.Anonymous<br> System.Read<br> System.View<br> VirtualMachine.Config.AddExistingDisk<br> VirtualMachine.Config.AddNewDisk<br> VirtualMachine.Config.AddRemoveDevice<br> VirtualMachine.Config.RemoveDisk<br> VirtualMachine.Inventory.Create<br> VirtualMachine.Inventory.Delete</td>
-  <td>Cluster,<br> Hosts,<br> VM Folder</td>
-  <td>Yes</td>
-</tr>
-<tr>
-  <td>manage-k8s-volumes</td>
-  <td>Datastore.AllocateSpace<br> Datastore.FileManagement<br> System.Anonymous<br> System.Read<br> System.View</td>
-  <td>Datastore</td>
-  <td>No</td>
-</tr>
-<tr>
-  <td>k8s-system-read-and-spbm-profile-view</td>
-  <td>StorageProfile.View<br> System.Anonymous<br> System.Read<br> System.View</td>
-  <td>vCenter</td>
-  <td>No</td>
-</tr>
-<tr>
-  <td>ReadOnly</td>
-  <td>System.Anonymous<br>System.Read<br>System.View</td>
-  <td>Datacenter,<br> Datastore Cluster,<br> Datastore Storage Folder</td>
-  <td>Yes</td>
-</tr>
-</tbody>
-</table>
-
-Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize [Kubernetes RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/) to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.
-
-In some cases Administrator may still want to customize the privileges for vSphere Cloud Provider user:
-
-1. SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. For 1.6 or older release, remove SPBM related privileges to keep required privileges to a minimal.
-2. Kubernetes RBAC mode was stabilized as of 1.8 release. For 1.7 or older release, Administrator may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It's recommended to assign different roles to the same vCenter user instead of switching to a different vCenter user, in which case Kubelet needs to be restarted, which might be a concern in production environment.
+If vCenter Administrator account is going to be used by vSphere Cloud Provider, then this step can be skipped. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User, and Role Assignment.
 
 
-Here are [some examples](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html) to customize roles and privileges for vSphere Cloud Provider user.
-
-#### Step 5: Create the vSphere cloud config file (vsphere.conf).
-
-##### For Kubernetes version 1.9.x and above
-
+## 2. Create the vSphere cloud config file (vsphere.conf).
 vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet, controller-manager, and API server.
 
-**```vsphere.conf```**
+### vSphere cloud config file for Kubernetes version 1.9.x and above.
+For version 1.9.x and above `vsphere.conf` file should be placed only on master nodes.
+
+* Sample configuration for Kubernetes Cluster for which all Kubernetes nodes are located on the single vCenter.
 
 ```
 [Global]
-# properties in this section will be used for all specified vCenters unless overriden in VirtualCenter section.
+user = "Administrator1@vsphere.local"
+password = "password"
+port = "443"
+insecure-flag = "1"
+datacenters = "us-east"
 
-user = "vCenter username for cloud provider"
-password = "password"        
-port = "443" #Optional
-insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
-datacenters = "list of datacenters where Kubernetes node VMs are present"
-        
-[VirtualCenter "1.2.3.4"]
-# Override specific properties for this Virtual Center.
-        user = "vCenter username for cloud provider"
-        password = "password"
-        # port, insecure-flag, datacenters will be used from Global section.
-        
-[VirtualCenter "1.2.3.5"]
-# Override specific properties for this Virtual Center.
-        port = "448"
-        insecure-flag = "0"
-        # user, password, datacenters will be used from Global section.
-        
+[VirtualCenter "1.1.1.1"]
+
 [Workspace]
-# Specify properties which will be used for various vSphere Cloud Provider functionality.
-# e.g. Dynamic provisioing, Storage Profile Based Volume provisioning etc.
-        server = "IP/FQDN for vCenter"
-        datacenter = "Datacenter name"
-        folder = "vCenter VM folder path in which dummy VMs should be created."
-        default-datastore = "Datastore name" #Datastore to use for provisioning volumes using storage classes/dynamic provisioning
-        resourcepool-path = "Resource pool path" # Used fordummy VM creation. Optional
+server = "1.1.1.1"
+datacenter = "us-east"
+default-datastore="sharedVmfs-0"
+resourcepool-path=""
+folder = "kubernetes"
 
 [Disk]
-        scsicontrollertype = pvscsi
+scsicontrollertype = pvscsi
 
 [Network]
-        public-network = "Network Name to be used"
+public-network = "VM Network"
 ```
 
-Below is summary of supported parameters in the `vsphere.conf` file for Kubernetes version 1.9.x
+* Sample configuration for Kubernetes Cluster for which Kubernetes nodes are located on multiple vCenter/Datacenters.
 
-* ```user``` is the vCenter username for vSphere Cloud Provider.
-* ```password``` is the password for vCenter user specified with `user`.
-* ```port``` is the vCenter Server Port. Default is 443 if not specified.
-* ```insecure-flag``` is set to 1 if vCenter used a self-signed certificate.
-* ```server``` is the vCenter Server IP or FQDN
-* ```datacenters``` is the names of the datacenters on which Node VMs are deployed.
+```
+[Global]
+user = "Administrator@vsphere.local"
+password = "password"
+port = "443"
+insecure-flag = "1"
+datacenters = "us-east, us-west"
+
+[VirtualCenter "1.1.1.1"]
+user = "Administrator2@vsphere.local"
+password = "password2"
+datacenters = "us-east"
+
+[VirtualCenter "1.1.1.2"]
+user = "Administrator3@vsphere.local"
+password = "password3"
+datacenters = "us-west"
+
+[VirtualCenter "1.1.1.3"]
+[VirtualCenter "1.1.1.4"]
+
+[Workspace]
+server = "1.1.1.1"
+datacenter = "us-east"
+default-datastore="sharedVmfs-0"
+resourcepool-path=" "
+folder = "kubernetes"
+
+[Disk]
+scsicontrollertype = pvscsi
+
+[Network]
+public-network = "VM Network"
+```
+
+Below is the summary of supported parameters in the `vsphere.conf` file for Kubernetes version 1.9.x
+
+* Properties in ```Global``` section will be used for all specified vCenters unless overridden in ```VirtualCenter``` section.
+* ```port``` is the vCenter Server Port. The default is 443 if not specified.
+* ```insecure-flag``` should be set to 1 if the vCenter uses a self-signed cert.
+* ```datacenters``` should be the list of all comma separated datacenters where Kubernetes node VMs are present.
 * ```default-datastore``` is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.
-* ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created. It is optional parameter.
-* ```folder``` VM Folder path where Node VMs can be present.
+* ```Workspace``` section specify properties which will be used for various vSphere Cloud Provider functionality. e.g. Dynamic provisioning, Storage Profile Based Volume provisioning etc.
+   * ```server``` specified in this section should have the master node VM.
+   * ```datacenter``` is the name of datacenter on which specified VM folder, datastore and resource pool should be present.
+   * ```folder``` is the vCenter VM folder path in which dummy VMs should be created.
+   * ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created. It is an optional parameter.
 
-##### For Kubernetes version 1.8.x or below
 
-vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
+If exposing vsphere username and password in plain text, is the security concern, username and password can be put in the [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
+This feature is available as of Kubernetes release 1.11.
+
+Steps for storing vSphere credentials in the Kubernetes Secret.
+
+* Create vsphere.conf file with secret-name and secret-namespace.
+
+```
+[Global]
+insecure-flag = 1
+secret-name = "vcconf"
+secret-namespace = "kube-system"
+
+[VirtualCenter "1.1.1.1"]
+port = 443
+datacenters = k8s-dc-1
+
+[Workspace]
+server = 1.1.1.1
+datacenter = datacenter
+default-datastore = shareddatastore
+folder = kubernetes
+```
+
+* Launch Kubernetes cluster with vSphere Cloud Provider Configured.
+* Create secret with vCenter credentials.
+   * Create base64 encoding for username and password
+
+```
+$ echo -n 'Administrator@vsphere.local' | base64
+QWRtaW5pc3RyYXRvckB2c3BoZXJlLmxvY2Fs
+
+$ echo -n 'password' | base64
+cGFzc3dvcmQ=
+```
+
+   * Create a vccredentials.yaml as mentioned below.
+
+```
+apiVersion: v1
+kind: Secret
+metadata:
+ name: vcconf
+type: Opaque
+data:
+   1.1.1.1.username: QWRtaW5pc3RyYXRvckB2c3BoZXJlLmxvY2Fs
+   1.1.1.1.password: cGFzc3dvcmQ=
+```
+
+   * Execute ```kubectl create -f vccredentials.yaml --namespace=kube-system```
+
+
+vSphere credentials can also be encrypted using **SAML token authentication**, Please refer documentation for [SAML token authentication](/vsphere-storage-for-kubernetes/documentation//vsphere-storage-for-kubernetes/documentation/saml-token-authentication.md) using vCenter SSO API.
+
+
+### vSphere cloud config file for Kubernetes version 1.8.x or below
+
+vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from the kubelet container, controller-manager pod, and API server pod.
 
 **```vsphere.conf``` for Master Node:**
 
@@ -186,66 +199,63 @@ Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uui
         vm-name = "VM name of the Worker Node"
 ```
 
-Below is summary of supported parameters in the `vsphere.conf` file
+Below is the summary of supported parameters in the `vsphere.conf` file
 
 * ```user``` is the vCenter username for vSphere Cloud Provider.
 * ```password``` is the password for vCenter user specified with `user`.
 * ```server``` is the vCenter Server IP or FQDN
-* ```port``` is the vCenter Server Port. Default is 443 if not specified.
+* ```port``` is the vCenter Server Port. The default is 443 if not specified.
 * ```insecure-flag``` is set to 1 if vCenter used a self-signed certificate.
 * ```datacenter``` is the name of the datacenter on which Node VMs are deployed.
 * ```datastore``` is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.
-* ```vm-name``` is recently added configuration parameter. This is optional parameter. When this parameter is present, ```vsphere.conf``` file on the worker node does not need vCenter credentials.
+* ```vm-name``` This is optional parameter. When this parameter is present, ```vsphere.conf``` file on the worker node does not need vCenter credentials.
 
-  **Note:** ```vm-name``` is added in the release 1.6.4. Prior releases does not support this parameter.
+  **Note:** ```vm-name``` is added in the release 1.6.4. Prior releases do not support this parameter.
 
 * ```working-dir``` can be set to empty ( working-dir = ""), if Node VMs are located in the root VM folder.
 * ```vm-uuid``` is the VM Instance UUID of virtual machine. ```vm-uuid``` can be set to empty (```vm-uuid = ""```). If set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
-
   * ```vm-uuid``` needs to be set in this format - ```423D7ADC-F7A9-F629-8454-CE9615C810F1```
-
-  * ```vm-uuid``` can be retrieved from Node Virtual machines using following command. This will be different on each node VM.
+  * ```vm-uuid``` can be retrieved from Node Virtual machines using the following command. This will be different on each node VM.
 
         cat /sys/class/dmi/id/product_serial | sed -e 's/^VMware-//' -e 's/-/ /' | awk '{ print toupper($1$2$3$4 "-" $5$6 "-" $7$8 "-" $9$10 "-" $11$12$13$14$15$16) }'
 
-* `datastore` is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
+* `datastore` is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is the member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
   * For datastore located in the datastore cluster, specify datastore as mentioned below
-
+        ```
         datastore = "DatastoreCluster/datastore1"
-
+        ```
   * For datastore located in the storage folder, specify datastore as mentioned below
-
+        ```
         datastore = "DatastoreStorageFolder/datastore1"
+        ```
 
-#### Step 6: Add flags to controller-manager, API server and Kubelet
+## 3. Add flags to controller-manager, API server and Kubelet
 
-##### For Kubernetes version 1.9.x
+### For Kubernetes version 1.9.x
 
-* Add following flags to 
-  - kubelet running on master node 
-  - controller-manager manifest file
-  - API server manifest file
+* Add following flags to the kubelet configuration, controller-manager manifest file and API server manifest file on the master node.
 
-        --cloud-provider=vsphere
-        --cloud-config=<Path of the vsphere.conf file>
+    ```
+    --cloud-provider=vsphere
+    --cloud-config=<Path of the vsphere.conf file>
+    ```
 
 * Add following flags to kubelet running on each worker node.
 
-        --cloud-provider=vsphere
+    ```
+    --cloud-provider=vsphere
+    ```
 
-##### For Kubernetes version 1.8.x or below
+### For Kubernetes version 1.8.x or below
 
-Add following flags to 
-- kubelet running on all nodes
-- controller-manager manifest file (typically running on master node)
-- API server manifest file (typically running on master node)
+* Add following flags to the kubelet configuration, controller-manager manifest file and API server manifest file on the master node.
 
-        --cloud-provider=vsphere
-        --cloud-config=<Path of the vsphere.conf file>
+    ```
+    --cloud-provider=vsphere
+    --cloud-config=<Path of the vsphere.conf file>
+    ```
 
-Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`
-
-#### Step 7: Restart Kubelet on all nodes
+## 4. Restart Kubelet on all nodes
 
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
