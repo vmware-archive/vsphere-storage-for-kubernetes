@@ -51,7 +51,7 @@ datacenters = "us-east"
 server = "1.1.1.1"
 datacenter = "us-east"
 default-datastore="sharedVmfs-0"
-resourcepool-path=""
+resourcepool-path="cluster-folder/cluster-name/Resources"
 folder = "kubernetes"
 
 [Disk]
@@ -88,7 +88,7 @@ datacenters = "us-west"
 server = "1.1.1.1"
 datacenter = "us-east"
 default-datastore="sharedVmfs-0"
-resourcepool-path=" "
+resourcepool-path="cluster-folder/cluster-name/Resources"
 folder = "kubernetes"
 
 [Disk]
@@ -105,11 +105,11 @@ Below is the summary of supported parameters in the `vsphere.conf` file for Kube
 * ```insecure-flag``` should be set to 1 if the vCenter uses a self-signed cert.
 * ```datacenters``` should be the list of all comma separated datacenters where Kubernetes node VMs are present.
 * ```default-datastore``` is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.
-* ```Workspace``` Workspace is used by vSphere Cloud Provider to know which virtual center, datacenter, folder, resourcepool pool to use for dynamic provisioning volumes using SPBM profile.
-   * ```server``` is the virtual center server on which the dummy/shadow VM for storage profile based volumes should be created.
-   * ```datacenter``` is the name of datacenter on which the dummy/shadow VM should be created.
-   * ```folder``` is the virtual center VM folder path under which the dummy VMs should be placed.
-   * ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created.
+* ```Workspace``` is used by vSphere Cloud Provider for provisioning volumes using SPBM storage policy. The following configuration specifies the location vSphere Cloud Provider uses to create temporary VMs for volume provisioning:
+   * ```server``` is the virtual center server
+   * ```datacenter``` is the name of datacenter in the virtual center server
+   * ```folder``` is the virtual center VM folder path under the datacenter
+   * ```resourcepool-path``` is the path to resource pool under the datacenter
 
 If exposing vsphere username and password in plain text, is the security concern, username and password can be put in the [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
 This feature is available as of Kubernetes release 1.11.
@@ -258,7 +258,7 @@ Below is the summary of supported parameters in the `vsphere.conf` file
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
 
-* If controller-Manager is running in the container, kill and restart controller-Manager container. If controller-Manager is running as service, restart service for controller-Manager.
+* If controller-Manager is running in the container, restart controller-Manager container. If controller-Manager is running as service, restart service for controller-Manager.
 
 ```
 root@kubernetes-master [ ~ ]# docker ps | grep controller
@@ -266,7 +266,7 @@ root@kubernetes-master [ ~ ]# docker ps | grep controller
 3b99b40f61c1        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago        Up 40 hours                             k8s_POD_kube-controller-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_0
 
 
-root@kubernetes-master [ ~ ]# docker kill 8350dcd5ccd1
+root@kubernetes-master [ ~ ]# docker stop 8350dcd5ccd1
 8350dcd5ccd1
 
 
@@ -276,7 +276,7 @@ root@kubernetes-master [ ~ ]# docker ps | grep controller
 root@kubernetes-master [ ~ ]#
 ```
 
-* If API server is running in the container, kill and restart API container. If API server is running as service, restart service for API server.
+* If API server is running in the container, restart API container. If API server is running as service, restart service for API server.
 
 ```
 root@kubernetes-master [ ~ ]# docker ps | grep apiserver
@@ -284,7 +284,7 @@ root@kubernetes-master [ ~ ]# docker ps | grep apiserver
 37e1ca788144        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago         Up 40 hours                             k8s_POD_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
 
 
-root@kubernetes-master [ ~ ]# docker kill 4b76d2fb16be
+root@kubernetes-master [ ~ ]# docker stop 4b76d2fb16be
 4b76d2fb16be
 
 
