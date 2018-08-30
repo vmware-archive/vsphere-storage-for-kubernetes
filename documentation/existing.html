@@ -262,6 +262,13 @@
             
             
             
+            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
+            
+            
+            
+            
+            
+            
             <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
             
             
@@ -406,176 +413,203 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <h2 id="enabling-vsphere-cloud-provider">Enabling vSphere Cloud Provider</h2>
-
-<h3 id="preferred-method">Preferred method</h3>
-<p>If user has deployed Kubernetes cluster on vSphere then use automated way of enabling vSphere Cloud Provider. For more details, please visit <a href="https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md">https://github.com/vmware/kubernetes/blob/enable-vcp-uxi/README.md</a>. If pre-requisites are not applicable, then follow manual steps mentioned below.</p>
-
-<p><strong>Note: If Kubernetes cluster is spanning across multiple vCenters then please use below manual steps.</strong></p>
-
-<h3 id="manual-steps-if-needed-to-enable-vsphere-cloud-provider">Manual steps (if needed) to enable vSphere Cloud Provider</h3>
-
-<h4 id="step-1-create-a-vm-folder-for-node-vms">Step 1: Create a VM folder for Node VMs</h4>
-
-<p><strong>Note: This is required only if Kubernetes version is 1.8.x or below.</strong></p>
-
-<p>Create a VM folder. Follow instructions mentioned in this <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html">link</a> and move Kubernetes Node VMs to this folder.</p>
-
-<h4 id="step-2-make-sure-node-vm-names-are-compliant">Step 2: Make sure node VM names are compliant</h4>
-
-<p><strong>Note: This is required only if Kubernetes version is 1.8.x or below.</strong></p>
-
-<p>Make sure Node VM names must comply with the regex <code class="highlighter-rouge">[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*</code> If Node VMs does not comply with this regex, rename them and make it compliant to this regex.</p>
-
-<p>Node VM names constraints:</p>
+  <p><strong>Prerequisites</strong></p>
 
 <ul>
-  <li>VM names cannot begin with numbers.</li>
-  <li>VM names cannot have capital letters, any special characters except <code class="highlighter-rouge">.</code> and <code class="highlighter-rouge">-</code>.</li>
-  <li>VM names cannot be shorter than 3 chars and longer than 63</li>
-</ul>
+  <li>All node VMs must be placed in vSphere VM folder. Create a VM folder following the instructions mentioned in this <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html">link</a> and move Kubernetes Node VMs to this folder.</li>
+  <li>The disk UUID on the node VMs must be enabled: the <code class="highlighter-rouge">disk.EnableUUID</code> value must be set to <code class="highlighter-rouge">True</code>. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using <a href="/vsphere-storage-for-kubernetes/documentation/prerequisites.html">govc</a>
+    <ul>
+      <li>Find Node VM Paths
+   <code class="highlighter-rouge">govc ls /datacenter/vm/&lt;vm-folder-name&gt;</code></li>
+      <li>
+        <p>Set disk.EnableUUID to true for all VMs
+   <code class="highlighter-rouge">govc vm.change -e="disk.enableUUID=1" -vm='VM Path'</code></p>
 
-<h4 id="step-3-enable-disk-uuid-on-node-virtual-machines">Step 3: Enable disk UUID on Node virtual machines</h4>
-
-<p>The disk.EnableUUID parameter must be set to “TRUE” for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly.</p>
-
-<p>For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using <a href="/vsphere-storage-for-kubernetes/documentation/prerequisites.html">govc</a></p>
-
-<ul>
-  <li>
-    <p>Find Node VM Paths</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  govc ls /datacenter/vm/&lt;vm-folder-name&gt;
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Set disk.EnableUUID to true for all VMs</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
-</code></pre>
-    </div>
+        <p>Note: If Kubernetes Node VMs are created from template VM then <code class="highlighter-rouge">disk.EnableUUID=1</code> can be set on the template VM. VMs cloned from this template, will automatically inherit this property.</p>
+      </li>
+    </ul>
   </li>
 </ul>
 
-<p>Note: If Kubernetes Node VMs are created from template VM then <code class="highlighter-rouge">disk.EnableUUID=1</code> can be set on the template VM. VMs cloned from this template, will automatically inherit this property.</p>
+<p><strong>Prerequisites for Kubernetes version is 1.8.x or below.</strong></p>
 
-<h4 id="step-4-create-roles-add-privileges-to-roles-and-assign-them-to-the-vsphere-cloud-provider-user-and-vsphere-entities">Step 4: Create Roles, add Privileges to Roles and assign them to the vSphere Cloud Provider user and vSphere entities</h4>
+<ul>
+  <li>Node host names must comply with the regex <code class="highlighter-rouge">[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*</code> and must also comply with these restrictions:
+    <ul>
+      <li>They must not begin with numbers.</li>
+      <li>They must not use capital letters.</li>
+      <li>They must not have any special characters except <code class="highlighter-rouge">.</code> and <code class="highlighter-rouge">-</code>.</li>
+      <li>They must contain at least three characters but no more than 63 characters.</li>
+    </ul>
+  </li>
+</ul>
 
-<p>Note: If vCenter Administrator account is specified in the <code class="highlighter-rouge">vsphere.conf</code> file, then this step can be skipped.</p>
+<p>After prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider.</p>
 
-<p>vSphere Cloud Provider interacts with vCenter through the user configured in vSphere cloud config file (<code class="highlighter-rouge">vsphere.conf</code>) - see below section. The following minimal set of privileges are required by this user to execute relevant operations in vCenter. Please refer <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html">vSphere Documentation Center</a> to know about steps for creating a Custom Role, User and Role Assignment.</p>
+<h2 id="create-and-assign-roles-to-the-vsphere-cloud-provider-user-and-vsphere-entities">1. Create and assign roles to the vSphere Cloud Provider user and vSphere entities.</h2>
 
-<table>
-<thead>
-<tr>
-  <th>Roles</th>
-  <th>Privileges</th>
-  <th>Entities</th>
-  <th>Propagate to Children</th>
-</tr>
-</thead>
-<tbody><tr>
-  <td>manage-k8s-node-vms</td>
-  <td>Resource.AssignVMToPool<br /> System.Anonymous<br /> System.Read<br /> System.View<br /> VirtualMachine.Config.AddExistingDisk<br /> VirtualMachine.Config.AddNewDisk<br /> VirtualMachine.Config.AddRemoveDevice<br /> VirtualMachine.Config.RemoveDisk<br /> VirtualMachine.Inventory.Create<br /> VirtualMachine.Inventory.Delete</td>
-  <td>Cluster,<br /> Hosts,<br /> VM Folder</td>
-  <td>Yes</td>
-</tr>
-<tr>
-  <td>manage-k8s-volumes</td>
-  <td>Datastore.AllocateSpace<br /> Datastore.FileManagement<br /> System.Anonymous<br /> System.Read<br /> System.View</td>
-  <td>Datastore</td>
-  <td>No</td>
-</tr>
-<tr>
-  <td>k8s-system-read-and-spbm-profile-view</td>
-  <td>StorageProfile.View<br /> System.Anonymous<br /> System.Read<br /> System.View</td>
-  <td>vCenter</td>
-  <td>No</td>
-</tr>
-<tr>
-  <td>ReadOnly</td>
-  <td>System.Anonymous<br />System.Read<br />System.View</td>
-  <td>Datacenter,<br /> Datastore Cluster,<br /> Datastore Storage Folder</td>
-  <td>Yes</td>
-</tr>
-</tbody>
-</table>
+<p>The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented <a href="/vsphere-storage-for-kubernetes/documentation/vcp-roles.html">here</a>.</p>
 
-<p>Please note that the user configured for vSphere Cloud Provider will be used by all Kubernetes users on the same cluster. If one single user is not sufficient for different use cases, it is recommended to utilize <a href="https://kubernetes.io/docs/admin/authorization/rbac/">Kubernetes RBAC Authorization</a> to drive authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.</p>
+<p>If vCenter Administrator account is going to be used by vSphere Cloud Provider, then this step can be skipped. Please refer <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html">vSphere Documentation Center</a> to know about steps for creating a Custom Role, User, and Role Assignment.</p>
 
-<p>In some cases Administrator may still want to customize the privileges for vSphere Cloud Provider user:</p>
-
-<ol>
-  <li>SPBM support in vSphere Cloud Provider was introduced in Kubernetes 1.7 release. For 1.6 or older release, remove SPBM related privileges to keep required privileges to a minimal.</li>
-  <li>Kubernetes RBAC mode was stabilized as of 1.8 release. For 1.7 or older release, Administrator may still want to customize the privileges for vSphere Cloud Provider user based on different use cases. It’s recommended to assign different roles to the same vCenter user instead of switching to a different vCenter user, in which case Kubelet needs to be restarted, which might be a concern in production environment.</li>
-</ol>
-
-<p>Here are <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html">some examples</a> to customize roles and privileges for vSphere Cloud Provider user.</p>
-
-<h4 id="step-5-create-the-vsphere-cloud-config-file-vsphereconf">Step 5: Create the vSphere cloud config file (vsphere.conf).</h4>
-
-<h5 id="for-kubernetes-version-19x-and-above">For Kubernetes version 1.9.x and above</h5>
-
+<h2 id="create-the-vsphere-cloud-config-file-vsphereconf">2. Create the vSphere cloud config file (vsphere.conf).</h2>
 <p>vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet, controller-manager, and API server.</p>
 
-<p><strong><code class="highlighter-rouge">vsphere.conf</code></strong></p>
+<h3 id="vsphere-cloud-config-file-for-kubernetes-version-19x-and-above">vSphere cloud config file for Kubernetes version 1.9.x and above.</h3>
+<p>For version 1.9.x and above <code class="highlighter-rouge">vsphere.conf</code> file should be placed only on master nodes.</p>
+
+<ul>
+  <li>Sample configuration for Kubernetes Cluster for which all Kubernetes nodes are located on the single vCenter.</li>
+</ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>[Global]
-# properties in this section will be used for all specified vCenters unless overriden in VirtualCenter section.
+user = "Administrator1@vsphere.local"
+password = "password"
+port = "443"
+insecure-flag = "1"
+datacenters = "us-east"
 
-user = "vCenter username for cloud provider"
-password = "password"        
-port = "443" #Optional
-insecure-flag = "1" #set to 1 if the vCenter uses a self-signed cert
-datacenters = "list of datacenters where Kubernetes node VMs are present"
-        
-[VirtualCenter "1.2.3.4"]
-# Override specific properties for this Virtual Center.
-        user = "vCenter username for cloud provider"
-        password = "password"
-        # port, insecure-flag, datacenters will be used from Global section.
-        
-[VirtualCenter "1.2.3.5"]
-# Override specific properties for this Virtual Center.
-        port = "448"
-        insecure-flag = "0"
-        # user, password, datacenters will be used from Global section.
-        
+[VirtualCenter "1.1.1.1"]
+
 [Workspace]
-# Specify properties which will be used for various vSphere Cloud Provider functionality.
-# e.g. Dynamic provisioing, Storage Profile Based Volume provisioning etc.
-        server = "IP/FQDN for vCenter"
-        datacenter = "Datacenter name"
-        folder = "vCenter VM folder path in which dummy VMs should be created."
-        default-datastore = "Datastore name" #Datastore to use for provisioning volumes using storage classes/dynamic provisioning
-        resourcepool-path = "Resource pool path" # Used fordummy VM creation. Optional
+server = "1.1.1.1"
+datacenter = "us-east"
+default-datastore="sharedVmfs-0"
+resourcepool-path="cluster-folder/cluster-name/Resources"
+folder = "kubernetes"
 
 [Disk]
-        scsicontrollertype = pvscsi
+scsicontrollertype = pvscsi
 
 [Network]
-        public-network = "Network Name to be used"
+public-network = "VM Network"
 </code></pre>
 </div>
 
-<p>Below is summary of supported parameters in the <code class="highlighter-rouge">vsphere.conf</code> file for Kubernetes version 1.9.x</p>
-
 <ul>
-  <li><code class="highlighter-rouge">user</code> is the vCenter username for vSphere Cloud Provider.</li>
-  <li><code class="highlighter-rouge">password</code> is the password for vCenter user specified with <code class="highlighter-rouge">user</code>.</li>
-  <li><code class="highlighter-rouge">port</code> is the vCenter Server Port. Default is 443 if not specified.</li>
-  <li><code class="highlighter-rouge">insecure-flag</code> is set to 1 if vCenter used a self-signed certificate.</li>
-  <li><code class="highlighter-rouge">server</code> is the vCenter Server IP or FQDN</li>
-  <li><code class="highlighter-rouge">datacenters</code> is the names of the datacenters on which Node VMs are deployed.</li>
-  <li><code class="highlighter-rouge">default-datastore</code> is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.</li>
-  <li><code class="highlighter-rouge">resourcepool-path</code> is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created. It is optional parameter.</li>
-  <li><code class="highlighter-rouge">folder</code> VM Folder path where Node VMs can be present.</li>
+  <li>Sample configuration for Kubernetes Cluster for which Kubernetes nodes are located on multiple vCenter/Datacenters.</li>
 </ul>
 
-<h5 id="for-kubernetes-version-18x-or-below">For Kubernetes version 1.8.x or below</h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>[Global]
+user = "Administrator@vsphere.local"
+password = "password"
+port = "443"
+insecure-flag = "1"
+datacenters = "us-east, us-west"
 
-<p>vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.</p>
+[VirtualCenter "1.1.1.1"]
+user = "Administrator2@vsphere.local"
+password = "password2"
+datacenters = "us-east"
+
+[VirtualCenter "1.1.1.2"]
+user = "Administrator3@vsphere.local"
+password = "password3"
+datacenters = "us-west"
+
+[VirtualCenter "1.1.1.3"]
+[VirtualCenter "1.1.1.4"]
+
+[Workspace]
+server = "1.1.1.1"
+datacenter = "us-east"
+default-datastore="sharedVmfs-0"
+resourcepool-path="cluster-folder/cluster-name/Resources"
+folder = "kubernetes"
+
+[Disk]
+scsicontrollertype = pvscsi
+
+[Network]
+public-network = "VM Network"
+</code></pre>
+</div>
+
+<p>Below is the summary of supported parameters in the <code class="highlighter-rouge">vsphere.conf</code> file for Kubernetes version 1.9.x</p>
+
+<ul>
+  <li>Properties in <code class="highlighter-rouge">Global</code> section will be used for all specified vCenters unless overridden in <code class="highlighter-rouge">VirtualCenter</code> section.</li>
+  <li><code class="highlighter-rouge">port</code> is the vCenter Server Port. The default is 443 if not specified.</li>
+  <li><code class="highlighter-rouge">insecure-flag</code> should be set to 1 if the vCenter uses a self-signed cert.</li>
+  <li><code class="highlighter-rouge">datacenters</code> should be the list of all comma separated datacenters where Kubernetes node VMs are present.</li>
+  <li><code class="highlighter-rouge">default-datastore</code> is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.</li>
+  <li><code class="highlighter-rouge">Workspace</code> is used by vSphere Cloud Provider for provisioning volumes using SPBM storage policy. The following configuration specifies the location vSphere Cloud Provider uses to create temporary VMs for volume provisioning:
+    <ul>
+      <li><code class="highlighter-rouge">server</code> is the virtual center server</li>
+      <li><code class="highlighter-rouge">datacenter</code> is the name of datacenter in the virtual center server</li>
+      <li><code class="highlighter-rouge">folder</code> is the virtual center VM folder path under the datacenter</li>
+      <li><code class="highlighter-rouge">resourcepool-path</code> is the path to resource pool under the datacenter</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If exposing vsphere username and password in plain text, is the security concern, username and password can be put in the <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes Secret</a>.
+This feature is available as of Kubernetes release 1.11.</p>
+
+<p>Steps for storing vSphere credentials in the Kubernetes Secret.</p>
+
+<ul>
+  <li>Create vsphere.conf file with secret-name and secret-namespace.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[Global]
+insecure-flag = 1
+secret-name = "vcconf"
+secret-namespace = "kube-system"
+
+[VirtualCenter "1.1.1.1"]
+port = 443
+datacenters = k8s-dc-1
+
+[Workspace]
+server = 1.1.1.1
+datacenter = datacenter
+default-datastore = shareddatastore
+folder = kubernetes
+</code></pre>
+</div>
+
+<ul>
+  <li>Launch Kubernetes cluster with vSphere Cloud Provider Configured.</li>
+  <li>Create secret with vCenter credentials.
+    <ul>
+      <li>Create base64 encoding for username and password</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ echo -n 'Administrator@vsphere.local' | base64
+QWRtaW5pc3RyYXRvckB2c3BoZXJlLmxvY2Fs
+
+$ echo -n 'password' | base64
+cGFzc3dvcmQ=
+</code></pre>
+</div>
+
+<ul>
+  <li>Create a vccredentials.yaml as mentioned below.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apiVersion: v1
+kind: Secret
+metadata:
+ name: vcconf
+type: Opaque
+data:
+   1.1.1.1.username: QWRtaW5pc3RyYXRvckB2c3BoZXJlLmxvY2Fs
+   1.1.1.1.password: cGFzc3dvcmQ=
+</code></pre>
+</div>
+
+<ul>
+  <li>Execute <code class="highlighter-rouge">kubectl create -f vccredentials.yaml --namespace=kube-system</code></li>
+</ul>
+
+<p>vSphere credentials can also be encrypted using <strong>SAML token authentication</strong>, Please refer documentation for <a href="/vsphere-storage-for-kubernetes/documentation//vsphere-storage-for-kubernetes/documentation/saml-token-authentication.md">SAML token authentication</a> using vCenter SSO API.</p>
+
+<h3 id="vsphere-cloud-config-file-for-kubernetes-version-18x-or-below">vSphere cloud config file for Kubernetes version 1.8.x or below</h3>
+
+<p>vSphere Cloud Provider config file needs to be placed in the shared directory which should be accessible from the kubelet container, controller-manager pod, and API server pod.</p>
 
 <p><strong><code class="highlighter-rouge">vsphere.conf</code> for Master Node:</strong></p>
 
@@ -604,31 +638,27 @@ datacenters = "list of datacenters where Kubernetes node VMs are present"
 </code></pre>
 </div>
 
-<p>Below is summary of supported parameters in the <code class="highlighter-rouge">vsphere.conf</code> file</p>
+<p>Below is the summary of supported parameters in the <code class="highlighter-rouge">vsphere.conf</code> file</p>
 
 <ul>
   <li><code class="highlighter-rouge">user</code> is the vCenter username for vSphere Cloud Provider.</li>
   <li><code class="highlighter-rouge">password</code> is the password for vCenter user specified with <code class="highlighter-rouge">user</code>.</li>
   <li><code class="highlighter-rouge">server</code> is the vCenter Server IP or FQDN</li>
-  <li><code class="highlighter-rouge">port</code> is the vCenter Server Port. Default is 443 if not specified.</li>
+  <li><code class="highlighter-rouge">port</code> is the vCenter Server Port. The default is 443 if not specified.</li>
   <li><code class="highlighter-rouge">insecure-flag</code> is set to 1 if vCenter used a self-signed certificate.</li>
   <li><code class="highlighter-rouge">datacenter</code> is the name of the datacenter on which Node VMs are deployed.</li>
   <li><code class="highlighter-rouge">datastore</code> is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.</li>
   <li>
-    <p><code class="highlighter-rouge">vm-name</code> is recently added configuration parameter. This is optional parameter. When this parameter is present, <code class="highlighter-rouge">vsphere.conf</code> file on the worker node does not need vCenter credentials.</p>
+    <p><code class="highlighter-rouge">vm-name</code> This is optional parameter. When this parameter is present, <code class="highlighter-rouge">vsphere.conf</code> file on the worker node does not need vCenter credentials.</p>
 
-    <p><strong>Note:</strong> <code class="highlighter-rouge">vm-name</code> is added in the release 1.6.4. Prior releases does not support this parameter.</p>
+    <p><strong>Note:</strong> <code class="highlighter-rouge">vm-name</code> is added in the release 1.6.4. Prior releases do not support this parameter.</p>
   </li>
   <li><code class="highlighter-rouge">working-dir</code> can be set to empty ( working-dir = “”), if Node VMs are located in the root VM folder.</li>
-  <li>
-    <p><code class="highlighter-rouge">vm-uuid</code> is the VM Instance UUID of virtual machine. <code class="highlighter-rouge">vm-uuid</code> can be set to empty (<code class="highlighter-rouge">vm-uuid = ""</code>). If set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).</p>
-
+  <li><code class="highlighter-rouge">vm-uuid</code> is the VM Instance UUID of virtual machine. <code class="highlighter-rouge">vm-uuid</code> can be set to empty (<code class="highlighter-rouge">vm-uuid = ""</code>). If set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
     <ul>
+      <li><code class="highlighter-rouge">vm-uuid</code> needs to be set in this format - <code class="highlighter-rouge">423D7ADC-F7A9-F629-8454-CE9615C810F1</code></li>
       <li>
-        <p><code class="highlighter-rouge">vm-uuid</code> needs to be set in this format - <code class="highlighter-rouge">423D7ADC-F7A9-F629-8454-CE9615C810F1</code></p>
-      </li>
-      <li>
-        <p><code class="highlighter-rouge">vm-uuid</code> can be retrieved from Node Virtual machines using following command. This will be different on each node VM.</p>
+        <p><code class="highlighter-rouge">vm-uuid</code> can be retrieved from Node Virtual machines using the following command. This will be different on each node VM.</p>
 
         <div class="highlighter-rouge"><pre class="highlight"><code>cat /sys/class/dmi/id/product_serial | sed -e 's/^VMware-//' -e 's/-/ /' | awk '{ print toupper($1$2$3$4 "-" $5$6 "-" $7$8 "-" $9$10 "-" $11$12$13$14$15$16) }'
 </code></pre>
@@ -636,74 +666,100 @@ datacenters = "list of datacenters where Kubernetes node VMs are present"
       </li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">datastore</code> is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
+  <li><code class="highlighter-rouge">datastore</code> is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is the member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
     <ul>
-      <li>
-        <p>For datastore located in the datastore cluster, specify datastore as mentioned below</p>
-
-        <div class="highlighter-rouge"><pre class="highlight"><code>datastore = "DatastoreCluster/datastore1"
-</code></pre>
-        </div>
-      </li>
-      <li>
-        <p>For datastore located in the storage folder, specify datastore as mentioned below</p>
-
-        <div class="highlighter-rouge"><pre class="highlight"><code>datastore = "DatastoreStorageFolder/datastore1"
-</code></pre>
-        </div>
-      </li>
+      <li>For datastore located in the datastore cluster, specify datastore as mentioned below
+    <code class="highlighter-rouge">
+    datastore = "DatastoreCluster/datastore1"
+   </code></li>
+      <li>For datastore located in the storage folder, specify datastore as mentioned below
+    <code class="highlighter-rouge">
+    datastore = "DatastoreStorageFolder/datastore1"
+   </code></li>
     </ul>
   </li>
 </ul>
 
-<h4 id="step-6-add-flags-to-controller-manager-api-server-and-kubelet">Step 6: Add flags to controller-manager, API server and Kubelet</h4>
+<h2 id="add-flags-to-controller-manager-api-server-and-kubelet">3. Add flags to controller-manager, API server and Kubelet</h2>
 
-<h5 id="for-kubernetes-version-19x">For Kubernetes version 1.9.x</h5>
+<h3 id="for-kubernetes-version-19x">For Kubernetes version 1.9.x</h3>
 
 <ul>
-  <li>Add following flags to
-    <ul>
-      <li>kubelet running on master node</li>
-      <li>controller-manager manifest file</li>
-      <li>
-        <p>API server manifest file</p>
+  <li>
+    <p>Add following flags to the kubelet configuration, controller-manager manifest file and API server manifest file on the master node.</p>
 
-        <div class="highlighter-rouge"><pre class="highlight"><code>--cloud-provider=vsphere
---cloud-config=&lt;Path of the vsphere.conf file&gt;
-</code></pre>
-        </div>
-      </li>
-    </ul>
+    <p><code class="highlighter-rouge">
+  --cloud-provider=vsphere
+  --cloud-config=&lt;Path of the vsphere.conf file&gt;
+ </code></p>
   </li>
   <li>
-    <p>Add following flags to kubelet running on each worker node.</p>
+    <p>Add following flags to kubelet running on each worker node. On the worker node, we do not require vsphere.conf file hence <code class="highlighter-rouge">--cloud-config=</code> flag should not be set for Kubelet for worker nodes.</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  --cloud-provider=vsphere
-</code></pre>
-    </div>
+    <p><code class="highlighter-rouge">
+  --cloud-provider=vsphere
+ </code></p>
   </li>
 </ul>
 
-<h5 id="for-kubernetes-version-18x-or-below-1">For Kubernetes version 1.8.x or below</h5>
+<h3 id="for-kubernetes-version-18x-or-below">For Kubernetes version 1.8.x or below</h3>
 
-<p>Add following flags to 
-- kubelet running on all nodes
-- controller-manager manifest file (typically running on master node)
-- API server manifest file (typically running on master node)</p>
+<ul>
+  <li>
+    <p>Add following flags to kubelet running on all nodes and controller-manager’s and API server’s manifest file on the master node.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    --cloud-provider=vsphere
-    --cloud-config=&lt;Path of the vsphere.conf file&gt;
-</code></pre>
-</div>
+    <p><code class="highlighter-rouge">
+  --cloud-provider=vsphere
+  --cloud-config=&lt;Path of the vsphere.conf file&gt;
+ </code></p>
+  </li>
+</ul>
 
-<p>Manifest files for API server and controller-manager are generally located at <code class="highlighter-rouge">/etc/kubernetes</code></p>
-
-<h4 id="step-7-restart-kubelet-on-all-nodes">Step 7: Restart Kubelet on all nodes</h4>
+<h2 id="restart-controller-manager-api-server-and-kubelet-on-all-nodes">4. Restart Controller-Manager, API Server and Kubelet on all nodes.</h2>
 
 <ul>
   <li>Reload kubelet systemd unit file using <code class="highlighter-rouge">systemctl daemon-reload</code></li>
-  <li>Restart kubelet service using <code class="highlighter-rouge">systemctl restart kubelet.service</code></li>
+  <li>
+    <p>Restart kubelet service using <code class="highlighter-rouge">systemctl restart kubelet.service</code></p>
+  </li>
+  <li>If controller-Manager is running in the container, restart controller-Manager container. If controller-Manager is running as service, restart service for controller-Manager.</li>
 </ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kubernetes-master [ ~ ]# docker ps | grep controller
+8350dcd5ccd1        a874414bbabd                               "/hyperkube controlle"   About an hour ago   Up About an hour                        k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_5
+3b99b40f61c1        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago        Up 40 hours                             k8s_POD_kube-controller-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_0
+
+
+root@kubernetes-master [ ~ ]# docker stop 8350dcd5ccd1
+8350dcd5ccd1
+
+
+root@kubernetes-master [ ~ ]# docker ps | grep controller
+298f6d3edd5a        a874414bbabd                               "/hyperkube controlle"   4 seconds ago       Up 4 seconds                            k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_6
+3b99b40f61c1        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago        Up 40 hours                             k8s_POD_kube-controller-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_0
+root@kubernetes-master [ ~ ]#
+</code></pre>
+</div>
+
+<ul>
+  <li>If API server is running in the container, restart API container. If API server is running as service, restart service for API server.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kubernetes-master [ ~ ]# docker ps | grep apiserver
+4b76d2fb16be        a874414bbabd                               "/hyperkube apiserver"   40 hours ago         Up 40 hours                             k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+37e1ca788144        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago         Up 40 hours                             k8s_POD_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+
+
+root@kubernetes-master [ ~ ]# docker stop 4b76d2fb16be
+4b76d2fb16be
+
+
+root@kubernetes-master [ ~ ]# docker ps | grep apiserver
+e33dc8074088        a874414bbabd                               "/hyperkube apiserver"   3 seconds ago        Up 2 seconds                            k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_1
+37e1ca788144        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago         Up 40 hours                             k8s_POD_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+root@kubernetes-master [ ~ ]#
+</code></pre>
+</div>
 
 <p><strong>Note: For Kubernetes version 1.8.x or below, after enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory</strong></p>
 
@@ -723,7 +779,7 @@ datacenters = "list of datacenters where Kubernetes node VMs are present"
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: Aug 3, 2018 <br />
+ Site last generated: Aug 30, 2018 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

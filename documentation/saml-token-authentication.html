@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Running Stateful application - Guestbook App | vSphere Storage for Kubernetes</title>
+<title>SAML token authentication | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="Running Stateful application - Guestbook App">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="SAML token authentication">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -262,7 +262,7 @@
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
+            <li class="active"><a href="saml-token-authentication.html">SAML token authentication</a></li>
             
             
             
@@ -312,7 +312,7 @@
             
             
             
-            <li class="active"><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
+            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
             
             
             
@@ -372,7 +372,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">Running Stateful application - Guestbook App</h1>
+   <h1 class="post-title-main">SAML token authentication</h1>
 </div>
 
 
@@ -409,167 +409,73 @@ $('#toc').on('click', 'a', function() {
 
     
 
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//guestbook.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//saml-token-authentication.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
 
     
 
-  <p>Guestbook is PHP application with Redis as backend. In this section, we will demonstrate how to use  Kubernetes deployed on vSphere to run Guestbook Application with persistent storage. At the end of this demo, a sample guestbook app will be available inside Kubernetes where the data is resident inside VMDKs managed by vSphere.</p>
+  <p>As of Kubernetes <a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0">release 1.11</a>, the vSphere Cloud Provider includes support for SAML token authentication using the vCenter <a href="https://code.vmware.com/apis/34/vcenter-sso">SSO API</a>.
+Currently, VCP only issues Holder-of-Key tokens which require a vCenter Solution User and key pair for signing SAML requests.
+The preexisting VCP configuration user and password options can be set to the Solution User’s public and private keys to enable this feature. A vCenter Solution User can only use public key authentication via SAML, a Solution User does not have a plain text password.</p>
 
-<p>The data in the VMDK is independent of the lifecycle of the pods and persists even if pods are deleted.</p>
+<p>We expect to enhance the SSO related configuration options in future versions of vSphere Cloud Provider. This includes the ability for a Solution User to act as an existing Person User, but a Solution User is required in either case.</p>
 
-<p><strong>Storage Setup</strong></p>
+<h2 id="generate-a-self-signed-certificate">Generate a self-signed certificate</h2>
 
-<p>The backing VMDK files are needed when dynamic provisioning is not used. The VMDK files need to exist before creating the service in k8s that uses them.</p>
-
-<p>Login to ESX (if more than one ESX is used make sure to have a common/shared datastore) and create the volumes</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code># VMFS
-cd /vmfs/volumes/datastore1/
-# VSAN
-cd /vmfs/volumes/vsanDatastore/
-						
-# VMFS
-mkdir kubevols # Not needed but good hygiene
-# VSAN
-/usr/lib/vmware/osfs/bin/osfs-mkdir kubevols # Needed
-						
-cd kubevols
-						
-vmkfstools -c 2G redis-slave.vmdk 
-vmkfstools -c 2G redis-master.vmdk 
+<div class="highlighter-rouge"><pre class="highlight"><code>% openssl req -newkey rsa:2048 -x509 -days 365 -nodes -keyout k8s-vcp.key -out k8s-vcp.crt -subj "/C=US/ST=CA/L=SF/O=VMware/OU=CNA/CN=www.vmware.com"
+Generating a 2048 bit RSA private key
+...............................+++
+...............................................................................+++
+writing new private key to 'k8s-vcp.key'
+-----
 </code></pre>
 </div>
 
-<p>Or use govc:</p>
+<h2 id="create-a-solution-user">Create a solution user</h2>
+<p>Using <a href="https://github.com/vmware/govmomi/releases/tag/v0.18.0">govc v0.18</a> or higher:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>govc datastore.mkdir -ds vsanDatastore kubevols
-govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-slave.vmdk
-govc datastore.disk.create -ds vsanDatastore -size 2G kubevols/redis-master.vmdk
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.create -A -R Administrator -C "$(cat k8s-vcp.crt)" k8s-vcp
 </code></pre>
 </div>
 
-<h2 id="guestbook-with-statically-provisioning">Guestbook with statically provisioning</h2>
+<p>Or, using <a href="https://www.virtuallyghetto.com/2015/05/vcenter-server-6-0-tidbits-part-9-creating-managing-sso-users-using-dir-cli.html">dir-cli</a>:</p>
 
-<p>In this example we will provision PVs and Guestbook pods will claim these PVs</p>
-
-<p>Download all files in the PVC PV Demo from <a href="https://github.com/vmware/kubernetes/tree/kube-examples/kube-examples/guestbook/guestbook-pvc">here</a></p>
-
-<p>Create the persistent volume</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f redis-master-pv.yaml create -f redis-slave-pv.yaml
+<div class="highlighter-rouge"><pre class="highlight"><code>% /usr/lib/vmware-vmafd/bin/dir-cli service create --wstrustrole --ssoadminrole Administrator --cert k8s-vcp.crt --name k8s-vcp
+Service [k8s-vcp] created successfully
 </code></pre>
 </div>
 
-<p>Check the persistent volume records</p>
+<p>The example openssl command can be run anywhere, but if you use dir-cli to create the solution user, the public key will need to be local to the vCenter machine. The public key file can be removed from the vCenter machine after the user is created.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl get pv
+<p>The Administrator role used in the examples above can be replaced with any role name that contains the minimal <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html#minimal-set-of-vsphere-rolesprivileges-required-for-dynamic-persistent-volume-provisioning-with-storage-policy-based-volume-placement">privileges required</a>.</p>
+
+<p>A users role can be changed using the update command, for example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.update -R k8s-role-name k8s-vcp
+</code></pre>
+</div>
+<p>When a solution user is created, it will automatically be added to the SolutionUsers group. There are no other roles or permissions required for solution users. A user’s role and group membership can be viewed using the <code class="highlighter-rouge">govc sso.user.id</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.id k8s-vcp
+solution=k8s-vcp@vsphere.local groups=LicenseService.Administrators,ActAsUsers,Administrators,Everyone,SystemConfiguration.Administrators,SolutionUsers
 </code></pre>
 </div>
 
-<p>Create the PVC</p>
+<h2 id="cloud-config-options">Cloud config options</h2>
+<p>vSphere Cloud Provider will use SAML token authentication if the user config option is set a PEM encoded public key and password option to the private key.
+<strong>Note</strong> that newlines in <code class="highlighter-rouge">gcfg</code> values must be escaped, which can be scripted for example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f redis-slave-claim.yaml 
-$ kubectl create -f redis-master-claim.yaml
+<div class="highlighter-rouge"><pre class="highlight"><code>% cat &lt;&lt;EOF
+[VirtualCenter "$(govc env -x GOVC_URL_HOST)"]
+        user = "$(awk '{printf "%s\\n", $0}' k8s-vcp.crt)"
+        password = "$(awk '{printf "%s\\n", $0}' k8s-vcp.key)"
+EOF
 </code></pre>
 </div>
+<p>Resulting in:</p>
 
-<p>Check that the volumes are bound to the claims</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl get pv
- 
-NAME                CAPACITY ACCESSMODES RECLAMIPOLICY STATUS CLAIM REASON AGE
-redis-master-pv 2Gi RWO           Retain    Bound     default/redis-master-claim     34s 
-redis-slave-pv 2Gi    RWO         Retain    Bound     default/redis-slave-claim     34s 	 		
-</code></pre>
-</div>
-
-<p>Create the guestbook</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f guestbook-all-in-one.yaml
-</code></pre>
-</div>
-
-<h2 id="guestbook-application-with-dynamic-provisioning">Guestbook Application with Dynamic Provisioning</h2>
-
-<p>Download the yaml files for storage class based guestbook from <a href="https://github.com/vmware/kubernetes/tree/kube-examples/kube-examples/guestbook/guestbook-storageclass">here</a></p>
-
-<p>Create the storage class</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f redis-sc.yaml
-</code></pre>
-</div>
-
-<p>Create the claims that use the storage class</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$kubectl create -f redis-master-claim.yaml create -f redis-slave-claim.yaml
-</code></pre>
-</div>
-
-<p>This should trigger creation of storage volumes on the datastore configured for the vSphere Cloud Provider.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>[root@promc-2n-dhcp41:/vmfs/volumes/57f5768f-856aa050-fde c-e0db55248054/kubevols] ls *-pvc-* kubernetes-dynamic-pvc-91c9cd60-9a7c-11e6-a431-00505690d6 4d-flat.vmdk kubernetes-dynamic-pvc-a6abf43a-9a7c-11e6-a 431-00505690d64d-flat.vmdk kubernetes-dynamic-pvc-91c9cd60-9a7c-11e6-a431-00505690d6 4d.vmdk kubernetes-dynamic-pvc-a6abf43a-9a7c-11e6-a 431-00505690d64d.vmdk 
-</code></pre>
-</div>
-
-<p>All the dynamically provisioned volumes will be created in the kubevols directory inside the datastore.</p>
-
-<p>Create the guestbook app consuming the claims</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f guestbook-all-in-one.yaml 
-</code></pre>
-</div>
-
-<p>Verify Guestbook Application
-The following steps verify that the Pods, storage and the application are running correctly</p>
-
-<p>Wait till the pods are ready</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl get pods
-NAME                         READY STATUS   RESTARTS AGE
-frontend-88237173-77e6n       1/1   Running    0     43m
-redis-master-1145698066-2hbbk 1/1   Running    0     43m
-redis-slave-5845680045-3ffdg  1/1   Running    0     43m		
-</code></pre>
-</div>
-
-<p>Get the port on which the front end is accessible</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe service frontend | grep NodePort
-Type: NodePort
-NodePort: &lt;unset&gt; 31531/TCP 
-</code></pre>
-</div>
-
-<p>Check the nodes on which the frontend is running</p>
-
-<p>Get the IP address of one of the nodes (This can also be obtained from vCenter)
-Also possible from vCenter or the console output kube-up</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe node kubernetes-minion-1|grep -i Address 
-Addresses: 10.20.105.59 
-</code></pre>
-</div>
-
-<p>Combine the IP and Port and head to the URL (Ex:
-http://10.20.105.59:31531 ). Try out the app and leave a few messages.
-To check the attach status of VMDKs on ESX head to vCenter (Settings page or Recent Tasks window)</p>
-
-<h2 id="lifecycle-of-volume-independent-pod">Lifecycle of volume independent Pod</h2>
-
-<p>To test the persistence, delete the guestbook and recreate it using the same volumes, the old messages on the guest book should show up.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl delete -f guestbook-all-in-one.yaml 
-$ kubectl create -f guestbook-all-in-one.yaml
-					
-</code></pre>
-</div>
-
-<p>After create, the port mapping will change.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code># Get the new port
-$ kubectl describe service frontend| grep NodePort 
-Type:                 NodePort
-NodePort:      &lt;unset&gt; 32400/TCP 
+<div class="highlighter-rouge"><pre class="highlight"><code>VirtualCenter "example-vcenter.eng.vmware.com"]
+    user = "-----BEGIN CERTIFICATE-----\nMIIDkTCCAnmgAwIBAgIJALVKv3+BwTORMA0GCSqGSIb3DQEBCwUAMF8xCzAJBgNV\nBAYTAlVTMQswCQYDVQQIDAJDQTELMAkGA1UEBwwCU0YxDzANBgNVBAoMBlZNd2Fy\nZTEMMAoGA1UECwwDQ05BMRcwFQYDVQQDDA53d3cudm13YXJlLmNvbTAeFw0xODA2\nMTEyMTAzMTdaFw0xOTA2MTEyMTAzMTdaMF8xCzAJBgNVBAYTAlVTMQswCQYDVQQI\nDAJDQTELMAkGA1UEBwwCU0YxDzANBgNVBAoMBlZNd2FyZTEMMAoGA1UECwwDQ05B\nMRcwFQYDVQQDDA53d3cudm13YXJlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEP\nADCCAQoCggEBALChi3frVLyKG2KC9SQyidW5Ji2iOaDMxRZvQiDw/3oNvpFa4oPa\nROFkoi/0uFPLcBhJsduGDnb2gRafNnc+CjvwrqaEESKBgUT6fbtq+ECgV+YJvVs2\nNYdG3ScmLkvr8d5yHDdaVYF5ccq/Z4s6+alc8wHMUyayoqtXTYXf3ksoTgz/z+gD\nQoy5JWXUzfkwvQ5eJs8SVgioLkeNoZ6RMHJCzt9ZUf1pXiuH0fUR9XSz5k/2clRV\nHRnXCPbqBtuBOn15eyr5Ssy4lHb+DYHE0k5KiQNc6lDlPG42hFby+FhOQ0H7RNmV\ncsPKqVsQl918GsKrneM4i4WLF4Wgl1n1f1sCAwEAAaNQME4wHQYDVR0OBBYEFPz1\nmwLeEs3KWF94VdYWxISKwpBCMB8GA1UdIwQYMBaAFPz1mwLeEs3KWF94VdYWxISK\nwpBCMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAIdgpgpFQjSUUiRS\n33PliI9440Ul53/UgWs/0Q0Lmrd1Y07QJ97IgL39zbJBiU8Ndwhup6SEpG/N/F5C\ne3BEZSlM4l6HPpeQ7N8GqMvQt333IvYazKSvMmKisJe6Su7w8NjHbn+yKPDpWc+X\n8dSxqDNbAtTEipHICTUbpuDTM7SF8ZnwdI7viUcMBZOX7cU3uCFC6BqguejLmEH/\neoJtQAwrTrNPakDG77yQyU4EI1Px8CcaxL4pY2DieAkSU8Ors6hZewxC0m9Q0Oth\nsaJY5XigXVGRM7yI23PrZcCBAy7wA1KZNtthSMs1m6zO7NctXm1c/PmYl9PaMWhL\ndUfBxkA=\n-----END CERTIFICATE-----\n"
+    password = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCwoYt361S8ihti\ngvUkMonVuSYtojmgzMUWb0Ig8P96Db6RWuKD2kThZKIv9LhTy3AYSbHbhg529oEW\nnzZ3Pgo78K6mhBEigYFE+n27avhAoFfmCb1bNjWHRt0nJi5L6/Hechw3WlWBeXHK\nv2eLOvmpXPMBzFMmsqKrV02F395LKE4M/8/oA0KMuSVl1M35ML0OXibPElYIqC5H\njaGekTByQs7fWVH9aV4rh9H1EfV0s+ZP9nJUVR0Z1wj26gbbgTp9eXsq+UrMuJR2\n/g2BxNJOSokDXOpQ5TxuNoRW8vhYTkNB+0TZlXLDyqlbEJfdfBrCq53jOIuFixeF\noJdZ9X9bAgMBAAECggEAQUrWJXQmlLNwwA+s0r6j2Q9iH4hSSTCowkxKY6byqYmf\nIlg4V4k94Ru0IIoUAVW4kCHdz0pU2oDw4w3jslyKp/GmfgNf2iOJR5hZFgjK0Aj1\ntSFwj+EQFHuLkMc6YfJMLHB+IbAQ35WnDM2IVx1r4MFtSwLe0fVC0JerHovMvncA\neVFg2QEcE1cEZKHexBWLmxIvjWb1yK0HET8R2GTcR+NHHRtBoxnXHHBLX+OxP55s\n6lsc8+jW6W9to5iMZOSzJH4WEyQ3ltg8HLbofrC6t6yzXSM4hvPD8fTpJsgogrrX\nZODltvBiqoZ8u36GHgrgeV5RK1pb+2QV/vvSJulhQQKBgQDXgy0OrTcMHhrk/3RP\nAp2A8LmPYJFVl1xSu6hWR4q0z/Jbjhf2nXBYDi/r2jMsQkowtcJx7qacyoaKvzij\ndmpNJQVygmi/p+vdi4Hsf3VRy0VbY4qobkvpRP1TirPAe2nkQSdjodc0MSNAJnyj\n1hBxxDg9zy3RSlUoYmihN7qCEQKBgQDR0GnXoMVwL/xSv4ozSBuo/kgkuAvB008H\nzIB42QlD+r6yluj8ipsvbeR8fq0miInplaNH8nsNNZyLSfN0SX9qMckdVgLJthQu\nQV0s7tqiroVTZJ4vmiW7VcP3zUTItUWmrDPoZ7eMjINHdD4L3M2iJNJ+xNB3mPDP\nbL8wHli+qwKBgBuBFkMFQD0/qlcHcySSRN+r2UK/JE00IAg/AuDgCIfC8j9VByHm\nPew/A0aqdlVzsFw/Fi3MM19XSYxzkxrphe+KhgNzOUMcfzGrGE3ChoqF0rgzIAMW\n8IE42MvMq9wo4/7JgelpQjna+5C4WLfgHgEm9baNtl87iVq6FHhe0GLBAoGALrMf\ny9HKAFV96QEfBpkHJw8qCZo5a7PXxFmdQsi0CkB2T5PNWeCT9/OSxq7/ZTNA1w/q\nXuo2v1LufAZCvOBbDsz0AaaSSklPppf/4C9t1IXZwR0FJH0/5rmJO8+hfrbyQM3V\nY+Yp8YuY8L+Ly+IilvNxMqwl5mjROKnwyAoJIK8CgYBUUtjoTYneBeOSIiHYaHgB\noPSMATyVvx1wSnPQU0Z7CXLWfLcdWd48+YxxY+CLT+O7LeD1HJBuL+clUkk3LLSU\nq7Gwz7JttCax67VJ+Rvca/Ye99Z08San+oyleOc4vaWn+m3elfLYY35I6q2mjEGH\nK6YwNTQeE+GxGIJJncNJXQ==\n-----END PRIVATE KEY-----\n"
 </code></pre>
 </div>
 
