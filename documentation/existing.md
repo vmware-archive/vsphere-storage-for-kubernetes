@@ -258,6 +258,40 @@ Below is the summary of supported parameters in the `vsphere.conf` file
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
 
-If Controller-Manager and API Server is running in the containers, kill and restart Controller-Manager and API Server containers after restarting kubelet on the node.
+* If controller-Manager is running in the container, kill and restart controller-Manager container. If controller-Manager is running as service, restart service for controller-Manager.
+
+```
+root@kubernetes-master [ ~ ]# docker ps | grep controller
+8350dcd5ccd1        a874414bbabd                               "/hyperkube controlle"   About an hour ago   Up About an hour                        k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_5
+3b99b40f61c1        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago        Up 40 hours                             k8s_POD_kube-controller-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_0
+
+
+root@kubernetes-master [ ~ ]# docker kill 8350dcd5ccd1
+8350dcd5ccd1
+
+
+root@kubernetes-master [ ~ ]# docker ps | grep controller
+298f6d3edd5a        a874414bbabd                               "/hyperkube controlle"   4 seconds ago       Up 4 seconds                            k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_6
+3b99b40f61c1        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago        Up 40 hours                             k8s_POD_kube-controller-manager-kubernetes-master_kube-system_9dd546d79c93e3b5a15fc6dc073c2c54_0
+root@kubernetes-master [ ~ ]#
+```
+
+* If API server is running in the container, kill and restart API container. If API server is running as service, restart service for API server.
+
+```
+root@kubernetes-master [ ~ ]# docker ps | grep apiserver
+4b76d2fb16be        a874414bbabd                               "/hyperkube apiserver"   40 hours ago         Up 40 hours                             k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+37e1ca788144        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago         Up 40 hours                             k8s_POD_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+
+
+root@kubernetes-master [ ~ ]# docker kill 4b76d2fb16be
+4b76d2fb16be
+
+
+root@kubernetes-master [ ~ ]# docker ps | grep apiserver
+e33dc8074088        a874414bbabd                               "/hyperkube apiserver"   3 seconds ago        Up 2 seconds                            k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_1
+37e1ca788144        k8s.gcr.io/pause:3.1                       "/pause"                 40 hours ago         Up 40 hours                             k8s_POD_kube-apiserver-kubernetes-master_kube-system_6729daafa7d07bc748843414a6839053_0
+root@kubernetes-master [ ~ ]#
+```
 
 **Note: For Kubernetes version 1.8.x or below, after enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory**
