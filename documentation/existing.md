@@ -14,7 +14,6 @@
 
 **Prerequisites for Kubernetes version is 1.8.x or below.**
 
-* The node host name must be same as the VM name.
 * Node host names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*` and must also comply with these restrictions:
   * They must not begin with numbers.
   * They must not use capital letters.
@@ -106,12 +105,11 @@ Below is the summary of supported parameters in the `vsphere.conf` file for Kube
 * ```insecure-flag``` should be set to 1 if the vCenter uses a self-signed cert.
 * ```datacenters``` should be the list of all comma separated datacenters where Kubernetes node VMs are present.
 * ```default-datastore``` is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.
-* ```Workspace``` section specify properties which will be used for various vSphere Cloud Provider functionality. e.g. Dynamic provisioning, Storage Profile Based Volume provisioning etc.
-   * ```server``` specified in this section should have the master node VM.
-   * ```datacenter``` is the name of datacenter on which specified VM folder, datastore and resource pool should be present.
-   * ```folder``` is the vCenter VM folder path in which dummy VMs should be created.
-   * ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created. It is an optional parameter.
-
+* ```Workspace``` Workspace is used by vSphere Cloud Provider to know which virtual center, datacenter, folder, resourcepool pool to use for dynamic provisioning volumes using SPBM profile.
+   * ```server``` is the virtual center server on which the dummy/shadow VM for storage profile based volumes should be created.
+   * ```datacenter``` is the name of datacenter on which the dummy/shadow VM should be created.
+   * ```folder``` is the virtual center VM folder path under which the dummy VMs should be placed.
+   * ```resourcepool-path``` is the path to resource pool where dummy VMs for Storage Profile Based volume provisioning should be created.
 
 If exposing vsphere username and password in plain text, is the security concern, username and password can be put in the [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
 This feature is available as of Kubernetes release 1.11.
@@ -240,7 +238,7 @@ Below is the summary of supported parameters in the `vsphere.conf` file
     --cloud-config=<Path of the vsphere.conf file>
     ```
 
-* Add following flags to kubelet running on each worker node.
+* Add following flags to kubelet running on each worker node. On the worker node, we do not require vsphere.conf file hence `--cloud-config=` flag should not be set for Kubelet for worker nodes.
 
     ```
     --cloud-provider=vsphere
@@ -248,16 +246,18 @@ Below is the summary of supported parameters in the `vsphere.conf` file
 
 ### For Kubernetes version 1.8.x or below
 
-* Add following flags to the kubelet configuration, controller-manager manifest file and API server manifest file on the master node.
+* Add following flags to kubelet running on all nodes and controller-manager's and API server's manifest file on the master node.
 
     ```
     --cloud-provider=vsphere
     --cloud-config=<Path of the vsphere.conf file>
     ```
 
-## 4. Restart Kubelet on all nodes
+## 4. Restart Controller-Manager, API Server and Kubelet on all nodes.
 
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
+
+If Controller-Manager and API Server is running in the containers, kill and restart Controller-Manager and API Server containers after restarting kubelet on the node.
 
 **Note: For Kubernetes version 1.8.x or below, after enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory**
