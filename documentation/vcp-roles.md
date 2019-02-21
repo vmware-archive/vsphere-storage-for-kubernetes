@@ -16,7 +16,7 @@ In general, vSphere user designated for vSphere Cloud Provider should have
 | ------------- |-------------  |-----------| ----------------------|
 | manage-k8s-node-vms | VirtualMachine.Config.AddExistingDisk, VirtualMachine.Config.AddNewDisk, VirtualMachine.Config.AddRemoveDevice, VirtualMachine.Config.RemoveDisk | VM Folder | Yes |
 | manage-k8s-volumes | Datastore.FileManagement (Low level file operations) | Datastore | No |
-| Read-only (pre-existing default role) | System.Anonymous, System.Read, System.View | vCenter, Datacenter, Datastore Cluster, Datastore Storage Folder | No |
+| Read-only (pre-existing default role) | System.Anonymous, System.Read, System.View | vCenter, Datacenter, Datastore Cluster, Datastore Storage Folder, Cluster, Hosts | No |
 
 ## Minimal set of vSphere roles/privileges required for dynamic persistent volume provisioning with storage policy based volume placement.
 
@@ -37,4 +37,4 @@ https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/existing.h
 | ------------- |-------------  |-----------| ----------------------|
 | manage-k8s-node-vms | VirtualMachine.Config.AddExistingDisk, VirtualMachine.Config.AddNewDisk,  VirtualMachine.Config.AddRemoveDevice, VirtualMachine.Config.RemoveDisk | VM Folder | Yes |
 | manage-k8s-volumes | Datastore.AllocateSpace, Datastore.FileManagement (Low level file operations) | Datastore | No |
-| Read-only (pre-existing default role) | System.Anonymous, System.Read, System.View | vCenter, Datacenter, Datastore Cluster, Datastore Storage Folder | No |
+| Read-only (pre-existing default role) | System.Anonymous, System.Read, System.View | vCenter, Datacenter, Datastore Cluster, Datastore Storage Folder, Cluster, Hosts | No |
