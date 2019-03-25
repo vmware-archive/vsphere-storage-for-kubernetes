@@ -1,5 +1,5 @@
 ---
-title: Upgrading Kubernetes clusters deployed via kubeadm from v1.7/v1.8 to v1.9 with vSphere Cloud Provider
+title: Upgrading clusters deployed with kubeadm
 ---
 
 ## Before you begin
@@ -14,9 +14,10 @@ Before proceeding:
 * kubeadm upgrade allows you to upgrade etcd. kubeadm upgrade will also upgrade etcd to 3.1.10 as part of upgrading from v1.8 to v1.9 by default. This is due to the fact that etcd 3.1.10 is the officially validated etcd version for Kubernetes v1.9. The upgrade is handled automatically by kubeadm.
 * Note that kubeadm upgrade will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what’s important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
 
-## Upgrade Kubernetes cluster deployed on a single vCenter using Kubeadm
+## Upgrade Kubernetes cluster
 
-### Upgrading your control plane
+### Upgrade the control plane
+
 * Install the most recent version of kubeadm as mentioned in this [link](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
 
 * On the master node, run the following
@@ -33,21 +34,23 @@ Before proceeding:
 
 * Now that your control plane is upgraded, you need to upgrade your kubelets as well.
 
-### Upgrading your master and node packages
+### Upgrading master and node packages
+
 * For each host (referred to as $HOST below) in your cluster, upgrade kubelet by executing the following commands:
 
         kubectl drain $HOST --ignore-daemonsets
 
 * Upgrade the Kubernetes package versions on the $HOST node by using a Linux distribution-specific package manager. You can refer this [link](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/) for distro specific instructions.
 
-### Update the kubelet configuration on worker nodes
+### Update kubelet configuration on workers
+
 * Remove the **--cloud-config** paramater from kubelet configuration file.
 * Remove the vsphere.conf (vSphere configuration file) from /etc/kubernetes
 * Restart the kubelet
 
         systemctl status kubelet
 
-## Set up vSphere cloud provider to work for a Kubernetes cluster deployed across multi vCenter environments during upgrade
+## Update vSphere Cloud Provider
 
 The upgrade instructions from Kubernetes 1.7/1.8 to 1.9 using kubeadm as described above works fine for a Kubernetes cluster deployed on a single vCenter.
 

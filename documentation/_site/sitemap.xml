@@ -48,6 +48,12 @@
   
   
   <url>
+    <loc>http://0.0.0.0:4000/k8s-secret.html</loc>
+  </url>
+  
+  
+  
+  <url>
     <loc>http://0.0.0.0:4000/known-issues.html</loc>
   </url>
   
@@ -143,6 +149,12 @@
   
   <url>
     <loc>http://0.0.0.0:4000/vcp-roles.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>http://0.0.0.0:4000/versions.html</loc>
   </url>
   
   

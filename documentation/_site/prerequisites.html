@@ -161,12 +161,12 @@
 
 
 <ul id="mysidebar" class="nav">
-    <li class="sidebarTitle">Menu </li>
+    <li class="sidebarTitle">Navigation </li>
     
     
     
     <li>
-        <a href="#">Get Started</a>
+        <a href="#">vSphere Cloud Provider</a>
         <ul>
             
             
@@ -176,14 +176,6 @@
             
             
             
-        </ul>
-        
-        
-    
-    <li>
-        <a href="#">vSphere Cloud Provider</a>
-        <ul>
-            
             
             
             <li><a href="overview.html">Overview</a></li>
@@ -191,30 +183,18 @@
             
             
             <li class="subfolders">
-                <a href="#">Kubernetes Storage Support</a>
+                <a href="#">Provisioning Methods</a>
                 <ul>
                     
                     
                     
-                    <li><a href="kubernetes-volumes.html">Volumes</a></li>
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
                     
                     
                     
                     
                     
-                    <li><a href="persistent-vols-claims.html">Persistent Volumes & Persistent Volumes Claims</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="storageclass.html">Dynamic Provisioning & Storage Class</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="statefulsets.html">StatefulSets</a></li>
+                    <li><a href="persistent-vols-claims.html">Statis Provisioning</a></li>
                     
                     
                     
@@ -226,14 +206,7 @@
             
             
             
-            <li><a href="policy-based-mgmt.html">Storage Policy Based Management for Dynamic Provisioning</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            <li><a href="versions.html">Versions</a></li>
             
             
             
@@ -255,49 +228,14 @@
             
             
             
-            <li><a href="existing.html">Configurations on existing Kubernetes Cluster</a></li>
+            <li><a href="existing.html">Configuration</a></li>
             
             
             
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="bestpractices.html">Best Practices</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="kubernetes-upgrade.html">Kubernetes upgrade with VCP</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="maximum-scale-limit.html">Maximum supported scale limit</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="vcp-roles.html">Permissions</a></li>
             
             
             
@@ -307,26 +245,12 @@
         
     
     <li>
-        <a href="#">Applications & Examples</a>
+        <a href="#">Upgrades</a>
         <ul>
             
             
             
-            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="mongodb.html">Running MongoDB on vSphere</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="minio.html">Deploying S3 Stateful containers - Minio</a></li>
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -336,7 +260,7 @@
         
     
     <li>
-        <a href="#">Miscellaneous</a>
+        <a href="#">Troubleshooting</a>
         <ul>
             
             
@@ -349,6 +273,76 @@
             
             
             <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
             
             
             
@@ -382,6 +376,14 @@
    
 
     
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//prerequisites.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
     
 <!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
 <script>
@@ -406,74 +408,74 @@ $('#toc').on('click', 'a', function() {
 
     
 
+  <p>Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider. Refer to <a href="/versions.html">the versions list</a> for features supported in each version.</p>
 
-    
-
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//prerequisites.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
-
-    
-
-  <p>Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider:</p>
+<h2 id="kubernetes">Kubernetes</h2>
 
 <ul>
-  <li>Kubernetes version - v1.6.5 and above</li>
+  <li>Kubernetes version - v1.6.5+</li>
 </ul>
 
-<p>Following table summarizes key features introduced in vSphere Cloud Provider in each Kubernetes release</p>
-
-<table>
-<thead>
-<tr>
-  <th>Kubernetes Release</th>
-  <th>vSphere Cloud Provider feature</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>v1.11.0</td>
-  <td>Added a mechanism in vSphere Cloud Provider to get credentials from Kubernetes secrets, rather than the plain text vsphere.conf file<br />SAML token authentication support</td>
-</tr>
-<tr>
-  <td>v1.9.0 </td>
-  <td>Multi vCenter Support</td>
-</tr>
-<tr>
-  <td>v1.8.2</td>
-  <td>Performance improvement for large scale deployment</td>
-</tr>
-<tr>
-  <td>v1.8.0</td>
-  <td>vSphere Cloud Provider refactoring for better debuggability, logging and code maintenance</td>
-</tr>
-<tr>
-  <td>v1.7.0</td>
-  <td>Integration with vSphere Storage Policy Based Management (SPBM) for dynamic volume provisioning.<br />Enhanced vSphere Cloud Provider debuggabilty via integration with metrices exposed for Kubernetes storage APIs.</td>
-</tr>
-<tr>
-  <td>v1.6.5</td>
-  <td>Integration with vSphere HA</td>
-</tr>
-<tr>
-  <td>v1.6.3</td>
-  <td>Dynamic volume provisioning using vSAN storage capabilities</td>
-</tr>
-</tbody>
-</table>
+<h2 id="vsphere">vSphere</h2>
 
 <ul>
-  <li>
-    <p>vSphere version - 6.0.x (Virtual Hardware 11) and above. (<strong>Note:</strong> Standalone ESX is not supported.)</p>
-  </li>
-  <li>Container Host operating systems -
+  <li>vSphere version - 6.0.x (Virtual Hardware 11) and above. (<strong>Note:</strong> Standalone ESX is not supported.)</li>
+  <li>vSAN, VMFS and NFS supported.
     <ul>
-      <li>Photon - v1.0 GA</li>
-      <li>Ubuntu - v16.04</li>
-      <li>CoreOs - v4.11.2</li>
+      <li>vSAN support is limited to one cluster in one vCenter.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="permissions">Permissions</h3>
+
+<ul>
+  <li>vCenter user with required <a href="/vcp-roles.html">set of privileges</a>.</li>
+</ul>
+
+<h2 id="vms">VMs</h2>
+
+<ul>
+  <li>All node VMs must be placed in a vSphere VM folder.
+    <ul>
+      <li>Create a VM folder following the instructions mentioned in this <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html">link</a> and move Kubernetes Node VMs to this folder.</li>
+    </ul>
+  </li>
+  <li>The <code class="highlighter-rouge">disk.EnableUUID</code> parameter must be set to <code class="highlighter-rouge">TRUE</code> for each Node VM.
+    <ul>
+      <li>This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. For each of the virtual machine nodes that will be participating in the Kubernetes cluster, follow the steps below using <a href="#tooling">govc.</a></li>
+      <li>
+        <p>Set disk.EnableUUID to true for all VMs:</p>
+
+        <div class="language-sh highlighter-rouge"><pre class="highlight"><code>govc vm.change -e<span class="o">=</span><span class="s2">"disk.enableUUID=1"</span> -vm<span class="o">=</span><span class="s1">'vm name here'</span>
+</code></pre>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><em>Note: If Kubernetes node VMs are created from a template VM then <code class="highlighter-rouge">disk.EnableUUID=1</code> can be set on the template VM - VMs cloned from this template, will automatically inherit this property.</em></p>
+
+<h3 id="operating-system">Operating System</h3>
+
+<ul>
+  <li>Kubernetes host operating systems:
+    <ul>
+      <li>Photon OS - v1.0 GA</li>
+      <li>Ubuntu - 16.04, 18.04</li>
+      <li>CoreOS - v4.11.2</li>
       <li>Centos  - v7.3</li>
       <li>RHEL OS -  v7.4</li>
       <li>SLES - v12 SP3</li>
     </ul>
   </li>
+  <li>VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html">link</a> for instructions on installing VMware tools.</li>
+</ul>
+
+<h2 id="tooling">Tooling</h2>
+
+<ul>
   <li><a href="https://github.com/vmware/govmomi/releases">govc</a> v0.18 and above</li>
 </ul>
 
@@ -487,31 +489,6 @@ configuration:</p>
 </code></pre>
 </div>
 
-<ul>
-  <li>vSphere setup to deploy the Kubernetes cluster.
-    <ul>
-      <li>For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.</li>
-      <li>For Kubernetes version 1.8.x and below: vSphere Cloud Provider supports Kubernetes cluster deployed only in one vCenter.</li>
-    </ul>
-  </li>
-  <li>vSphere supported storage.
-    <ul>
-      <li>It can be HCI offering such as VMware vSAN or block and file storage offerings like VMFS and NFS.</li>
-      <li>With Kubernetes version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.</li>
-    </ul>
-  </li>
-  <li>vCenter user with required set of privileges.</li>
-  <li>VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html">link</a> for instruction on installing VMware tools.</li>
-  <li>Node VM name requirements needed only until Kuberneters version 1.8.x.
-    <ul>
-      <li>VM names can not begin with numbers.</li>
-      <li>VM names can not have capital letters, any special characters except <code class="highlighter-rouge">.</code> and <code class="highlighter-rouge">-</code>.</li>
-      <li>VM names can not be shorter than 3 chars and longer than 63</li>
-    </ul>
-  </li>
-  <li>The disk.EnableUUID parameter must be set to “TRUE” for each Node VM. Please refer this <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#enable-disk-uuid-on-node-virtual-machines">section.</a></li>
-</ul>
-
   
 
     <div class="tags">
@@ -522,16 +499,15 @@ configuration:</p>
 
 </div>
 
-<hr class="shaded"/>
-
 <footer>
-            <div class="row">
-                <div class="col-lg-12 footer">
-               &copy;2019 VMWare. All rights reserved. <br />
- Site last generated: Mar 25, 2019 <br />
-<p><img src="images/company_logo.png" alt="Company logo"/></p>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 25, 2019</div>
+        </div>
+    </div>
 </footer>
 
 

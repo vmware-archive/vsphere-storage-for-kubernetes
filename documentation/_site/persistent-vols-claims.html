@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Persistent Volumes & Persistent Volumes Claims | vSphere Storage for Kubernetes</title>
+<title>Static Provisioning | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="Persistent Volumes & Persistent Volumes Claims">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="Static Provisioning">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -161,12 +161,12 @@
 
 
 <ul id="mysidebar" class="nav">
-    <li class="sidebarTitle">Menu </li>
+    <li class="sidebarTitle">Navigation </li>
     
     
     
     <li>
-        <a href="#">Get Started</a>
+        <a href="#">vSphere Cloud Provider</a>
         <ul>
             
             
@@ -176,14 +176,6 @@
             
             
             
-        </ul>
-        
-        
-    
-    <li>
-        <a href="#">vSphere Cloud Provider</a>
-        <ul>
-            
             
             
             <li><a href="overview.html">Overview</a></li>
@@ -191,30 +183,18 @@
             
             
             <li class="subfolders">
-                <a href="#">Kubernetes Storage Support</a>
+                <a href="#">Provisioning Methods</a>
                 <ul>
                     
                     
                     
-                    <li><a href="kubernetes-volumes.html">Volumes</a></li>
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
                     
                     
                     
                     
                     
-                    <li class="active"><a href="persistent-vols-claims.html">Persistent Volumes & Persistent Volumes Claims</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="storageclass.html">Dynamic Provisioning & Storage Class</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="statefulsets.html">StatefulSets</a></li>
+                    <li class="active"><a href="persistent-vols-claims.html">Statis Provisioning</a></li>
                     
                     
                     
@@ -226,14 +206,7 @@
             
             
             
-            <li><a href="policy-based-mgmt.html">Storage Policy Based Management for Dynamic Provisioning</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            <li><a href="versions.html">Versions</a></li>
             
             
             
@@ -255,49 +228,14 @@
             
             
             
-            <li><a href="existing.html">Configurations on existing Kubernetes Cluster</a></li>
+            <li><a href="existing.html">Configuration</a></li>
             
             
             
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="bestpractices.html">Best Practices</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="kubernetes-upgrade.html">Kubernetes upgrade with VCP</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="maximum-scale-limit.html">Maximum supported scale limit</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="vcp-roles.html">Permissions</a></li>
             
             
             
@@ -307,26 +245,12 @@
         
     
     <li>
-        <a href="#">Applications & Examples</a>
+        <a href="#">Upgrades</a>
         <ul>
             
             
             
-            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="mongodb.html">Running MongoDB on vSphere</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="minio.html">Deploying S3 Stateful containers - Minio</a></li>
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -336,7 +260,7 @@
         
     
     <li>
-        <a href="#">Miscellaneous</a>
+        <a href="#">Troubleshooting</a>
         <ul>
             
             
@@ -349,6 +273,76 @@
             
             
             <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
             
             
             
@@ -372,7 +366,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">Persistent Volumes & Persistent Volumes Claims</h1>
+   <h1 class="post-title-main">Static Provisioning</h1>
 </div>
 
 
@@ -380,6 +374,14 @@
 <div class="post-content">
 
    
+
+    
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//persistent-vols-claims.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
 
     
     
@@ -406,76 +408,82 @@ $('#toc').on('click', 'a', function() {
 
     
 
+  <h2 id="introduction">Introduction</h2>
 
-    
+<p>In the case of Kubernetes <code class="highlighter-rouge">Volumes</code>, once the <code class="highlighter-rouge">Pod</code> is deleted the specification of the volume in the <code class="highlighter-rouge">Pod</code> is also lost. Even though <code class="highlighter-rouge">VMDK</code> file persists, but from Kubernetes perspective the volume is deleted.</p>
 
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//persistent-vols-claims.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+<p>The <code class="highlighter-rouge">PersistentVolumes</code> API solves this problem where <code class="highlighter-rouge">PVs</code> have a lifecycle independent of the <code class="highlighter-rouge">Pods</code> and are not dependant on a <code class="highlighter-rouge">Pod</code> to persist. <code class="highlighter-rouge">PVs</code> are units of storage provisioned in advance, they are Kubernetes objects backed by vSphere storage. <code class="highlighter-rouge">PVs</code> are created and deleted using <code class="highlighter-rouge">kubectl</code> commands.</p>
 
-    
+<p>In order to use these <code class="highlighter-rouge">PVs</code> the user needs to create <code class="highlighter-rouge">PersistentVolumeClaims</code> which is simply a request for some storage. A <code class="highlighter-rouge">PVC</code> must specify the <code class="highlighter-rouge">access mode</code> and <code class="highlighter-rouge">storage capacity</code>, once a <code class="highlighter-rouge">PVC</code> is created a <code class="highlighter-rouge">PV</code> is automatically bound to this claim. Kubernetes will bind a <code class="highlighter-rouge">PV</code> to <code class="highlighter-rouge">PVC</code> based on the <code class="highlighter-rouge">access mode</code> and <code class="highlighter-rouge">storage capacity</code>. The <code class="highlighter-rouge">PVC</code> can also mention <code class="highlighter-rouge">volume name</code>, <code class="highlighter-rouge">selectors</code> and <code class="highlighter-rouge">volume class</code> for a better match.</p>
 
-  <p>In case of Kubernetes Volumes, once the Pod is deleted the specification of the volume in the Pod is also lost. Even though VMDK file persists but from Kubernetes’s perspective the volume is deleted.</p>
+<p>This design of <code class="highlighter-rouge">PV</code> to <code class="highlighter-rouge">PVC</code> mappings not only abstracts storage provisioning and consumption but also ensures security through access control.</p>
 
-<p>Persistent Volumes API resource solves this problem where PVs have lifecycle independent of the Pods and not created when Pod is spawned. PVs are units of storage provisioned in advance, they are Kubernetes objects backed by vSphere storage. PVs are created, deleted using kubectl commands.</p>
+<h2 id="manually-provisioning-volumes">Manually provisioning volumes</h2>
 
-<p>In order to use these PVs user needs to create PersistentVolumeClaims which is nothing but a request for PVs. A claim must specify the access mode and storage capacity, once a claim is created PV is automatically bound to this claim. Kubernetes will bind a PV to PVC based on access mode and storage capacity but claim can also mention volume name, selectors and volume class for a better match.
-This design of PV-PVCs not only abstract storage provisioning and consumption but also ensures security through access control.</p>
+<p>Here is an example of how to use <code class="highlighter-rouge">PVs</code> and <code class="highlighter-rouge">PVCs</code> to add persistent storage to your <code class="highlighter-rouge">Pods</code>.</p>
 
-<p><strong>Note:</strong></p>
+<h3 id="create-vsphere-vmdk">Create vSphere VMDK</h3>
 
-<p>All the example yamls can be found <a href="https://github.com/Kubernetes/kubernetes/tree/master/examples/volumes/vsphere">here</a> unless otherwise specified. Please download these examples.</p>
+<h4 id="via-govc-preferred">Via govc (preferred)</h4>
 
-<p>Here is an example of how to use PV and PVC to add persistent storage to your Pods.</p>
+<p>Requests a 2GB <code class="highlighter-rouge">VMDK</code> be created on the <code class="highlighter-rouge">datastore1</code> datastore in a folder called <code class="highlighter-rouge">volumes</code> with a name of <code class="highlighter-rouge">myDisk.vmdk</code>:</p>
 
-<p><strong>Create VMDK</strong></p>
-
-<p>First ssh into ESX and then use following command to create vmdk,</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>vmkfstools -c 2G /vmfs/volumes/datastore1/volumes/myDisk.vmdk
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>govc datastore.disk.create -ds datastore1 -size 2G volumes/myDisk.vmdk
 </code></pre>
 </div>
 
-<p>Or use govc:</p>
+<h4 id="via-esxi-cli">Via ESXi CLI</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>govc datastore.disk.create -ds datastore1 -size 2G volumes/myDisk.vmdk
+<p>SSH into an ESXi host as <code class="highlighter-rouge">root</code> and use following command to create a 2GB <code class="highlighter-rouge">VMDK</code> (this assumes your vSphere datastore is called <code class="highlighter-rouge">datastore1</code> and you want to create the <code class="highlighter-rouge">VMDK</code> in the folder <code class="highlighter-rouge">volumes</code>):</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>vmkfstools -c 2G /vmfs/volumes/datastore1/volumes/myDisk.vmdk
 </code></pre>
 </div>
 
-<p><strong>Create Persistent Volume</strong></p>
+<h2 id="create-a-persistentvolume">Create a PersistentVolume</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-pv.yaml
+<h3 id="define-the-persistentvolume">Define the PersistentVolume</h3>
 
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv0001
-spec:
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  vsphereVolume:
-    volumePath: "[datastore1] volumes/myDisk"
-    fsType: ext4
+<p>As you can see below, we call the <code class="highlighter-rouge">PV</code> “<code class="highlighter-rouge">pv0001</code>” and pass in the <code class="highlighter-rouge">VMDK</code> path to the <code class="highlighter-rouge">volumePath</code> parameter.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-pv.yaml</span>
+
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">PersistentVolume</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">pv0001</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">capacity</span><span class="pi">:</span>
+    <span class="s">storage</span><span class="pi">:</span> <span class="s">2Gi</span>
+  <span class="s">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="s">persistentVolumeReclaimPolicy</span><span class="pi">:</span> <span class="s">Retain</span>
+  <span class="s">vsphereVolume</span><span class="pi">:</span>
+    <span class="s">volumePath</span><span class="pi">:</span> <span class="s2">"</span><span class="s">[datastore1]</span><span class="nv"> </span><span class="s">volumes/myDisk"</span>
+    <span class="s">fsType</span><span class="pi">:</span> <span class="s">ext4</span>
 </code></pre>
 </div>
 
-<p>In the above example, datastore1 is located in the root folder. If datastore is the member of Datastore Cluster or located in sub folder, then folder path needs to be provided in the VolumePath as mentioned below.</p>
+<p>In the above example, <code class="highlighter-rouge">datastore1</code> is located in the root folder of vCenter. If the datastore is the member of a <code class="highlighter-rouge">Datastore Cluster</code> or located in subfolder, then the folder path needs to be provided in the <code class="highlighter-rouge">volumePath</code> as shown below.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>vsphereVolume:
-    VolumePath:	"[DatastoreCluster/datastore1] volumes/myDisk"
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">vsphereVolume</span><span class="pi">:</span>
+  <span class="s">volumePath</span><span class="pi">:</span> <span class="s2">"</span><span class="s">[DatastoreCluster/datastore1]</span><span class="nv"> </span><span class="s">volumes/myDisk"</span>
 </code></pre>
 </div>
 
-<p><strong>Create the persistent volume</strong></p>
+<h3 id="import-the-persistentvolume">Import the PersistentVolume</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f vsphere-volume-pv.yaml
+<p>Import the <code class="highlighter-rouge">PersistentVolume</code> definition we created above into our Kubernetes cluster using <code class="highlighter-rouge">kubectl</code>:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-pv.yaml
 </code></pre>
 </div>
 
-<p><strong>Verify persistent volume is created</strong></p>
+<h3 id="verify-the-persistentvolume">Verify the PersistentVolume</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe pv pv0001
+<p>Verify the <code class="highlighter-rouge">PV</code> we imported above was created correctly:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pv pv0001
 Name:		pv0001
 Labels:		&lt;none&gt;
 Status:		Available
@@ -485,39 +493,47 @@ Access Modes:	RWO
 Capacity:	2Gi
 Message:
 Source:
-    Type:	vSphereVolume (a Persistent Disk resource in vSphere)
-    VolumePath:	[datastore1] volumes/myDisk
+    Type:	vSphereVolume <span class="o">(</span>a Persistent Disk resource <span class="k">in </span>vSphere<span class="o">)</span>
+    VolumePath:	<span class="o">[</span>datastore1] volumes/myDisk
     FSType:	ext4
 No events.
 </code></pre>
 </div>
 
-<p><strong>Create Persistent Volume Claim</strong></p>
+<h2 id="create-a-persistentvolumeclaim">Create a PersistentVolumeClaim</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#vsphere-volume-pvc.yaml
+<h3 id="define-the-persistentvolumeclaim">Define the PersistentVolumeClaim</h3>
 
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: pvc0001
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
+<p>Create a <code class="highlighter-rouge">PVC</code> to consume the <code class="highlighter-rouge">PV</code> created above - in this example the <code class="highlighter-rouge">PVC</code> simply requests 2GB of storage:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-pvc.yaml</span>
+
+<span class="s">kind</span><span class="pi">:</span> <span class="s">PersistentVolumeClaim</span>
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">pvc0001</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="s">resources</span><span class="pi">:</span>
+    <span class="s">requests</span><span class="pi">:</span>
+      <span class="s">storage</span><span class="pi">:</span> <span class="s">2Gi</span>
 </code></pre>
 </div>
 
-<p><strong>Create the persistent volume claim</strong></p>
+<h3 id="import-the-persistentvolumeclaim">Import the PersistentVolumeClaim</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f vsphere-volume-pvc.yaml
+<p>Import the <code class="highlighter-rouge">PVC</code> definition from above into our Kubernetes cluster:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-pvc.yaml
 </code></pre>
 </div>
 
-<p><strong>Verify persistent volume claim is created</strong></p>
+<h3 id="verify-the-persistentvolumeclaim">Verify the PersistentVolumeClaim</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe pvc pvc0001
+<p>Ensure the <code class="highlighter-rouge">PVC</code> we created has been assigned a <code class="highlighter-rouge">PV</code> - the <code class="highlighter-rouge">Status</code> should show <code class="highlighter-rouge">Bound</code> and the <code class="highlighter-rouge">Volume</code> field should show the <code class="highlighter-rouge">PV</code> name from above, in this case <code class="highlighter-rouge">pv0001</code>.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pvc pvc0001
 Name:		pvc0001
 Namespace:	default
 Status:		Bound
@@ -529,41 +545,51 @@ No events.
 </code></pre>
 </div>
 
-<p><strong>Create Pod which uses Persistent Volume Claim</strong></p>
+<h2 id="create-a-pod-using-the-pvc">Create a Pod using the PVC</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#vpshere-volume-pvcpod.yaml
+<h3 id="define-the-pod">Define the Pod</h3>
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pvpod
-spec:
-  containers:
-  - name: test-container
-    image: gcr.io/google_containers/test-webserver
-    volumeMounts:
-    - name: test-volume
-      mountPath: /test-vmdk
-  volumes:
-  - name: test-volume
-    persistentVolumeClaim:
-      claimName: pvc0001
+<p>Create a simple <code class="highlighter-rouge">Pod</code> the consumes the <code class="highlighter-rouge">PVC</code> created above by name <code class="highlighter-rouge">pvc0001</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-pvcpod.yaml</span>
+
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">Pod</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">pvpod</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">test-container</span>
+    <span class="s">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/test-webserver</span>
+    <span class="s">volumeMounts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">test-volume</span>
+      <span class="s">mountPath</span><span class="pi">:</span> <span class="s">/test-vmdk</span>
+  <span class="s">volumes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">test-volume</span>
+    <span class="s">persistentVolumeClaim</span><span class="pi">:</span>
+      <span class="s">claimName</span><span class="pi">:</span> <span class="s">pvc0001</span>
 </code></pre>
 </div>
 
-<p><strong>Create the pod</strong></p>
+<h3 id="import-the-pod">Import the Pod</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f vsphere-volume-pvcpod.yaml
+<p>Import the <code class="highlighter-rouge">Pod</code> definition from above into our Kubernetes cluster:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-pvcpod.yaml
 </code></pre>
 </div>
 
-<p><strong>Verify pod is created</strong></p>
+<h3 id="verify-the-pod">Verify the Pod</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl get pod pvpod
+<p>Make sure the <code class="highlighter-rouge">PV</code> was bound to the pod correctly by ensuring the <code class="highlighter-rouge">STATUS</code> is set to <code class="highlighter-rouge">Running</code>:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl get pod pvpod
 NAME      READY     STATUS    RESTARTS   AGE
 pvpod       1/1     Running   0          48m
 </code></pre>
 </div>
+
+<p>You have successfully manually provisioned a Kubernetes volume on vSphere.</p>
 
   
 
@@ -575,16 +601,15 @@ pvpod       1/1     Running   0          48m
 
 </div>
 
-<hr class="shaded"/>
-
 <footer>
-            <div class="row">
-                <div class="col-lg-12 footer">
-               &copy;2019 VMWare. All rights reserved. <br />
- Site last generated: Mar 25, 2019 <br />
-<p><img src="images/company_logo.png" alt="Company logo"/></p>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 25, 2019</div>
+        </div>
+    </div>
 </footer>
 
 

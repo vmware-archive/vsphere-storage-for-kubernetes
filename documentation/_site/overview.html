@@ -161,12 +161,12 @@
 
 
 <ul id="mysidebar" class="nav">
-    <li class="sidebarTitle">Menu </li>
+    <li class="sidebarTitle">Navigation </li>
     
     
     
     <li>
-        <a href="#">Get Started</a>
+        <a href="#">vSphere Cloud Provider</a>
         <ul>
             
             
@@ -176,14 +176,6 @@
             
             
             
-        </ul>
-        
-        
-    
-    <li>
-        <a href="#">vSphere Cloud Provider</a>
-        <ul>
-            
             
             
             <li class="active"><a href="overview.html">Overview</a></li>
@@ -191,30 +183,18 @@
             
             
             <li class="subfolders">
-                <a href="#">Kubernetes Storage Support</a>
+                <a href="#">Provisioning Methods</a>
                 <ul>
                     
                     
                     
-                    <li><a href="kubernetes-volumes.html">Volumes</a></li>
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
                     
                     
                     
                     
                     
-                    <li><a href="persistent-vols-claims.html">Persistent Volumes & Persistent Volumes Claims</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="storageclass.html">Dynamic Provisioning & Storage Class</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="statefulsets.html">StatefulSets</a></li>
+                    <li><a href="persistent-vols-claims.html">Statis Provisioning</a></li>
                     
                     
                     
@@ -226,14 +206,7 @@
             
             
             
-            <li><a href="policy-based-mgmt.html">Storage Policy Based Management for Dynamic Provisioning</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            <li><a href="versions.html">Versions</a></li>
             
             
             
@@ -255,49 +228,14 @@
             
             
             
-            <li><a href="existing.html">Configurations on existing Kubernetes Cluster</a></li>
+            <li><a href="existing.html">Configuration</a></li>
             
             
             
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="bestpractices.html">Best Practices</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="kubernetes-upgrade.html">Kubernetes upgrade with VCP</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="maximum-scale-limit.html">Maximum supported scale limit</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="vcp-roles.html">Permissions</a></li>
             
             
             
@@ -307,26 +245,12 @@
         
     
     <li>
-        <a href="#">Applications & Examples</a>
+        <a href="#">Upgrades</a>
         <ul>
             
             
             
-            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="mongodb.html">Running MongoDB on vSphere</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="minio.html">Deploying S3 Stateful containers - Minio</a></li>
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -336,7 +260,7 @@
         
     
     <li>
-        <a href="#">Miscellaneous</a>
+        <a href="#">Troubleshooting</a>
         <ul>
             
             
@@ -349,6 +273,76 @@
             
             
             <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
             
             
             
@@ -382,6 +376,14 @@
    
 
     
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//overview.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
     
 <!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
 <script>
@@ -406,21 +408,15 @@ $('#toc').on('click', 'a', function() {
 
     
 
-
-    
-
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//overview.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
-
-    
-
   <h2 id="overview">Overview</h2>
+
 <p>Containers are stateless and ephemeral but applications are stateful and need persistent storage. vSphere adds this persistent storage support to Kubernetes through interface called Cloud Provider.</p>
 
 <p><img src="images/vSphere.png" alt="Image" /></p>
 
-<p>Kubernetes cloud provider is an interface to integrate various nodes (i.e. hosts), load balancers and networking routes. This interface allows extending Kubernetes to use various cloud and virtualization solutions as base infrastructure to run on.</p>
+<p>Kubernetes cloud providers are an interface to integrate various node (i.e. hosts), load balancers and networking routes. This interface allows extending Kubernetes to use various cloud and virtualization solutions as a base infrastructure to run on.</p>
 
-<p>Cloud provider provides following interfaces to effectively integrate cloud platforms:</p>
+<p>Kubernetes Cloud Providers provide the following interfaces to effectively integrate cloud platforms into Kubernetes:</p>
 
 <ul>
   <li><strong>Instances</strong> - interface for virtual machine management</li>
@@ -429,43 +425,38 @@ $('#toc').on('click', 'a', function() {
   <li><strong>Zones</strong> - integrate with zones if implemented by cloud platform</li>
 </ul>
 
-<h2 id="vsphere-storage-concepts">vSphere Storage Concepts</h2>
-<p>vSphere Storage for Kubernetes offers a Cloud Provider <strong>(vSphere Cloud Provider - VCP)</strong> for Kubernetes which allows Pods to use enterprise grade persistent storage. vSphere has a proven Software Defined Storage(SDS) platform that integrates with block, file and hyperConverged offerings such as VMware VSAN. These storage offerings can be exposed as VMFS, NFS, VVol and VSAN datastores. SDS platform in vSphere has enterprise grade features like Storage Policy Based Management(SPBM) which enables customers to guarantee QoS requested by their business critical applications and enforce SLAs. vSphere provides various data services out of the box such high availability and data reliability for containers using Kubernetes.</p>
+<h2 id="vsphere-storage-concepts">vSphere storage concepts</h2>
 
-<p>Datastores is an abstraction which hides storage details and provide uniform interface for storing persistent data. Datastores enables simplified storage management with features like grouping them in folders. Depending on the backend storage used, the datastores can be of the type vSAN, VMFS, NFS &amp; VVol.</p>
+<p>VMware offers a Cloud Provider known as the <code class="highlighter-rouge">vSphere Cloud Provider</code> (<code class="highlighter-rouge">VCP</code>) for Kubernetes which allows <code class="highlighter-rouge">Pods</code> to use enterprise grade persistent storage.</p>
 
-<ul>
-  <li>
-    <p>vSAN is a hyper-converged infrastructure storage which provides excellent performance as well as reliability. vSAN advantage is simplified storage management with features like policy driven administration.</p>
-  </li>
-  <li>
-    <p>VMFS (Virtual Machine File System) is a cluster file system that allows virtualization to scale beyond a single node for multiple VMware ESX servers. VMFS increases resource utilization by providing shared access to pool of storage.</p>
-  </li>
-  <li>
-    <p>NFS (Network File System) is a distributed file protocol to access storage over network like local storage. vSphere supports NFS as backend to store virtual machines files.</p>
-  </li>
-  <li>
-    <p>VVol(Virtual Volumes) - Virtual Volumes datastore represents a storage container in vCenter Server and vSphere Web Client.</p>
-  </li>
-</ul>
+<p>vSphere has a proven Software Defined Storage (SDS) platform that integrates with block, file and hyper converged offerings such as <a href="https://storagehub.vmware.com/t/vmware-vsan/">VMware vSAN</a>. These storage offerings can be exposed as VMFS, NFS, VVOL or vSAN datastores.</p>
 
-<h2 id="kubernetes-storage-support">Kubernetes Storage support</h2>
-<p>VCP supports every storage primitive exposed by Kubernetes -</p>
+<p>vSphere has enterprise grade features like <a href="https://www.youtube.com/watch?v=e0wkMPDvKPQ"><code class="highlighter-rouge">Storage Policy Based Management</code> (<code class="highlighter-rouge">SPBM</code>)</a> which enables customers to define performance, availability and redundancy levels requested by their business critical applications and ensure compliance with these SLAs. vSphere provides various data services out of the box such high availability and data redundancy for containers using Kubernetes.</p>
+
+<p>A vSphere datastore is an abstraction which hides storage details (such as LUNs) and provides a uniform interface for storing persistent data. Datastores enable simplified storage management and data services for storage presented to vSphere. Depending on the backend storage used, the datastores can be of the type vSAN, VMFS, NFS &amp; VVol.</p>
 
 <ul>
-  <li><a href="https://kubernetes.io/docs/concepts/storage/volumes/">Volumes</a></li>
-  <li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volumes (PV)</a></li>
-  <li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">Persistent Volumes Claims (PVC)</a></li>
-  <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#vsphere">Storage Class</a></li>
-  <li><a href="https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/">Stateful Sets</a></li>
+  <li><strong>vSAN</strong> is a hyper-converged infrastructure storage which provides excellent performance as well as reliability. vSAN is a simple storage system with management features like policy driven administration.</li>
+  <li><strong>VMFS</strong> (Virtual Machine File System) is a cluster file system that allows virtualization to scale beyond a single node for multiple VMware ESX servers. VMFS increases resource utilization by providing shared access to pool of storage.</li>
+  <li><strong>NFS</strong> (Network File System) is a distributed file protocol to access storage over network like local storage. vSphere supports NFS as backend to store virtual machines files.</li>
+  <li><strong>VVOL</strong> (Virtual Volumes) - Virtual Volumes datastore represents a storage container in vCenter Server and vSphere Web Client.</li>
 </ul>
 
-<p>Persistent volumes requested by stateful containerized applications can be provisioned on vSAN, VVol, VMFS or NFS datastores.</p>
+<h2 id="kubernetes-storage-support">Kubernetes storage support</h2>
 
-<p>Kubernetes volumes are defined in Pod specification. They reference VMDK files and these VMDK files are mounted as volumes when the container is running. When the Pod is deleted the Kubernetes volume is unmounted and the data in VMDK files persists.</p>
+<p>The vSphere Cloud Provider supports every storage primitive exposed by Kubernetes:</p>
+
+<ul>
+  <li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">PersistentVolume (PV)</a></li>
+  <li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">PersistentVolumesClaim (PVC)</a></li>
+  <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#vsphere">StorageClass</a></li>
+</ul>
+
+<p>PersistentVolumes requested by stateful containerized applications can be provisioned on vSAN, VVOL, VMFS or NFS datastores.</p>
+
+<p>Kubernetes PVs are defined in <code class="highlighter-rouge">Pod</code> specifications. They can reference VMDK files directly if using Static Provisioning, or <code class="highlighter-rouge">PVCs</code> when using Dynamic Provisioning (preferred).</p>
 
 <p><img src="images/Picture1.png" alt="Image" /></p>
-
 
   
 
@@ -477,16 +468,15 @@ $('#toc').on('click', 'a', function() {
 
 </div>
 
-<hr class="shaded"/>
-
 <footer>
-            <div class="row">
-                <div class="col-lg-12 footer">
-               &copy;2019 VMWare. All rights reserved. <br />
- Site last generated: Mar 25, 2019 <br />
-<p><img src="images/company_logo.png" alt="Company logo"/></p>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 25, 2019</div>
+        </div>
+    </div>
 </footer>
 
 

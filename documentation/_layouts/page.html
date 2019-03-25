@@ -34,16 +34,17 @@ layout: default
     <div class="summary">{{page.summary}}</div>
    {% endif %}
 
+    {% if site.github_editme_path %}
+
+    <a target="_blank"
+        href="https://github.com/{{site.github_editme_path}}{% unless page.url contains "index.html" %}/{% endunless %}{{page.folder}}{{page.url | remove: ".html" | append: ".md"}}"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    {% endif %}
+
     {% unless page.toc == false %}
     {% include toc.html %}
     {% endunless %}
-
-
-    {% if site.github_editme_path %}
-
-    <a target="_blank" href="https://github.com/{{site.github_editme_path}}{% unless page.url contains "index.html" %}/{% endunless %}{{page.folder}}{{page.url | remove: ".html" | append: ".md"}}" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
-
-    {% endif %}
 
   {{content}}
   
@@ -65,7 +66,5 @@ layout: default
     {% endif %}
 
 </div>
-
-{{site.data.alerts.hr_shaded}}
 
 {% include footer.html %}

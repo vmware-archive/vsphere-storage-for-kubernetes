@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Upgrading Kubernetes clusters deployed via kubeadm from v1.7/v1.8 to v1.9 with vSphere Cloud Provider | vSphere Storage for Kubernetes</title>
+<title>Upgrading clusters deployed with kubeadm | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="Upgrading Kubernetes clusters deployed via kubeadm from v1.7/v1.8 to v1.9 with vSphere Cloud Provider">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="Upgrading clusters deployed with kubeadm">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -161,12 +161,12 @@
 
 
 <ul id="mysidebar" class="nav">
-    <li class="sidebarTitle">Menu </li>
+    <li class="sidebarTitle">Navigation </li>
     
     
     
     <li>
-        <a href="#">Get Started</a>
+        <a href="#">vSphere Cloud Provider</a>
         <ul>
             
             
@@ -176,14 +176,6 @@
             
             
             
-        </ul>
-        
-        
-    
-    <li>
-        <a href="#">vSphere Cloud Provider</a>
-        <ul>
-            
             
             
             <li><a href="overview.html">Overview</a></li>
@@ -191,30 +183,18 @@
             
             
             <li class="subfolders">
-                <a href="#">Kubernetes Storage Support</a>
+                <a href="#">Provisioning Methods</a>
                 <ul>
                     
                     
                     
-                    <li><a href="kubernetes-volumes.html">Volumes</a></li>
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
                     
                     
                     
                     
                     
-                    <li><a href="persistent-vols-claims.html">Persistent Volumes & Persistent Volumes Claims</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="storageclass.html">Dynamic Provisioning & Storage Class</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="statefulsets.html">StatefulSets</a></li>
+                    <li><a href="persistent-vols-claims.html">Statis Provisioning</a></li>
                     
                     
                     
@@ -226,14 +206,7 @@
             
             
             
-            <li><a href="policy-based-mgmt.html">Storage Policy Based Management for Dynamic Provisioning</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            <li><a href="versions.html">Versions</a></li>
             
             
             
@@ -255,49 +228,14 @@
             
             
             
-            <li><a href="existing.html">Configurations on existing Kubernetes Cluster</a></li>
+            <li><a href="existing.html">Configuration</a></li>
             
             
             
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="bestpractices.html">Best Practices</a></li>
-            
-            
-            
-            
-            
-            
-            <li class="active"><a href="kubernetes-upgrade.html">Kubernetes upgrade with VCP</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="maximum-scale-limit.html">Maximum supported scale limit</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="vcp-roles.html">Permissions</a></li>
             
             
             
@@ -307,26 +245,12 @@
         
     
     <li>
-        <a href="#">Applications & Examples</a>
+        <a href="#">Upgrades</a>
         <ul>
             
             
             
-            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="mongodb.html">Running MongoDB on vSphere</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="minio.html">Deploying S3 Stateful containers - Minio</a></li>
+            <li class="active"><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -336,7 +260,7 @@
         
     
     <li>
-        <a href="#">Miscellaneous</a>
+        <a href="#">Troubleshooting</a>
         <ul>
             
             
@@ -349,6 +273,76 @@
             
             
             <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
             
             
             
@@ -372,7 +366,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">Upgrading Kubernetes clusters deployed via kubeadm from v1.7/v1.8 to v1.9 with vSphere Cloud Provider</h1>
+   <h1 class="post-title-main">Upgrading clusters deployed with kubeadm</h1>
 </div>
 
 
@@ -380,6 +374,14 @@
 <div class="post-content">
 
    
+
+    
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//kubernetes-upgrade.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
 
     
     
@@ -406,13 +408,6 @@ $('#toc').on('click', 'a', function() {
 
     
 
-
-    
-
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//kubernetes-upgrade.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
-
-    
-
   <h2 id="before-you-begin">Before you begin</h2>
 
 <p>Before proceeding:</p>
@@ -430,9 +425,10 @@ $('#toc').on('click', 'a', function() {
   <li>Note that kubeadm upgrade will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what’s important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.</li>
 </ul>
 
-<h2 id="upgrade-kubernetes-cluster-deployed-on-a-single-vcenter-using-kubeadm">Upgrade Kubernetes cluster deployed on a single vCenter using Kubeadm</h2>
+<h2 id="upgrade-kubernetes-cluster">Upgrade Kubernetes cluster</h2>
 
-<h3 id="upgrading-your-control-plane">Upgrading your control plane</h3>
+<h3 id="upgrade-the-control-plane">Upgrade the control plane</h3>
+
 <ul>
   <li>
     <p>Install the most recent version of kubeadm as mentioned in this <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/">link</a></p>
@@ -460,7 +456,8 @@ $('#toc').on('click', 'a', function() {
   </li>
 </ul>
 
-<h3 id="upgrading-your-master-and-node-packages">Upgrading your master and node packages</h3>
+<h3 id="upgrading-master-and-node-packages">Upgrading master and node packages</h3>
+
 <ul>
   <li>
     <p>For each host (referred to as $HOST below) in your cluster, upgrade kubelet by executing the following commands:</p>
@@ -474,7 +471,8 @@ $('#toc').on('click', 'a', function() {
   </li>
 </ul>
 
-<h3 id="update-the-kubelet-configuration-on-worker-nodes">Update the kubelet configuration on worker nodes</h3>
+<h3 id="update-kubelet-configuration-on-workers">Update kubelet configuration on workers</h3>
+
 <ul>
   <li>Remove the <strong>–cloud-config</strong> paramater from kubelet configuration file.</li>
   <li>Remove the vsphere.conf (vSphere configuration file) from /etc/kubernetes</li>
@@ -487,7 +485,7 @@ $('#toc').on('click', 'a', function() {
   </li>
 </ul>
 
-<h2 id="set-up-vsphere-cloud-provider-to-work-for-a-kubernetes-cluster-deployed-across-multi-vcenter-environments-during-upgrade">Set up vSphere cloud provider to work for a Kubernetes cluster deployed across multi vCenter environments during upgrade</h2>
+<h2 id="update-vsphere-cloud-provider">Update vSphere Cloud Provider</h2>
 
 <p>The upgrade instructions from Kubernetes 1.7/1.8 to 1.9 using kubeadm as described above works fine for a Kubernetes cluster deployed on a single vCenter.</p>
 
@@ -531,16 +529,15 @@ $('#toc').on('click', 'a', function() {
 
 </div>
 
-<hr class="shaded"/>
-
 <footer>
-            <div class="row">
-                <div class="col-lg-12 footer">
-               &copy;2019 VMWare. All rights reserved. <br />
- Site last generated: Mar 25, 2019 <br />
-<p><img src="images/company_logo.png" alt="Company logo"/></p>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 25, 2019</div>
+        </div>
+    </div>
 </footer>
 
 
