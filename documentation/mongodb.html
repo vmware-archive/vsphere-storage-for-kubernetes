@@ -35,7 +35,7 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<link rel="alternate" type="application/rss+xml" title="" href="feed.xml">
+<link rel="alternate" type="application/rss+xml" title="" href="http://0.0.0.0:4000feed.xml">
 
     <script>
         $(document).ready(function() {
@@ -161,12 +161,12 @@
 
 
 <ul id="mysidebar" class="nav">
-    <li class="sidebarTitle">Menu </li>
+    <li class="sidebarTitle">Navigation </li>
     
     
     
     <li>
-        <a href="#">Get Started</a>
+        <a href="#">vSphere Cloud Provider</a>
         <ul>
             
             
@@ -176,14 +176,6 @@
             
             
             
-        </ul>
-        
-        
-    
-    <li>
-        <a href="#">vSphere Cloud Provider</a>
-        <ul>
-            
             
             
             <li><a href="overview.html">Overview</a></li>
@@ -191,30 +183,18 @@
             
             
             <li class="subfolders">
-                <a href="#">Kubernetes Storage Support</a>
+                <a href="#">Provisioning Methods</a>
                 <ul>
                     
                     
                     
-                    <li><a href="kubernetes-volumes.html">Volumes</a></li>
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
                     
                     
                     
                     
                     
-                    <li><a href="persistent-vols-claims.html">Persistent Volumes & Persistent Volumes Claims</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="storageclass.html">Dynamic Provisioning & Storage Class</a></li>
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="statefulsets.html">StatefulSets</a></li>
+                    <li><a href="persistent-vols-claims.html">Static Provisioning</a></li>
                     
                     
                     
@@ -226,14 +206,7 @@
             
             
             
-            <li><a href="policy-based-mgmt.html">Storage Policy Based Management for Dynamic Provisioning</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            <li><a href="versions.html">Versions</a></li>
             
             
             
@@ -255,49 +228,14 @@
             
             
             
-            <li><a href="existing.html">Configurations on existing Kubernetes Cluster</a></li>
+            <li><a href="existing.html">Configuration</a></li>
             
             
             
             
             
             
-            <li><a href="saml-token-authentication.html">SAML token authentication</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="vcp-roles.html">Customize roles and privileges</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="bestpractices.html">Best Practices</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="kubernetes-upgrade.html">Kubernetes upgrade with VCP</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="maximum-scale-limit.html">Maximum supported scale limit</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="vcp-roles.html">Permissions</a></li>
             
             
             
@@ -307,26 +245,12 @@
         
     
     <li>
-        <a href="#">Applications & Examples</a>
+        <a href="#">Upgrades</a>
         <ul>
             
             
             
-            <li><a href="guestbook.html">Running Stateful application - Guestbook app</a></li>
-            
-            
-            
-            
-            
-            
-            <li class="active"><a href="mongodb.html">Running MongoDB on vSphere</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="minio.html">Deploying S3 Stateful containers - Minio</a></li>
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -336,7 +260,7 @@
         
     
     <li>
-        <a href="#">Miscellaneous</a>
+        <a href="#">Troubleshooting</a>
         <ul>
             
             
@@ -349,6 +273,76 @@
             
             
             <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li class="active"><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
             
             
             
@@ -382,6 +376,14 @@
    
 
     
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//mongodb.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
     
 <!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
 <script>
@@ -406,16 +408,9 @@ $('#toc').on('click', 'a', function() {
 
     
 
-
-    
-
-    <a target="_blank" href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//mongodb.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
-
-    
-
   <p>This section describes the steps to create persistent storage for containers to be consumed by MongoDB services on vSAN. After these steps are completed, Cloud Provider will create the virtual disks (volumes in Kubernetes) and mount them to the Kubernetes nodes automatically. The virtual disks are created with the vSAN default policy.</p>
 
-<p><strong>Define StorageClass</strong></p>
+<h2 id="define-storageclass">Define StorageClass</h2>
 
 <p>A StorageClass provides a mechanism for the administrators to describe the “classes” of storage they offer. Different classes map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. The YAML format defines a “platinum” level StorageClass.</p>
 
@@ -431,7 +426,7 @@ parameters:
 
 <p><strong>Note:</strong> Although all volumes are created on the same vSAN datastore, user can adjust the policy according to actual storage capability requirement by modifying the vSAN policy in vCenter Server. User can also specify VSAN storage capabilities in StorageClass definition based on this application needs.</p>
 
-<p><strong>Claim Persistent Volume</strong></p>
+<h2 id="claim-persistent-volume">Claim Persistent Volume</h2>
 
 <p>A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.</p>
 
@@ -451,7 +446,7 @@ spec:
 </code></pre>
 </div>
 
-<p><strong>Specify the Volume to be Mounted for the Consumption by the Containers</strong></p>
+<h2 id="specify-the-volume-to-be-mounted-for-the-consumption-by-the-containers">Specify the Volume to be Mounted for the Consumption by the Containers</h2>
 
 <p>The YAML format specifies a MongoDB 3.4 image to use the volume from Step 2 and mount it to path
 /data/db.</p>
@@ -486,13 +481,13 @@ spec:
 
 <p>Execute following commands to deploy Sharded MongoDB Cluster on Kubernetes with vSphere Cloud Provider.</p>
 
-<p><strong>Create StaogeClass</strong></p>
+<h2 id="create-staogeclass">Create StaogeClass</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/storageclass.yaml
 </code></pre>
 </div>
 
-<p><strong>Create Storage Volumes for Shared MondoDB Cluster</strong></p>
+<h2 id="create-storage-volumes-for-shared-mondodb-cluster">Create Storage Volumes for Shared MondoDB Cluster</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node01.yaml
 kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node02.yaml
@@ -501,7 +496,7 @@ kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-e
 </code></pre>
 </div>
 
-<p><strong>Create Mongo DB pods</strong></p>
+<h2 id="create-mongo-db-pods">Create Mongo DB pods</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-deployment.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node02-deployment.yaml
@@ -510,7 +505,7 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
 </code></pre>
 </div>
 
-<p><strong>Create Services</strong></p>
+<h2 id="create-services">Create Services</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-service.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node02-service.yaml
@@ -529,16 +524,15 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
 
 </div>
 
-<hr class="shaded"/>
-
 <footer>
-            <div class="row">
-                <div class="col-lg-12 footer">
-               &copy;2018 VMWare. All rights reserved. <br />
- Site last generated: Aug 30, 2018 <br />
-<p><img src="images/company_logo.png" alt="Company logo"/></p>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 26, 2019</div>
+        </div>
+    </div>
 </footer>
 
 

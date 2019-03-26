@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Upgrading clusters deployed with kubeadm | vSphere Storage for Kubernetes</title>
+<title>Version Features | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
 
 
@@ -125,7 +125,7 @@
                                 searchInput: document.getElementById('search-input'),
                                 resultsContainer: document.getElementById('results-container'),
                                 dataSource: 'search.json',
-                                searchResultTemplate: '<li><a href="{url}" title="Upgrading clusters deployed with kubeadm">{title}</a></li>',
+                                searchResultTemplate: '<li><a href="{url}" title="Version Features">{title}</a></li>',
                     noResultsText: 'No results found.',
                             limit: 10,
                             fuzzy: true,
@@ -206,7 +206,7 @@
             
             
             
-            <li><a href="versions.html">Versions</a></li>
+            <li class="active"><a href="versions.html">Versions</a></li>
             
             
             
@@ -250,7 +250,7 @@
             
             
             
-            <li class="active"><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
             
             
             
@@ -366,7 +366,7 @@
     <!-- Content Column -->
     <div class="col-md-9">
         <div class="post-header">
-   <h1 class="post-title-main">Upgrading clusters deployed with kubeadm</h1>
+   <h1 class="post-title-main">Version Features</h1>
 </div>
 
 
@@ -378,7 +378,7 @@
     
 
     <a target="_blank"
-        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//kubernetes-upgrade.md"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//versions.md"
         class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
 
     
@@ -408,116 +408,46 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <h2 id="before-you-begin">Before you begin</h2>
+  <p>The following table summarizes key features introduced in vSphere Cloud Provider in each Kubernetes release</p>
 
-<p>Before proceeding:</p>
-
-<ul>
-  <li>You need to have a functional Kubernetes cluster deployed using kubeadm running version 1.7.0 or higher with vSphere Cloud Provider configured in order to use the process described here.</li>
-  <li>
-    <p>Make sure swap is disabled. If the host is running a linux based distribution, run:</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  swapoff -a
-</code></pre>
-    </div>
-  </li>
-  <li>kubeadm upgrade allows you to upgrade etcd. kubeadm upgrade will also upgrade etcd to 3.1.10 as part of upgrading from v1.8 to v1.9 by default. This is due to the fact that etcd 3.1.10 is the officially validated etcd version for Kubernetes v1.9. The upgrade is handled automatically by kubeadm.</li>
-  <li>Note that kubeadm upgrade will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what’s important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.</li>
-</ul>
-
-<h2 id="upgrade-kubernetes-cluster">Upgrade Kubernetes cluster</h2>
-
-<h3 id="upgrade-the-control-plane">Upgrade the control plane</h3>
-
-<ul>
-  <li>
-    <p>Install the most recent version of kubeadm as mentioned in this <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/">link</a></p>
-  </li>
-  <li>
-    <p>On the master node, run the following</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  kubeadm upgrade plan
-</code></pre>
-    </div>
-
-    <p>This checks that your cluster is upgradeable and fetches the versions available to upgrade to in an user-friendly way.</p>
-  </li>
-  <li>
-    <p>Now, pick a version to upgrade to and run.</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  kubeadm upgrade apply v1.9.2
-</code></pre>
-    </div>
-
-    <p>You can refer the <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/">link</a> for detailed instructions.</p>
-  </li>
-  <li>
-    <p>Now that your control plane is upgraded, you need to upgrade your kubelets as well.</p>
-  </li>
-</ul>
-
-<h3 id="upgrading-master-and-node-packages">Upgrading master and node packages</h3>
-
-<ul>
-  <li>
-    <p>For each host (referred to as $HOST below) in your cluster, upgrade kubelet by executing the following commands:</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  kubectl drain $HOST --ignore-daemonsets
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Upgrade the Kubernetes package versions on the $HOST node by using a Linux distribution-specific package manager. You can refer this <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/">link</a> for distro specific instructions.</p>
-  </li>
-</ul>
-
-<h3 id="update-kubelet-configuration-on-workers">Update kubelet configuration on workers</h3>
-
-<ul>
-  <li>Remove the <strong>–cloud-config</strong> paramater from kubelet configuration file.</li>
-  <li>Remove the vsphere.conf (vSphere configuration file) from /etc/kubernetes</li>
-  <li>
-    <p>Restart the kubelet</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  systemctl status kubelet
-</code></pre>
-    </div>
-  </li>
-</ul>
-
-<h2 id="update-vsphere-cloud-provider">Update vSphere Cloud Provider</h2>
-
-<p>The upgrade instructions from Kubernetes 1.7/1.8 to 1.9 using kubeadm as described above works fine for a Kubernetes cluster deployed on a single vCenter.</p>
-
-<p>In 1.9, vSphere Cloud Provider has support for a single Kubernetes cluster deployed across multiple vCenters. So, if one needs to upgrade from Kubernetes cluster 1.7/1.8 deployed on single vCenter to Kubernetes cluster 1.9 deployed across multiple vCenters, few additional steps need to be performed apart from those mentioned above.</p>
-
-<p><strong>Note:</strong> Do not trigger any workflows that involve volume related operations unless all the instructions mentioned below are executed.</p>
-
-<ul>
-  <li>Identify the nodes that needs to be moved to other vCenter. Migrate the node(s) from current vCenter to new vCenter. Make sure all the nodes in the Kubernetes cluster have access to atleast one shared datastore.</li>
-  <li>
-    <p>After successful migration, check the status of the kubelet on the node(s).</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  systemctl status kubelet
-</code></pre>
-    </div>
-  </li>
-  <li>Update the vsphere.conf on master node to let vSphere Cloud Provider know about the nodes that are deployed in multiple vCenters. Follow the instructions mentioned in the <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/existing.html#step-5-create-the-vsphere-cloud-config-file-vsphereconf">link</a> to update the vsphere.conf file. This file is located at /etc/kubernetes directory.</li>
-  <li>
-    <p>Restart the kubelet on master.</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  systemctl restart kubelet
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Verify all the nodes are ready and running.</p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  kubectl get nodes
-</code></pre>
-    </div>
-  </li>
-</ul>
+<table>
+<thead>
+<tr>
+  <th>Kubernetes Release</th>
+  <th>vSphere Cloud Provider feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>v1.11.0</td>
+  <td>Added a mechanism in vSphere Cloud Provider to get credentials from Kubernetes secrets, rather than the plain text vsphere.conf file<br />SAML token authentication support</td>
+</tr>
+<tr>
+  <td>v1.9.0 </td>
+  <td>Multi vCenter Support</td>
+</tr>
+<tr>
+  <td>v1.8.2</td>
+  <td>Performance improvement for large scale deployment</td>
+</tr>
+<tr>
+  <td>v1.8.0</td>
+  <td>vSphere Cloud Provider refactoring for better debuggability, logging and code maintenance</td>
+</tr>
+<tr>
+  <td>v1.7.0</td>
+  <td>Integration with vSphere Storage Policy Based Management (SPBM) for dynamic volume provisioning.<br />Enhanced vSphere Cloud Provider debuggabilty via integration with metrices exposed for Kubernetes storage APIs.</td>
+</tr>
+<tr>
+  <td>v1.6.5</td>
+  <td>Integration with vSphere HA</td>
+</tr>
+<tr>
+  <td>v1.6.3</td>
+  <td>Dynamic volume provisioning using vSAN storage capabilities</td>
+</tr>
+</tbody>
+</table>
 
   
 

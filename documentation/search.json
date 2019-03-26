@@ -24,7 +24,7 @@
 
 
 {
-"title": "Configurations on Existing Kubernetes Cluster",
+"title": "vSphere Cloud Provider Configuration",
 "tags": "",
 "keywords": "",
 "url": "existing.html",
@@ -79,6 +79,17 @@
 
 
 {
+"title": "Securing vSphere credentials",
+"tags": "",
+"keywords": "",
+"url": "k8s-secret.html",
+"summary": ""
+}
+,
+
+
+
+{
 "title": "Known Issues",
 "tags": "",
 "keywords": "",
@@ -90,7 +101,7 @@
 
 
 {
-"title": "Upgrading Kubernetes clusters deployed via kubeadm from v1.7/v1.8 to v1.9 with vSphere Cloud Provider",
+"title": "Upgrading clusters deployed with kubeadm",
 "tags": "",
 "keywords": "",
 "url": "kubernetes-upgrade.html",
@@ -167,7 +178,7 @@
 
 
 {
-"title": "Persistent Volumes &amp; Persistent Volumes Claims",
+"title": "Static Provisioning",
 "tags": "",
 "keywords": "",
 "url": "persistent-vols-claims.html",
@@ -178,7 +189,7 @@
 
 
 {
-"title": "Storage Policy Based Management for dynamic provisioning of volumes",
+"title": "Dynamic Provisioning",
 "tags": "",
 "keywords": "",
 "url": "policy-based-mgmt.html",
@@ -248,10 +259,21 @@
 
 
 {
-"title": "Customize roles and privileges for different user cases",
+"title": "Permissions",
 "tags": "",
 "keywords": "",
 "url": "vcp-roles.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Version Features",
+"tags": "",
+"keywords": "",
+"url": "versions.html",
 "summary": ""
 }
 
