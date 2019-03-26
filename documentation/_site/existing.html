@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>vSphere Cloud Provider Configuration | vSphere Storage for Kubernetes</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<link rel="stylesheet" href="css/infracloudio-lavish-bootstrap.css">
+<link rel="stylesheet" href="css/vmware-customstyles.css">
+<link rel="stylesheet" href="css/infracloudio-theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://0.0.0.0:4000feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <li><a href="index.html">Home</a></li>
+                
+                
+                
+                <li><a href="faqs.html">FAQs</a></li>
+                
+                
+                
+                <li><a href="contactus.html">Contact Us</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="vSphere Cloud Provider Configuration">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="col-lg-12">&nbsp;</div>
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Navigation </li>
+    
+    
+    
+    <li>
+        <a href="#">vSphere Cloud Provider</a>
+        <ul>
+            
+            
+            
+            <li><a href="index.html">Introduction</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="overview.html">Overview</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Provisioning Methods</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="persistent-vols-claims.html">Static Provisioning</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            <li><a href="versions.html">Versions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Deployment</a>
+        <ul>
+            
+            
+            
+            <li><a href="prerequisites.html">Prerequisites</a></li>
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="existing.html">Configuration</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="vcp-roles.html">Permissions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Upgrades</a>
+        <ul>
+            
+            
+            
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Troubleshooting</a>
+        <ul>
+            
+            
+            
+            <li><a href="faqs.html">FAQs</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+    <!-- Content Column -->
+    <div class="col-md-9">
+        <div class="post-header">
+   <h1 class="post-title-main">vSphere Cloud Provider Configuration</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//existing.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+  <h2 id="prerequisites">Prerequisites</h2>
+
+<p>Please refer to the <a href="/prerequisites.html">prerequisites</a> page for the required environment setup piror to following the steps below. After the prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider for Kubernetes.</p>
+
+<h2 id="permissions">Permissions</h2>
+
+<p>The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented <a href="/vcp-roles.html">here</a>.</p>
+
+<p><em>Note: If the vCenter Administrator account is going to be used by vSphere Cloud Provider, then this step can be skipped.</em></p>
+
+<h2 id="kubernetes-configuration">Kubernetes Configuration</h2>
+
+<h3 id="config-file-location">Config file location</h3>
+
+<p>The vSphere Cloud Provider config file (<code class="highlighter-rouge">vsphere.conf</code>) needs to be created in a directory which should be accessible from the <code class="highlighter-rouge">kubelet</code>, <code class="highlighter-rouge">controller-manager</code>, and <code class="highlighter-rouge">API server</code> services. In general - we advise placing it in <code class="highlighter-rouge">/etc/kubernetes</code>.</p>
+
+<h3 id="config-file">Config file</h3>
+
+<p>For Kubernetes versions 1.9.x and above your <code class="highlighter-rouge">vsphere.conf</code> file should be placed only on the Kubernetes master nodes.</p>
+
+<h4 id="template-config-file">Template config file</h4>
+
+<p>Below is an example <code class="highlighter-rouge">vsphere.conf</code> without any inline comments to base your configuration on.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>Global]
+user <span class="o">=</span> <span class="s2">"administrator@vsphere.local"</span>
+password <span class="o">=</span> <span class="s2">"password"</span>
+port <span class="o">=</span> <span class="s2">"443"</span>
+insecure-flag <span class="o">=</span> <span class="s2">"1"</span>
+
+<span class="o">[</span>VirtualCenter <span class="s2">"10.0.1.200"</span><span class="o">]</span>
+datacenters <span class="o">=</span> <span class="s2">"DC-1"</span>
+
+<span class="o">[</span>Workspace]
+server <span class="o">=</span> <span class="s2">"10.0.1.200"</span>
+datacenter <span class="o">=</span> <span class="s2">"DC-1"</span>
+default-datastore <span class="o">=</span> <span class="s2">"vsanDatastore"</span>
+resourcepool-path <span class="o">=</span> <span class="s2">"ClusterNameHere/Resources"</span>
+folder <span class="o">=</span> <span class="s2">"kubernetes"</span>
+
+<span class="o">[</span>Disk]
+scsicontrollertype <span class="o">=</span> pvscsi
+</code></pre>
+</div>
+
+<h4 id="supported-parameters">Supported Parameters</h4>
+
+<p>Below is the summary of supported parameters in the <code class="highlighter-rouge">vsphere.conf</code> file</p>
+
+<p><code class="highlighter-rouge">[Global]</code></p>
+
+<ul>
+  <li><code class="highlighter-rouge">user</code> is the vCenter username for vSphere Cloud Provider.</li>
+  <li><code class="highlighter-rouge">password</code> is the password for vCenter user specified with <code class="highlighter-rouge">user</code>.</li>
+</ul>
+
+<p><em>Note: If you don’t want to store your password and username in plain text, see <a href="/existing.html#securing-vsphere-username-and-password">this section</a> and use the below two parameters instead</em></p>
+
+<ul>
+  <li><code class="highlighter-rouge">secret-name</code> K8s secret name - used if you wish to store your vSphere credentials in a K8s <code class="highlighter-rouge">secret</code></li>
+  <li><code class="highlighter-rouge">secret-namespace</code> K8s secret namepsace - used if you wish to store your vSphere credentials in a K8s <code class="highlighter-rouge">secret</code></li>
+  <li><code class="highlighter-rouge">server</code> is the vCenter Server IP or FQDN</li>
+  <li><code class="highlighter-rouge">port</code> is the vCenter Server Port. The default is 443 if not specified.</li>
+  <li><code class="highlighter-rouge">insecure-flag</code> is set to 1 if vCenter used a self-signed certificate.</li>
+  <li><code class="highlighter-rouge">datacenter</code> is the name of the vCenter Datacenter on which Kubernetes node VMs are deployed.</li>
+  <li><code class="highlighter-rouge">datastore</code> is the default datastore to use for provisioning volumes using storage classes/dynamic provisioning.</li>
+</ul>
+
+<p><code class="highlighter-rouge">[VirtualCenter ""]</code> - Multiple <code class="highlighter-rouge">VirtualCenter</code> sections are supported in K8s 1.9 and above</p>
+
+<ul>
+  <li>Any of the params from <code class="highlighter-rouge">[Global]</code> section above are supported here.</li>
+</ul>
+
+<p><code class="highlighter-rouge">[Workspace]</code> - Defines the temporary location of shadow VMs provisioned to create volumes</p>
+
+<ul>
+  <li><code class="highlighter-rouge">server</code> is the vCenter Server IP or FQDN</li>
+  <li><code class="highlighter-rouge">datacenter</code> - the Datacenter to provision temporary VMs to for volume provisioning</li>
+  <li><code class="highlighter-rouge">default-datastore</code> is the default datastore used for dynamic volume provisioning.
+    <ul>
+      <li>If the datastore is located in storage folder or datastore is the member of datastore cluster, make sure to specify full datastore path.
+        <ul>
+          <li>
+            <p>For a datastore located in a datastore cluster, specify the datastore as shown below:</p>
+
+            <p><code class="highlighter-rouge">sh
+  datastore = "DatastoreCluster/datastore1"
+ </code></p>
+          </li>
+          <li>
+            <p>For a datastore located in a storage folder, specify datastore as shown below</p>
+
+            <p><code class="highlighter-rouge">sh
+  datastore = "DatastoreStorageFolder/datastore1"
+ </code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">resourcepool-path</code> - the resource pool to provision temporary VMs to for volume provisioning (by default, all environments have a <code class="highlighter-rouge">Resources</code> resource pool, even without DRS)</li>
+  <li><code class="highlighter-rouge">folder</code> - the VM folder your Kubernetes VMs are in, in vCenter</li>
+</ul>
+
+<p><code class="highlighter-rouge">[Disk]</code></p>
+
+<ul>
+  <li><code class="highlighter-rouge">scsicontrollertype</code> almost always set to <code class="highlighter-rouge">pvscsi</code></li>
+</ul>
+
+<h4 id="examples">Examples</h4>
+
+<h5 id="single-vcenter">Single vCenter</h5>
+
+<p>Below is an annotated example configuration for a Kubernetes cluster for which all Kubernetes nodes are located on a single vCenter:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>Global] <span class="c"># Anything in the Global section will apply to all vCenters in the config file unless overridden in the VirtualCenter section</span>
+
+<span class="o">[</span>VirtualCenter <span class="s2">"10.0.1.200"</span><span class="o">]</span> <span class="c"># The IP address of your vCenter server</span>
+user <span class="o">=</span> <span class="s2">"Administrator@vsphere.local"</span> <span class="c"># The vCenter user to authenticate with</span>
+password <span class="o">=</span> <span class="s2">"password"</span> <span class="c"># The password for the above vCenter user</span>
+port <span class="o">=</span> <span class="s2">"443"</span> <span class="c"># The vCenter API port - usually 443</span>
+insecure-flag <span class="o">=</span> <span class="s2">"1"</span> <span class="c"># Do not verify the SSL cert on the vCenter</span>
+datacenters <span class="o">=</span> <span class="s2">"DC-1"</span> <span class="c"># # Your Datacenter name within vCenter where the K8s nodes reside</span>
+
+<span class="o">[</span>Workspace] <span class="c"># This defines where the container storage will be provisioned (usually the same as your above vCenter) when using SPBM</span>
+server <span class="o">=</span> <span class="s2">"10.0.1.200"</span> <span class="c"># The IP address of your vCenter server for storage provisioning operations</span>
+datacenter <span class="o">=</span> <span class="s2">"DC-1"</span> <span class="c"># The Datacenter to provision temporary VMs to for volume provisioning</span>
+default-datastore <span class="o">=</span> <span class="s2">"vsanDatastore"</span> <span class="c"># The default datastore to provision temporary VMs to for volume provisioning</span>
+resourcepool-path <span class="o">=</span> <span class="s2">"Cluster01/Resources"</span> <span class="c"># The resource pool to provision temporary VMs to for volume provisioning</span>
+folder <span class="o">=</span> <span class="s2">"kubernetes"</span> <span class="c"># The VM folder your Kubernetes VMs are in, in vCenter</span>
+
+<span class="o">[</span>Disk] <span class="c"># This section is mandatory</span>
+scsicontrollertype <span class="o">=</span> pvscsi <span class="c"># Defines the SCSI controller in use on the VMs - leave this as is</span>
+</code></pre>
+</div>
+
+<h5 id="multiple-vcenters">Multiple vCenters</h5>
+
+<p>Below is an annotated example configuration for a Kubernetes cluster for which all Kubernetes nodes are located on multiple vCenters/Datacenters:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>Global] <span class="c"># Anything in the Global section will apply to all vCenters in the config file unless overridden in the VirtualCenter section</span>
+user <span class="o">=</span> <span class="s2">"Administrator@vsphere.local"</span> <span class="c"># The vCenter user to authenticate with</span>
+password <span class="o">=</span> <span class="s2">"password"</span> <span class="c"># The password for the above vCenter user</span>
+port <span class="o">=</span> <span class="s2">"443"</span> <span class="c"># The vCenter API port - usually 443</span>
+insecure-flag <span class="o">=</span> <span class="s2">"1"</span> <span class="c"># Do not verify the SSL cert on the vCenter</span>
+datacenters <span class="o">=</span> <span class="s2">"DC-1, DC-2"</span> <span class="c"># Your Datacenter names within vCenter where the K8s nodes reside</span>
+
+<span class="o">[</span>VirtualCenter <span class="s2">"10.0.1.200"</span><span class="o">]</span> <span class="c"># The IP address of your first vCenter server</span>
+user <span class="o">=</span> <span class="s2">"Administrator123@vsphere.local"</span> <span class="c"># Override the global vCenter user to authenticate with</span>
+password <span class="o">=</span> <span class="s2">"password123"</span> <span class="c"># Override the global password for the above vCenter user</span>
+datacenters <span class="o">=</span> <span class="s2">"DC-1"</span> <span class="c"># Your Datacenter name within vCenter</span>
+
+<span class="o">[</span>VirtualCenter <span class="s2">"10.0.100.200"</span><span class="o">]</span> <span class="c"># The IP address of your second vCenter server</span>
+user <span class="o">=</span> <span class="s2">"Administrator456@vsphere.local"</span> <span class="c"># Override the global vCenter user to authenticate with</span>
+password <span class="o">=</span> <span class="s2">"password456"</span> <span class="c"># Override the global password for the above vCenter user</span>
+datacenters <span class="o">=</span> <span class="s2">"DC-2"</span> <span class="c"># Your Datacenter name within vCenter</span>
+
+<span class="o">[</span>VirtualCenter <span class="s2">"172.16.0.100"</span><span class="o">]</span> <span class="c"># A vCenter server that uses the global username and password from above</span>
+<span class="o">[</span>VirtualCenter <span class="s2">"192.168.0.100"</span><span class="o">]</span> <span class="c"># Another vCenter server that uses the global username and password from above</span>
+
+<span class="o">[</span>Workspace] <span class="c"># This defines where the container storage will be provisioned (currently only available in a single vCenter) when using SPBM</span>
+server <span class="o">=</span> <span class="s2">"10.0.1.200"</span> <span class="c"># The IP address of your vCenter server for storage provisioning operations</span>
+datacenter <span class="o">=</span> <span class="s2">"DC-1"</span> <span class="c"># The Datacenter to provision temporary VMs to for volume provisioning</span>
+default-datastore <span class="o">=</span> <span class="s2">"vsanDatastore"</span> <span class="c"># The default datastore to provision temporary VMs to for dynamic volume provisioning</span>
+resourcepool-path <span class="o">=</span> <span class="s2">"Cluster01/Resources"</span> <span class="c"># The resource pool to provision temporary VMs to for dynamic volume provisioning</span>
+folder <span class="o">=</span> <span class="s2">"kubernetes"</span> <span class="c"># The VM folder your Kubernetes VMs are in, in vCenter</span>
+
+<span class="o">[</span>Disk] <span class="c"># This section is mandatory</span>
+scsicontrollertype <span class="o">=</span> pvscsi <span class="c"># Defines the SCSI controller in use on the VMs - leave this as is</span>
+</code></pre>
+</div>
+
+<h2 id="enable-the-vsphere-cloud-provider">Enable the vSphere Cloud Provider</h2>
+
+<h3 id="on-the-kubernetes-masters">On the Kubernetes masters</h3>
+
+<p>Add following flags to the <code class="highlighter-rouge">kubelet</code> service configuration (usually in the <code class="highlighter-rouge">systemd</code> config file), as well as the <code class="highlighter-rouge">controller-manager</code> and <code class="highlighter-rouge">API server</code> container manifest files on the master node (usually in <code class="highlighter-rouge">/etc/kubernetes/manifests</code>).</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>--cloud-provider<span class="o">=</span>vsphere
+--cloud-config<span class="o">=</span>/etc/kubernetes/vsphere.conf
+</code></pre>
+</div>
+
+<h4 id="systemd-services">Systemd services</h4>
+
+<p>The <code class="highlighter-rouge">kubelet</code> service usually runs as a <code class="highlighter-rouge">systemd</code> service and it’s file can be found at <code class="highlighter-rouge">/etc/systemd/system/kubelet.service</code>. You will need to add the following to the <code class="highlighter-rouge">kubelet</code> daemon arguments:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>--cloud-provider<span class="o">=</span>vsphere --cloud-config<span class="o">=</span>/etc/kubernetes/vsphere.conf
+</code></pre>
+</div>
+
+<p>An example configuration would be like this:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="pi">[</span><span class="nv">Unit</span><span class="pi">]</span>
+<span class="s">Description=Kubernetes Kubelet Server</span>
+<span class="s">Documentation=https://github.com/kubernetes/kubernetes</span>
+<span class="s">Requires=docker.service network-online.target</span>
+<span class="s">After=docker.service network-online.target</span>
+
+<span class="pi">[</span><span class="nv">Service</span><span class="pi">]</span>
+<span class="s">ExecStartPre=/bin/mkdir -p /var/lib/kubelet</span>
+<span class="s">ExecStartPre=/bin/mount --bind /var/lib/kubelet /var/lib/kubelet</span>
+<span class="s">ExecStartPre=/bin/mount --make-shared /var/lib/kubelet</span>
+<span class="s">ExecStart=/usr/bin/docker run \</span>
+        <span class="s">--net=host \</span>
+        <span class="s">--pid=host \</span>
+        <span class="s">--privileged \</span>
+        <span class="s">-v /dev:/dev \</span>
+        <span class="s">-v /sys:/sys:ro \</span>
+        <span class="s">-v /var/run:/var/run:rw \</span>
+        <span class="s">-v /var/lib/docker/:/var/lib/docker:rw \</span>
+        <span class="s">-v /var/lib/kubelet/:/var/lib/kubelet:shared \</span>
+        <span class="s">-v /var/log:/var/log:shared \</span>
+        <span class="s">-v /srv/kubernetes:/srv/kubernetes:ro \</span>
+        <span class="s">-v /etc/kubernetes:/etc/kubernetes:ro \</span>
+        <span class="s">cns-docker-local.artifactory.eng.vmware.com/hyperkube-amd64:20190305200017 \</span>
+        <span class="s">/hyperkube kubelet --address=0.0.0.0 --allow-privileged=true --enable-server --enable-debugging-handlers --kubeconfig=/srv/kubernetes/kubeconfig.json --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --v=4 --register-schedulable=false --pod-manifest-path=/etc/kubernetes/manifests --cloud-provider=vsphere --cloud-config=/etc/kubernetes/vsphere.conf</span>
+<span class="s">Restart=always</span>
+<span class="s">StartLimitInterval=0</span>
+<span class="s">RestartSec=10</span>
+<span class="s">KillMode=process</span>
+
+<span class="pi">[</span><span class="nv">Install</span><span class="pi">]</span>
+<span class="s">WantedBy=multi-user.target</span>
+</code></pre>
+</div>
+
+<h4 id="container-manifests">Container manifests</h4>
+
+<p>The files you need to edit are usually located at <code class="highlighter-rouge">/etc/kubernetes/manifests/kube-apiserver.json</code> and <code class="highlighter-rouge">/etc/kubernetes/manifests/kube-controller-manager.json</code>. You will need to add the following to the <code class="highlighter-rouge">command</code> section:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="s2">"--cloud-provider=vsphere"</span><span class="err">,</span><span class="w">
+</span><span class="s2">"--cloud-config=/etc/kubernetes/vsphere.conf"</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>An example configuration would be like below:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pod"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"labels"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kube-apiserver"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"tier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"control-plane"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kube-apiserver"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"namespace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kube-system"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"spec"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"containers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="s2">"/hyperkube"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"apiserver"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--address=127.0.0.1"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--etcd-servers=http://127.0.0.1:2379"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,ResourceQuota"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--service-cluster-ip-range=10.0.0.0/16"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--client-ca-file=/srv/kubernetes/ca.pem"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--tls-cert-file=/srv/kubernetes/apiserver.pem"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--tls-private-key-file=/srv/kubernetes/apiserver-key.pem"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--secure-port=443"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--storage-backend=etcd3"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--allow-privileged"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--v=6"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--authorization-mode=AlwaysAllow"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--cloud-provider=vsphere"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"--cloud-config=/etc/kubernetes/vsphere.conf"</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="on-the-kubernetes-workers">On the Kubernetes workers</h3>
+
+<p>Add following flags to the <code class="highlighter-rouge">kubelet</code> service configuration (usually in the <code class="highlighter-rouge">systemd</code> config file).</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>--cloud-provider<span class="o">=</span>vsphere
+</code></pre>
+</div>
+
+<p>On worker nodes, we do not require the <code class="highlighter-rouge">vsphere.conf</code> config file hence the <code class="highlighter-rouge">--cloud-config=</code> flag is not needed.</p>
+
+<h4 id="systemd-services-1">Systemd services</h4>
+
+<p>The <code class="highlighter-rouge">kubelet</code> service usually runs as a <code class="highlighter-rouge">systemd</code> service and it’s file can be found at <code class="highlighter-rouge">/etc/systemd/system/kubelet.service</code>. You will need to add the following to the <code class="highlighter-rouge">kubelet</code> daemon arguments:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>--cloud-provider<span class="o">=</span>vsphere
+</code></pre>
+</div>
+
+<p>An example configuration would be like this:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="pi">[</span><span class="nv">Unit</span><span class="pi">]</span>
+<span class="s">Description=Kubernetes Kubelet Server</span>
+<span class="s">Documentation=https://github.com/kubernetes/kubernetes</span>
+<span class="s">Requires=docker.service network-online.target</span>
+<span class="s">After=docker.service network-online.target</span>
+
+<span class="pi">[</span><span class="nv">Service</span><span class="pi">]</span>
+<span class="s">ExecStartPre=/bin/mkdir -p /var/lib/kubelet</span>
+<span class="s">ExecStartPre=/bin/mount --bind /var/lib/kubelet /var/lib/kubelet</span>
+<span class="s">ExecStartPre=/bin/mount --make-shared /var/lib/kubelet</span>
+<span class="s">ExecStart=/usr/bin/docker run \</span>
+        <span class="s">--net=host \</span>
+        <span class="s">--pid=host \</span>
+        <span class="s">--privileged \</span>
+        <span class="s">-v /dev:/dev \</span>
+        <span class="s">-v /sys:/sys:ro \</span>
+        <span class="s">-v /var/run:/var/run:rw \</span>
+        <span class="s">-v /var/lib/docker/:/var/lib/docker:rw \</span>
+        <span class="s">-v /var/lib/kubelet/:/var/lib/kubelet:shared \</span>
+        <span class="s">-v /var/log:/var/log:shared \</span>
+        <span class="s">-v /srv/kubernetes:/srv/kubernetes:ro \</span>
+        <span class="s">-v /etc/kubernetes:/etc/kubernetes:ro \</span>
+        <span class="s">cns-docker-local.artifactory.eng.vmware.com/hyperkube-amd64:20190305200017 \</span>
+        <span class="s">/hyperkube kubelet --address=0.0.0.0 --allow-privileged=true --enable-server --enable-debugging-handlers --kubeconfig=/srv/kubernetes/kubeconfig.json --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --v=4 --hairpin-mode=promiscuous-bridge --cloud-provider=vsphere</span>
+<span class="s">Restart=always</span>
+<span class="s">StartLimitInterval=0</span>
+<span class="s">RestartSec=10</span>
+<span class="s">KillMode=process</span>
+
+<span class="pi">[</span><span class="nv">Install</span><span class="pi">]</span>
+<span class="s">WantedBy=multi-user.target</span>
+</code></pre>
+</div>
+
+<h3 id="restart-the-services">Restart the services</h3>
+
+<p>Reload the <code class="highlighter-rouge">systemd</code> unit files using:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>systemctl daemon-reload
+</code></pre>
+</div>
+
+<h4 id="kubelet">Kubelet</h4>
+
+<p>Restart the <code class="highlighter-rouge">kubelet</code> service using:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>systemctl restart kubelet.service
+</code></pre>
+</div>
+
+<h4 id="controller-manager">Controller-manager</h4>
+
+<h5 id="running-as-a-container">Running as a container</h5>
+
+<p>If the <code class="highlighter-rouge">controller-manager</code> is running in a container, restart the <code class="highlighter-rouge">controller-manager</code> container:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker ps | grep controller | grep -v POD
+8350dcd5ccd1        <span class="s2">"/hyperkube controlle"</span>   About an hour ago   Up About an hour   k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_...
+
+<span class="gp">$ </span>docker stop 8350dcd5ccd1
+8350dcd5ccd1
+
+<span class="gp">$ </span>docker ps | grep controller | grep -v POD
+298f6d3edd5a        <span class="s2">"/hyperkube controlle"</span>   4 seconds ago       Up 4 seconds       k8s_kube-controller-manager_kube-controlle-manager-kubernetes-master_kube-system_...
+</code></pre>
+</div>
+
+<h5 id="running-as-a-systemd-service">Running as a systemd service</h5>
+
+<p>If the <code class="highlighter-rouge">controller-manager</code> is running as a <code class="highlighter-rouge">systemd</code> service, restart the service for <code class="highlighter-rouge">controller-manager</code>:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>systemctl restart kube-controller-manager.service
+</code></pre>
+</div>
+
+<h4 id="api-server">API Server</h4>
+
+<h5 id="running-as-a-container-1">Running as a container</h5>
+
+<p>If the Kubernetes <code class="highlighter-rouge">API server</code> is running in a container, restart the <code class="highlighter-rouge">API server</code> container:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker ps | grep apiserver | grep -v POD
+4b76d2fb16be        <span class="s2">"/hyperkube apiserver"</span>   40 hours ago         Up 40 hours        k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_...
+
+<span class="gp">$ </span>docker stop 4b76d2fb16be
+4b76d2fb16be
+
+<span class="gp">$ </span>docker ps | grep apiserver | grep -v POD
+e33dc8074088        <span class="s2">"/hyperkube apiserver"</span>   3 seconds ago        Up 2 seconds       k8s_kube-apiserver_kube-apiserver-kubernetes-master_kube-system_...
+</code></pre>
+</div>
+
+<h5 id="running-as-a-systemd-service-1">Running as a systemd service</h5>
+
+<p>If API server is running as service, restart service for API server.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>systemctl restart kube-apiserver.service
+</code></pre>
+</div>
+
+<h2 id="securing-vsphere-username-and-password">Securing vSphere username and password</h2>
+
+<p>If exposing vSphere username and password in plain text is a security concern, the username and password can be put in a <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes Secret</a>. This feature is available as of Kubernetes release v1.11 and more information is <a href="/k8s-secret.html">available here</a>.</p>
+
+  
+
+    <div class="tags">
+        
+    </div>
+
+    
+
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 26, 2019</div>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+    </div>
+
+</body>
+
+</html>

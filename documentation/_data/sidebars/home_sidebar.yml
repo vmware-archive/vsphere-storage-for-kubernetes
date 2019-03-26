@@ -22,7 +22,7 @@ entries:
         - title: Dynamic Provisioning (Recommended)
           url: /policy-based-mgmt.html
           output: web
-        - title: Statis Provisioning
+        - title: Static Provisioning
           url: /persistent-vols-claims.html
           output: web
     - title: Versions

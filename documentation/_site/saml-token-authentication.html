@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>SAML token authentication | vSphere Storage for Kubernetes</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<link rel="stylesheet" href="css/infracloudio-lavish-bootstrap.css">
+<link rel="stylesheet" href="css/vmware-customstyles.css">
+<link rel="stylesheet" href="css/infracloudio-theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://0.0.0.0:4000feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <li><a href="index.html">Home</a></li>
+                
+                
+                
+                <li><a href="faqs.html">FAQs</a></li>
+                
+                
+                
+                <li><a href="contactus.html">Contact Us</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="SAML token authentication">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="col-lg-12">&nbsp;</div>
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Navigation </li>
+    
+    
+    
+    <li>
+        <a href="#">vSphere Cloud Provider</a>
+        <ul>
+            
+            
+            
+            <li><a href="index.html">Introduction</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="overview.html">Overview</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Provisioning Methods</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="persistent-vols-claims.html">Static Provisioning</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            <li><a href="versions.html">Versions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Deployment</a>
+        <ul>
+            
+            
+            
+            <li><a href="prerequisites.html">Prerequisites</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="existing.html">Configuration</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="vcp-roles.html">Permissions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Upgrades</a>
+        <ul>
+            
+            
+            
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Troubleshooting</a>
+        <ul>
+            
+            
+            
+            <li><a href="faqs.html">FAQs</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+    <!-- Content Column -->
+    <div class="col-md-9">
+        <div class="post-header">
+   <h1 class="post-title-main">SAML token authentication</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//saml-token-authentication.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+  <p>As of Kubernetes <a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0">release 1.11</a>, the vSphere Cloud Provider includes support for SAML token authentication using the vCenter <a href="https://code.vmware.com/apis/34/vcenter-sso">SSO API</a>.
+Currently, VCP only issues Holder-of-Key tokens which require a vCenter Solution User and key pair for signing SAML requests.
+The preexisting VCP configuration user and password options can be set to the Solution User’s public and private keys to enable this feature. A vCenter Solution User can only use public key authentication via SAML, a Solution User does not have a plain text password.</p>
+
+<p>We expect to enhance the SSO related configuration options in future versions of vSphere Cloud Provider. This includes the ability for a Solution User to act as an existing Person User, but a Solution User is required in either case.</p>
+
+<h2 id="generate-a-self-signed-certificate">Generate a self-signed certificate</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% openssl req -newkey rsa:2048 -x509 -days 365 -nodes -keyout k8s-vcp.key -out k8s-vcp.crt -subj "/C=US/ST=CA/L=SF/O=VMware/OU=CNA/CN=www.vmware.com"
+Generating a 2048 bit RSA private key
+...............................+++
+...............................................................................+++
+writing new private key to 'k8s-vcp.key'
+-----
+</code></pre>
+</div>
+
+<h2 id="create-a-solution-user">Create a solution user</h2>
+<p>Using <a href="https://github.com/vmware/govmomi/releases/tag/v0.18.0">govc v0.18</a> or higher:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.create -A -R Administrator -C "$(cat k8s-vcp.crt)" k8s-vcp
+</code></pre>
+</div>
+
+<p>Or, using <a href="https://www.virtuallyghetto.com/2015/05/vcenter-server-6-0-tidbits-part-9-creating-managing-sso-users-using-dir-cli.html">dir-cli</a>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% /usr/lib/vmware-vmafd/bin/dir-cli service create --wstrustrole --ssoadminrole Administrator --cert k8s-vcp.crt --name k8s-vcp
+Service [k8s-vcp] created successfully
+</code></pre>
+</div>
+
+<p>The example openssl command can be run anywhere, but if you use dir-cli to create the solution user, the public key will need to be local to the vCenter machine. The public key file can be removed from the vCenter machine after the user is created.</p>
+
+<p>The Administrator role used in the examples above can be replaced with any role name that contains the minimal <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/vcp-roles.html#minimal-set-of-vsphere-rolesprivileges-required-for-dynamic-persistent-volume-provisioning-with-storage-policy-based-volume-placement">privileges required</a>.</p>
+
+<p>A users role can be changed using the update command, for example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.update -R k8s-role-name k8s-vcp
+</code></pre>
+</div>
+<p>When a solution user is created, it will automatically be added to the SolutionUsers group. There are no other roles or permissions required for solution users. A user’s role and group membership can be viewed using the <code class="highlighter-rouge">govc sso.user.id</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% govc sso.user.id k8s-vcp
+solution=k8s-vcp@vsphere.local groups=LicenseService.Administrators,ActAsUsers,Administrators,Everyone,SystemConfiguration.Administrators,SolutionUsers
+</code></pre>
+</div>
+
+<h2 id="cloud-config-options">Cloud config options</h2>
+<p>vSphere Cloud Provider will use SAML token authentication if the user config option is set a PEM encoded public key and password option to the private key.
+<strong>Note</strong> that newlines in <code class="highlighter-rouge">gcfg</code> values must be escaped, which can be scripted for example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% cat &lt;&lt;EOF
+[VirtualCenter "$(govc env -x GOVC_URL_HOST)"]
+        user = "$(awk '{printf "%s\\n", $0}' k8s-vcp.crt)"
+        password = "$(awk '{printf "%s\\n", $0}' k8s-vcp.key)"
+EOF
+</code></pre>
+</div>
+<p>Resulting in:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>VirtualCenter "example-vcenter.eng.vmware.com"]
+    user = "-----BEGIN CERTIFICATE-----\nMIIDkTCCAnmgAwIBAgIJALVKv3+BwTORMA0GCSqGSIb3DQEBCwUAMF8xCzAJBgNV\nBAYTAlVTMQswCQYDVQQIDAJDQTELMAkGA1UEBwwCU0YxDzANBgNVBAoMBlZNd2Fy\nZTEMMAoGA1UECwwDQ05BMRcwFQYDVQQDDA53d3cudm13YXJlLmNvbTAeFw0xODA2\nMTEyMTAzMTdaFw0xOTA2MTEyMTAzMTdaMF8xCzAJBgNVBAYTAlVTMQswCQYDVQQI\nDAJDQTELMAkGA1UEBwwCU0YxDzANBgNVBAoMBlZNd2FyZTEMMAoGA1UECwwDQ05B\nMRcwFQYDVQQDDA53d3cudm13YXJlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEP\nADCCAQoCggEBALChi3frVLyKG2KC9SQyidW5Ji2iOaDMxRZvQiDw/3oNvpFa4oPa\nROFkoi/0uFPLcBhJsduGDnb2gRafNnc+CjvwrqaEESKBgUT6fbtq+ECgV+YJvVs2\nNYdG3ScmLkvr8d5yHDdaVYF5ccq/Z4s6+alc8wHMUyayoqtXTYXf3ksoTgz/z+gD\nQoy5JWXUzfkwvQ5eJs8SVgioLkeNoZ6RMHJCzt9ZUf1pXiuH0fUR9XSz5k/2clRV\nHRnXCPbqBtuBOn15eyr5Ssy4lHb+DYHE0k5KiQNc6lDlPG42hFby+FhOQ0H7RNmV\ncsPKqVsQl918GsKrneM4i4WLF4Wgl1n1f1sCAwEAAaNQME4wHQYDVR0OBBYEFPz1\nmwLeEs3KWF94VdYWxISKwpBCMB8GA1UdIwQYMBaAFPz1mwLeEs3KWF94VdYWxISK\nwpBCMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAIdgpgpFQjSUUiRS\n33PliI9440Ul53/UgWs/0Q0Lmrd1Y07QJ97IgL39zbJBiU8Ndwhup6SEpG/N/F5C\ne3BEZSlM4l6HPpeQ7N8GqMvQt333IvYazKSvMmKisJe6Su7w8NjHbn+yKPDpWc+X\n8dSxqDNbAtTEipHICTUbpuDTM7SF8ZnwdI7viUcMBZOX7cU3uCFC6BqguejLmEH/\neoJtQAwrTrNPakDG77yQyU4EI1Px8CcaxL4pY2DieAkSU8Ors6hZewxC0m9Q0Oth\nsaJY5XigXVGRM7yI23PrZcCBAy7wA1KZNtthSMs1m6zO7NctXm1c/PmYl9PaMWhL\ndUfBxkA=\n-----END CERTIFICATE-----\n"
+    password = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCwoYt361S8ihti\ngvUkMonVuSYtojmgzMUWb0Ig8P96Db6RWuKD2kThZKIv9LhTy3AYSbHbhg529oEW\nnzZ3Pgo78K6mhBEigYFE+n27avhAoFfmCb1bNjWHRt0nJi5L6/Hechw3WlWBeXHK\nv2eLOvmpXPMBzFMmsqKrV02F395LKE4M/8/oA0KMuSVl1M35ML0OXibPElYIqC5H\njaGekTByQs7fWVH9aV4rh9H1EfV0s+ZP9nJUVR0Z1wj26gbbgTp9eXsq+UrMuJR2\n/g2BxNJOSokDXOpQ5TxuNoRW8vhYTkNB+0TZlXLDyqlbEJfdfBrCq53jOIuFixeF\noJdZ9X9bAgMBAAECggEAQUrWJXQmlLNwwA+s0r6j2Q9iH4hSSTCowkxKY6byqYmf\nIlg4V4k94Ru0IIoUAVW4kCHdz0pU2oDw4w3jslyKp/GmfgNf2iOJR5hZFgjK0Aj1\ntSFwj+EQFHuLkMc6YfJMLHB+IbAQ35WnDM2IVx1r4MFtSwLe0fVC0JerHovMvncA\neVFg2QEcE1cEZKHexBWLmxIvjWb1yK0HET8R2GTcR+NHHRtBoxnXHHBLX+OxP55s\n6lsc8+jW6W9to5iMZOSzJH4WEyQ3ltg8HLbofrC6t6yzXSM4hvPD8fTpJsgogrrX\nZODltvBiqoZ8u36GHgrgeV5RK1pb+2QV/vvSJulhQQKBgQDXgy0OrTcMHhrk/3RP\nAp2A8LmPYJFVl1xSu6hWR4q0z/Jbjhf2nXBYDi/r2jMsQkowtcJx7qacyoaKvzij\ndmpNJQVygmi/p+vdi4Hsf3VRy0VbY4qobkvpRP1TirPAe2nkQSdjodc0MSNAJnyj\n1hBxxDg9zy3RSlUoYmihN7qCEQKBgQDR0GnXoMVwL/xSv4ozSBuo/kgkuAvB008H\nzIB42QlD+r6yluj8ipsvbeR8fq0miInplaNH8nsNNZyLSfN0SX9qMckdVgLJthQu\nQV0s7tqiroVTZJ4vmiW7VcP3zUTItUWmrDPoZ7eMjINHdD4L3M2iJNJ+xNB3mPDP\nbL8wHli+qwKBgBuBFkMFQD0/qlcHcySSRN+r2UK/JE00IAg/AuDgCIfC8j9VByHm\nPew/A0aqdlVzsFw/Fi3MM19XSYxzkxrphe+KhgNzOUMcfzGrGE3ChoqF0rgzIAMW\n8IE42MvMq9wo4/7JgelpQjna+5C4WLfgHgEm9baNtl87iVq6FHhe0GLBAoGALrMf\ny9HKAFV96QEfBpkHJw8qCZo5a7PXxFmdQsi0CkB2T5PNWeCT9/OSxq7/ZTNA1w/q\nXuo2v1LufAZCvOBbDsz0AaaSSklPppf/4C9t1IXZwR0FJH0/5rmJO8+hfrbyQM3V\nY+Yp8YuY8L+Ly+IilvNxMqwl5mjROKnwyAoJIK8CgYBUUtjoTYneBeOSIiHYaHgB\noPSMATyVvx1wSnPQU0Z7CXLWfLcdWd48+YxxY+CLT+O7LeD1HJBuL+clUkk3LLSU\nq7Gwz7JttCax67VJ+Rvca/Ye99Z08San+oyleOc4vaWn+m3elfLYY35I6q2mjEGH\nK6YwNTQeE+GxGIJJncNJXQ==\n-----END PRIVATE KEY-----\n"
+</code></pre>
+</div>
+
+  
+
+    <div class="tags">
+        
+    </div>
+
+    
+
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Mar 26, 2019</div>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+    </div>
+
+</body>
+
+</html>

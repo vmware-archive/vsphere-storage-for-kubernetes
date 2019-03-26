@@ -4,7 +4,7 @@ title: Deploying S3 Stateful Containers - Minio
 
 This case study describes the process to deploy distributed Minio server on Kubernetes. This example uses the official Minio Docker image from Docker Hub.
  
-**Create Minio Storage class**
+## Create Minio Storage class
 
 ``` 
 #minio-sc.yaml
@@ -25,7 +25,7 @@ Creating the storage class:
 $ kubectl create -f minio-sc.yaml
 ```
 
-**Create Minio headless Service**
+## Create Minio headless Service
 
 Headless Service controls the domain within which StatefulSets are created. The domain managed by this Service takes the form: $(service name).$(namespace).svc.cluster.local (where “cluster.local” is the cluster domain), and the pods in this domain take the form: $(pod-name-{i}).$(service name).$(namespace).svc.cluster.local. This is required to get a DNS resolvable URL for each of the pods created within the Statefulset.
 
@@ -54,7 +54,7 @@ $ kubectl create -f https://github.com/vmware/kubernetes/tree/kube-examples/kube
 service "minio" created
 ```
 
-**Create Minio StatefulSet**
+## Create Minio StatefulSet
 
 A StatefulSet provides a deterministic name and a unique identity to each pod, making it easy to deploy stateful distributed applications. To launch distributed Minio user need to pass drive locations as parameters to the minio server command. Then the user need to run the same command on all the participating pods. StatefulSets offer a perfect way to handle this requirement.
 This is the Statefulset description.
@@ -118,7 +118,7 @@ $ kubectl create -f https://github.com/vmware/kubernetes/tree/kube-examples/kube
 statefulset "minio" created
 ```
 
-**Create service and expose it to external traffic using NodePort**
+## Create service and expose it to external traffic using NodePort
  
 Now that a Minio statefulset running, user may either want to access it internally (within the cluster) or expose it as a Service onto an external (outside of the cluster, maybe public internet) IP address, depending on the use case. This can be achieved using Services.
 
@@ -147,7 +147,7 @@ $ kubectl create -f minio_NodePort.yaml
 service "minio-service" created
 ``` 
  
-**Access Minio** 
+## Access Minio
  
 Find the IP addresses of master nodes
 

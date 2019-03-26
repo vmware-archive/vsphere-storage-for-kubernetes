@@ -1,0 +1,285 @@
+[
+
+
+{
+"title": "Best Practices",
+"tags": "",
+"keywords": "",
+"url": "bestpractices.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Contact Us",
+"tags": "",
+"keywords": "",
+"url": "contactus.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "vSphere Cloud Provider Configuration",
+"tags": "",
+"keywords": "",
+"url": "existing.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "FAQs",
+"tags": "",
+"keywords": "",
+"url": "faqs.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Running Stateful application - Guestbook App",
+"tags": "",
+"keywords": "",
+"url": "guestbook.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "High Availability of Kubernetes Cluster",
+"tags": "",
+"keywords": "",
+"url": "high-availability.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "vSphere Storage for Kubernetes",
+"tags": "",
+"keywords": "",
+"url": "",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Securing vSphere credentials",
+"tags": "",
+"keywords": "",
+"url": "k8s-secret.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Known Issues",
+"tags": "",
+"keywords": "",
+"url": "known-issues.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Upgrading clusters deployed with kubeadm",
+"tags": "",
+"keywords": "",
+"url": "kubernetes-upgrade.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Volumes",
+"tags": "",
+"keywords": "",
+"url": "kubernetes-volumes.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Maximum scale supported by VCP",
+"tags": "",
+"keywords": "",
+"url": "maximum-scale-limit.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Deploying S3 Stateful Containers - Minio",
+"tags": "",
+"keywords": "",
+"url": "minio.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Deploying Sharded MongoDB Cluster",
+"tags": "",
+"keywords": "",
+"url": "mongodb.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Scroll layout",
+"tags": "special_layouts",
+"keywords": "json, scrolling, scrollto, jquery plugin",
+"url": "jsmydoc_scroll.html",
+"summary": "This page demonstrates how you the integration of a script called ScrollTo, which is used here to link definitions of a JSON code sample to a list of definitions for that particular term. The scenario here is that the JSON blocks are really long, with extensive nesting and subnesting, which makes it difficult for tables below the JSON to adequately explain the term in a usable way."
+}
+,
+
+
+
+{
+"title": "vSphere Cloud Provider",
+"tags": "",
+"keywords": "",
+"url": "overview.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Static Provisioning",
+"tags": "",
+"keywords": "",
+"url": "persistent-vols-claims.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Dynamic Provisioning",
+"tags": "",
+"keywords": "",
+"url": "policy-based-mgmt.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Prerequisites",
+"tags": "",
+"keywords": "",
+"url": "prerequisites.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "SAML token authentication",
+"tags": "",
+"keywords": "",
+"url": "saml-token-authentication.html",
+"summary": ""
+}
+,
+
+
+
+
+
+
+
+{
+"title": "StatefulSets",
+"tags": "",
+"keywords": "",
+"url": "statefulsets.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Dynamic Provisioning and StorageClass API",
+"tags": "",
+"keywords": "",
+"url": "storageclass.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Troubleshooting",
+"tags": "",
+"keywords": "",
+"url": "troubleshooting.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Permissions",
+"tags": "",
+"keywords": "",
+"url": "vcp-roles.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Version Features",
+"tags": "",
+"keywords": "",
+"url": "versions.html",
+"summary": ""
+}
+
+
+
+
+
+
+]
