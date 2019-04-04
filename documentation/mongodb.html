@@ -414,13 +414,13 @@ $('#toc').on('click', 'a', function() {
 
 <p>A StorageClass provides a mechanism for the administrators to describe the “classes” of storage they offer. Different classes map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. The YAML format defines a “platinum” level StorageClass.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
- name: platinum
-provisioner: Kubernetes.io/vsphere-volume
-parameters:
- diskformat: thin
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">kind</span><span class="pi">:</span> <span class="s">StorageClass</span>
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">storage.k8s.io/v1</span>
+<span class="s">metadata</span><span class="pi">:</span>
+ <span class="s">name</span><span class="pi">:</span> <span class="s">platinum</span>
+<span class="s">provisioner</span><span class="pi">:</span> <span class="s">Kubernetes.io/vsphere-volume</span>
+<span class="s">parameters</span><span class="pi">:</span>
+ <span class="s">diskformat</span><span class="pi">:</span> <span class="s">thin</span>
 </code></pre>
 </div>
 
@@ -430,19 +430,18 @@ parameters:
 
 <p>A PersistentVolumeClaim (PVC) is a request for storage by a user. Claims can request specific size and access modes (for example, can be mounted once read/write or many times read-only). The YAML format claims a 128GB volume with read and write capability.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
- name: pvc128gb
- annotations:
-  volume.beta.Kubernetes.io/storage-class: "platinum"
-spec:
- accessModes:
-  - ReadWriteOnce
- resources:
-  requests:
-   storage: 128Gi
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">PersistentVolumeClaim</span>
+<span class="s">metadata</span><span class="pi">:</span>
+ <span class="s">name</span><span class="pi">:</span> <span class="s">pvc128gb</span>
+ <span class="s">annotations</span><span class="pi">:</span>
+  <span class="s">volume.beta.Kubernetes.io/storage-class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">platinum"</span>
+<span class="s">spec</span><span class="pi">:</span>
+ <span class="s">accessModes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+ <span class="s">resources</span><span class="pi">:</span>
+  <span class="s">requests</span><span class="pi">:</span>
+   <span class="s">storage</span><span class="pi">:</span> <span class="s">128Gi</span>
 </code></pre>
 </div>
 
@@ -451,21 +450,21 @@ spec:
 <p>The YAML format specifies a MongoDB 3.4 image to use the volume from Step 2 and mount it to path
 /data/db.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>spec:
-     containers:
-     - image: mongo:3.4
-       name: mongo-ps
-       ports:
-       - name: mongo-ps
-        containerPort: 27017
-          hostPort: 27017
-       volumeMounts:
-       - name: pvc-128gb
-             mountPath: /data/db
-    volumes:
-       - name: pvc-128gb
-         persistentVolumeClaim:
-              claimName: pvc128gb 
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+     <span class="s">containers</span><span class="pi">:</span>
+     <span class="pi">-</span> <span class="s">image</span><span class="pi">:</span> <span class="s">mongo:3.4</span>
+       <span class="s">name</span><span class="pi">:</span> <span class="s">mongo-ps</span>
+       <span class="s">ports</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">mongo-ps</span>
+        <span class="s">containerPort</span><span class="pi">:</span> <span class="s">27017</span>
+          <span class="s">hostPort</span><span class="pi">:</span> <span class="s">27017</span>
+       <span class="s">volumeMounts</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">pvc-128gb</span>
+             <span class="s">mountPath</span><span class="pi">:</span> <span class="s">/data/db</span>
+    <span class="s">volumes</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">pvc-128gb</span>
+         <span class="s">persistentVolumeClaim</span><span class="pi">:</span>
+              <span class="s">claimName</span><span class="pi">:</span> <span class="s">pvc128gb</span>
 </code></pre>
 </div>
 
@@ -481,24 +480,24 @@ spec:
 
 <p>Execute following commands to deploy Sharded MongoDB Cluster on Kubernetes with vSphere Cloud Provider.</p>
 
-<h2 id="create-staogeclass">Create StaogeClass</h2>
+<h2 id="create-storageclass">Create StorageClass</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/storageclass.yaml
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/storageclass.yaml
 </code></pre>
 </div>
 
 <h2 id="create-storage-volumes-for-shared-mondodb-cluster">Create Storage Volumes for Shared MondoDB Cluster</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node01.yaml
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node01.yaml
 kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node02.yaml
 kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node03.yaml
 kubectl create -f https://github.com/vmware/kubernetes/blob/kube-examples/kube-examples/mongodb-shards/storage-volumes-node03.yaml
 </code></pre>
 </div>
 
-<h2 id="create-mongo-db-pods">Create Mongo DB pods</h2>
+<h2 id="create-mongodb-pods">Create MongoDB Pods</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-deployment.yaml
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-deployment.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node02-deployment.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node03-deployment.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node03-deployment.yaml
@@ -507,7 +506,7 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
 
 <h2 id="create-services">Create Services</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-service.yaml
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node01-service.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node02-service.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node03-service.yaml
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/node04-service.yaml
@@ -530,7 +529,7 @@ kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examp
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
             <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
              Site last generated:
-            Mar 26, 2019</div>
+            Apr 4, 2019</div>
         </div>
     </div>
 </footer>
