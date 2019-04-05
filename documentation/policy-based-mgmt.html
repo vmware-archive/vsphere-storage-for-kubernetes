@@ -206,6 +206,13 @@
             
             
             
+            <li><a href="zones.html">Zone Support</a></li>
+            
+            
+            
+            
+            
+            
             <li><a href="versions.html">Versions</a></li>
             
             
@@ -498,7 +505,7 @@ $('#toc').on('click', 'a', function() {
 </code></pre>
 </div>
 
-<p>The K8s user can also specify the datastore in the <code class="highlighter-rouge">StorageClass</code> as shown in the below example. The volume will be created on the datastore specified in the <code class="highlighter-rouge">StorageClass</code>. This field is optional, if not specified as shown in the above example, the volume will be created on the datastore specified in the <code class="highlighter-rouge">vsphere.conf</code> config file used to <a href="/existing.html">initialize the vSphere Cloud Provider</a>.</p>
+<p>The K8s user can also specify the datastore in the <code class="highlighter-rouge">StorageClass</code> as shown in the below example. The volume will be created on the datastore specified in the <code class="highlighter-rouge">StorageClass</code>. This field is optional, if not specified as shown in the above example, the volume will be created on the datastore specified in the <code class="highlighter-rouge">vsphere.conf</code> config file used to <a href="/vsphere-storage-for-kubernetes/documentation/existing.html">initialize the vSphere Cloud Provider</a>.</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-sc-vsancapabilities.yaml</span>
 
@@ -621,7 +628,7 @@ No events.
 </code></pre>
 </div>
 
-<p><em>VMDKs are created inside a folder named <code class="highlighter-rouge">kubevols</code> in the datastore which is mentioned in the <code class="highlighter-rouge">vsphere.conf</code> vSphere Cloud Provider configuration file. The vSphere Cloud Provider config file is created <a href="/existing.html">during setup</a> of Kubernetes cluster on vSphere.</em></p>
+<p><em>VMDKs are created inside a folder named <code class="highlighter-rouge">kubevols</code> in the datastore which is mentioned in the <code class="highlighter-rouge">vsphere.conf</code> vSphere Cloud Provider configuration file. The vSphere Cloud Provider config file is created <a href="/vsphere-storage-for-kubernetes/documentation/existing.html">during setup</a> of Kubernetes cluster on vSphere.</em></p>
 
 <h2 id="define-a-pod-using-the-pvc">Define a Pod using the PVC</h2>
 
@@ -681,7 +688,7 @@ pvpod       1/1     Running   0          48m
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
             <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
              Site last generated:
-            Apr 4, 2019</div>
+            Apr 5, 2019</div>
         </div>
     </div>
 </footer>

@@ -206,6 +206,13 @@
             
             
             
+            <li><a href="zones.html">Zone Support</a></li>
+            
+            
+            
+            
+            
+            
             <li><a href="versions.html">Versions</a></li>
             
             
@@ -410,11 +417,11 @@ $('#toc').on('click', 'a', function() {
 
   <h2 id="prerequisites">Prerequisites</h2>
 
-<p>Please refer to the <a href="/prerequisites.html">prerequisites</a> page for the required environment setup piror to following the steps below. After the prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider for Kubernetes.</p>
+<p>Please refer to the <a href="/vsphere-storage-for-kubernetes/documentation/prerequisites.html">prerequisites</a> page for the required environment setup piror to following the steps below. After the prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider for Kubernetes.</p>
 
 <h2 id="permissions">Permissions</h2>
 
-<p>The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented <a href="/vcp-roles.html">here</a>.</p>
+<p>The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented <a href="/vsphere-storage-for-kubernetes/documentation/vcp-roles.html">here</a>.</p>
 
 <p><em>Note: If the vCenter Administrator account is going to be used by vSphere Cloud Provider, then this step can be skipped.</em></p>
 
@@ -464,7 +471,7 @@ scsicontrollertype <span class="o">=</span> pvscsi
   <li><code class="highlighter-rouge">password</code> is the password for vCenter user specified with <code class="highlighter-rouge">user</code>.</li>
 </ul>
 
-<p><em>Note: If you don’t want to store your password and username in plain text, see <a href="/existing.html#securing-vsphere-username-and-password">this section</a> and use the below two parameters instead</em></p>
+<p><em>Note: If you don’t want to store your password and username in plain text, see <a href="/vsphere-storage-for-kubernetes/documentation/existing.html#securing-vsphere-username-and-password">this section</a> and use the below two parameters instead</em></p>
 
 <ul>
   <li><code class="highlighter-rouge">secret-name</code> K8s secret name - used if you wish to store your vSphere credentials in a K8s <code class="highlighter-rouge">secret</code></li>
@@ -805,7 +812,7 @@ e33dc8074088        <span class="s2">"/hyperkube apiserver"</span>   3 seconds a
 
 <h2 id="securing-vsphere-username-and-password">Securing vSphere username and password</h2>
 
-<p>If exposing vSphere username and password in plain text is a security concern, the username and password can be put in a <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes Secret</a>. This feature is available as of Kubernetes release v1.11 and more information is <a href="/k8s-secret.html">available here</a>.</p>
+<p>If exposing vSphere username and password in plain text is a security concern, the username and password can be put in a <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes Secret</a>. This feature is available as of Kubernetes release v1.11 and more information is <a href="/vsphere-storage-for-kubernetes/documentation/k8s-secret.html">available here</a>.</p>
 
   
 
@@ -823,7 +830,7 @@ e33dc8074088        <span class="s2">"/hyperkube apiserver"</span>   3 seconds a
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
             <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
              Site last generated:
-            Apr 4, 2019</div>
+            Apr 5, 2019</div>
         </div>
     </div>
 </footer>
