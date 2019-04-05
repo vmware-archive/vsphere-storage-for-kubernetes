@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Zone support in vSphere Cloud Provider | vSphere Storage for Kubernetes</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<link rel="stylesheet" href="css/infracloudio-lavish-bootstrap.css">
+<link rel="stylesheet" href="css/vmware-customstyles.css">
+<link rel="stylesheet" href="css/infracloudio-theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://0.0.0.0:4000feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> vSphere Storage for Kubernetes</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <li><a href="index.html">Home</a></li>
+                
+                
+                
+                <li><a href="faqs.html">FAQs</a></li>
+                
+                
+                
+                <li><a href="contactus.html">Contact Us</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Zone support in vSphere Cloud Provider">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="col-lg-12">&nbsp;</div>
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Navigation </li>
+    
+    
+    
+    <li>
+        <a href="#">vSphere Cloud Provider</a>
+        <ul>
+            
+            
+            
+            <li><a href="index.html">Introduction</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="overview.html">Overview</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Provisioning Methods</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="policy-based-mgmt.html">Dynamic Provisioning (Recommended)</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="persistent-vols-claims.html">Static Provisioning</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="zones.html">Zone Support</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="versions.html">Versions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Deployment</a>
+        <ul>
+            
+            
+            
+            <li><a href="prerequisites.html">Prerequisites</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="existing.html">Configuration</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="vcp-roles.html">Permissions</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Upgrades</a>
+        <ul>
+            
+            
+            
+            <li><a href="kubernetes-upgrade.html">Upgrade to v1.9.x</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Troubleshooting</a>
+        <ul>
+            
+            
+            
+            <li><a href="faqs.html">FAQs</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="known-issues.html">Known Issues</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="troubleshooting.html">Logs and debugging</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Appendices</a>
+        <ul>
+            
+            
+            
+            <li><a href="maximum-scale-limit.html">Scaling Limits</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="saml-token-authentication.html">SAML Authentication</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="k8s-secret.html">Securing Credentials</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="high-availability.html">High Availability of Kubernetes Cluster</a></li>
+            
+            
+            
+            <li class="subfolders">
+                <a href="#">Example Applications</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="guestbook.html">Guestbook</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="minio.html">Minio</a></li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="mongodb.html">MongoDB</a></li>
+                    
+                    
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+    <!-- Content Column -->
+    <div class="col-md-9">
+        <div class="post-header">
+   <h1 class="post-title-main">Zone support in vSphere Cloud Provider</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+    <a target="_blank"
+        href="https://github.com/vmware/vsphere-storage-for-kubernetes/edit/master/documentation//zones.md"
+        class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+  <h2 id="introduction">Introduction</h2>
+
+<p>In the vSphere infrastructure, Kubernetes nodes are run as VMs on an ESX host and Volumes are created as VMDK files on a datastore. The Volume is always placed on a datastore that is shared among all the node VMs of the Kubernetes cluster. This is done so that the Volume can be attached to a pod scheduled on any of the node VMs. However, this implies that there should be a shared datastore among the node VMs in vSphere infrastructure to create Volumes. It also implies that the datastore capacity of any other non-shared datastores cannot be utilized for creating Volumes.</p>
+
+<p>With the introduction of zones in Kubernetes, the cloud provider can express the topology of the cloud infrastructure as zones. Kubernetes nodes and Volumes have labels denoting the zone information. The Kubernetes pod scheduler is zone aware in placing pods on nodes in the required zone.</p>
+
+<p>vSphere Cloud Provider added Zones support since Kubernetes version 1.14.</p>
+
+<h2 id="vcenter-setup">vCenter Setup</h2>
+
+<h3 id="tag-zones-and-regions-in-vcenter">Tag Zones and Regions in vCenter</h3>
+
+<p>Zones and Regions are marked by creating and applying Tags in vCenter. The Tags can be applied to a Datacenter, Cluster or ESX Host. Tags are inherited from the parent and can be overridden on the child in this hierarchy. So a Tag applied to a Datacenter is inherited by all Clusters and Hosts in that Datacenter, and a Tag applied to a Cluster overrides any Tags that it might inherit from its parent Datacenter.</p>
+
+<p>See the vCenter documentation <a href="https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcenterhost.doc/GUID-E8E854DD-AA97-4E0C-8419-CE84F93C4058.html">here</a> for details on how to create and associate Tags.</p>
+
+<p>Let us say we have a vCenter inventory with two Clusters. To mark the two clusters as two zones, “zone-a” and “zone-b”, and to mark the entire Datacenter as a region, “vc1-region”, the steps would look like this.</p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>Datacenter (vc1-region)
+    |
+    |-- Cluster-1 (zone-a)
+         |-- Host-1
+               |-- k8s-master
+         |-- Host-2
+               |-- k8s-node-1
+               |-- hostLocalDatastore-2
+         |-- Host-3
+               |-- k8s-node-2
+         |-- vsanDatastore-1
+    |-- Cluster-2 (zone-b)
+         |-- Host-4
+               |-- k8s-node-3
+         |-- Host-5
+               |-- k8s-node-4
+         |-- Host-6
+         |-- vsanDatastore-2
+    |-- sharedVMFSDatastore
+</code></pre>
+</div>
+
+<ol>
+  <li>Create two tag categories, say “k8s-zone” and “k8s-region”</li>
+  <li>Create zone tags, say “zone-a” and “zone-b” in the “k8s-zone” tag category</li>
+  <li>Create region tags, say “vc1-region” in the “k8s-region” tag category</li>
+  <li>Apply the “vc1-region” tag to the Datacenter</li>
+  <li>Apply the “zone-a” tag to Cluster-1 and “zone-b” tag to Cluster-2.</li>
+</ol>
+
+<p>This completes the steps required to mark zones in vCenter. The second part is to configure each Kubernetes node to look for these zone labels at startup.</p>
+
+<h2 id="kubernetes-setup">Kubernetes Setup</h2>
+
+<p>Add the zone and region <code class="highlighter-rouge">Tag</code> category names in <code class="highlighter-rouge">vsphere.conf</code> of each Kubernetes node. Note that the value is the Tag category names, “k8s-region” and “k8s-zone” and not the actual Tag names, the are: <code class="highlighter-rouge">vc1-region</code>, <code class="highlighter-rouge">zone-a</code> or <code class="highlighter-rouge">zone-b</code>.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>/etc/kubernetes/vsphere.conf
+
+<span class="o">[</span>Labels]
+    region <span class="o">=</span> <span class="s2">"k8s-region"</span>
+    zone <span class="o">=</span> <span class="s2">"k8s-zone"</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Restart all the services on Kubernetes master.</li>
+  <li>Restart kubelet on all the Kubernetes nodes.</li>
+</ul>
+
+<p>The Kubernetes nodes now have labels showing the zone to which it belongs.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl get nodes -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .items[*]}{.metadata.name}{"\tregion: "}{.metadata.labels.failure-domain\.beta\.kubernetes\.io/region}{"\tzone: "}{.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone}{"\n"}{end}'</span>
+
+k8s-master	region: vc1-region	zone: zone-a
+k8s-node1	region: vc1-region	zone: zone-a
+k8s-node2	region: vc1-region	zone: zone-a
+k8s-node3	region: vc1-region	zone: zone-b
+k8s-node4	region: vc1-region	zone: zone-b
+</code></pre>
+</div>
+
+<p><strong>Note:</strong></p>
+
+<p>The [Labels] section with region/zone entries in <code class="highlighter-rouge">vsphere.conf</code> file acts as a feature flag for zone support in vSphere Cloud Provider. If these entries are not present in the <code class="highlighter-rouge">vsphere.conf</code> file then vSphere Cloud Provider does not recognize Zones in vCenter.</p>
+
+<h2 id="zone-for-volume">Zone for Volume</h2>
+
+<p>When a Volume is created in such an environment it gets automatically labelled with the zone information. The labels specify all the zones from which a pod can access the Volume.</p>
+
+<p>In the above sample vCenter inventory, when a Volume is created on vsanDatastore-2, it gets the “zone-b” label associated with it.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-pv.yaml</span>
+
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">PersistentVolume</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">vol-1</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">capacity</span><span class="pi">:</span>
+    <span class="s">storage</span><span class="pi">:</span> <span class="s">2Gi</span>
+  <span class="s">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="s">persistentVolumeReclaimPolicy</span><span class="pi">:</span> <span class="s">Retain</span>
+  <span class="s">vsphereVolume</span><span class="pi">:</span>
+    <span class="s">volumePath</span><span class="pi">:</span> <span class="s2">"</span><span class="s">[vsanDatastore-2]</span><span class="nv"> </span><span class="s">volumes/myDisk.vmdk"</span>
+    <span class="s">fsType</span><span class="pi">:</span> <span class="s">ext4</span>
+</code></pre>
+</div>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-pv.yaml
+</code></pre>
+</div>
+
+<p><strong>Note</strong> the “zone-b” label applied to the Persistent Volume</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pv vol-1
+Name:       vol-1
+Labels:	    failure-domain.beta.kubernetes.io/region<span class="o">=</span>vc1-region
+            failure-domain.beta.kubernetes.io/zone<span class="o">=</span>zone-b
+Status:     Available
+Claim:
+Reclaim Policy:	Retain
+Access Modes:	RWO
+Capacity:	2Gi
+Message:
+Source:
+    Type:	vSphereVolume <span class="o">(</span>a Persistent Disk resource <span class="k">in </span>vSphere<span class="o">)</span>
+    VolumePath:	<span class="o">[</span>vsanDatastore-2] volumes/myDisk.vmdk
+    FSType:	ext4
+</code></pre>
+</div>
+
+<p>A <a href="/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html">dynamically created Volume</a> in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of “zone-a__zone-b” as shown here.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-sc-fast.yaml</span>
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">storage.k8s.io/v1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">StorageClass</span>
+<span class="s">metadata</span><span class="pi">:</span> 
+  <span class="s">name</span><span class="pi">:</span> <span class="s">fast</span>
+<span class="s">provisioner</span><span class="pi">:</span> <span class="s">kubernetes.io/vsphere-volume</span>
+<span class="s">parameters</span><span class="pi">:</span> 
+  <span class="s">diskformat</span><span class="pi">:</span> <span class="s">thin</span>
+  <span class="s">fstype</span><span class="pi">:</span> <span class="s">ext3</span>
+</code></pre>
+</div>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-sc-fast.yaml
+</code></pre>
+</div>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-pvcsc.yaml</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">PersistentVolumeClaim</span>
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">pvcsc001</span>
+  <span class="s">annotations</span><span class="pi">:</span>
+    <span class="s">volume.beta.kubernetes.io/storage-class</span><span class="pi">:</span> <span class="s">fast</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="s">resources</span><span class="pi">:</span>
+    <span class="s">requests</span><span class="pi">:</span>
+      <span class="s">storage</span><span class="pi">:</span> <span class="s">2Gi</span>
+</code></pre>
+</div>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f vsphere-volume-pvcsc.yaml
+</code></pre>
+</div>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pvc pvcsc001
+Name:           pvcsc001
+Namespace:      default
+StorageClass:   fast
+Status:         Bound
+Volume:         pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
+Labels:         &lt;none&gt;
+Capacity:       2Gi
+Access Modes:   RWO
+No events.
+</code></pre>
+</div>
+
+<p><strong>Note</strong> the “zone-a__zone-b” label for the dynamically created volume</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pv pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
+Name:		pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
+Labels:		failure-domain.beta.kubernetes.io/region<span class="o">=</span>vc1-region
+            failure-domain.beta.kubernetes.io/zone<span class="o">=</span>zone-a__zone-b
+Status:		Bound
+Claim:      default/pvcsc001
+Reclaim Policy:	Delete
+Access Modes:	RWO
+Capacity:	2Gi
+Message:
+Source:
+    Type:	vSphereVolume <span class="o">(</span>a Persistent Disk resource <span class="k">in </span>vSphere<span class="o">)</span>
+    VolumePath:	<span class="o">[</span>sharedVMFSDatastore] kubevols/k8s-dynamic-pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9.vmdk
+    FSType:	ext4
+</code></pre>
+</div>
+
+<h2 id="specifying-the-zone-for-a-volume">Specifying the Zone for a Volume</h2>
+
+<p>When creating a Volume dynamically, the required zone for the Volume can be specified as <code class="highlighter-rouge">allowedTopologies</code> in a Storage Class.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat dynamic.yaml</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">StorageClass</span>
+<span class="s">apiVersion</span><span class="pi">:</span> <span class="s">storage.k8s.io/v1</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">sc_zone_a</span>
+<span class="s">provisioner</span><span class="pi">:</span> <span class="s">kubernetes.io/vsphere-volume</span>
+<span class="s">parameters</span><span class="pi">:</span>
+    <span class="s">diskformat</span><span class="pi">:</span> <span class="s">thin</span>
+<span class="s">allowedTopologies</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">matchLabelExpressions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">key</span><span class="pi">:</span> <span class="s">failure-domain.beta.kubernetes.io/zone</span>
+    <span class="s">values</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">zone-a</span>
+</code></pre>
+</div>
+
+<p>When a Persistent Volume is created based on this storage class, it is placed on a datastore that is accessible to all nodes in zone-a. In the sample vCenter inventory shown above, this Volume gets placed on vsanDatastore-1.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe pv pvc-3264d346-4b9f-11e9-ab0c-0050569a14a9
+Name:		pvc-3264d346-4b9f-11e9-ab0c-0050569a14a9
+Labels:		failure-domain.beta.kubernetes.io/region<span class="o">=</span>vc1-region
+            failure-domain.beta.kubernetes.io/zone<span class="o">=</span>zone-a
+Annotations:	kubernetes.io/createdby<span class="o">=</span>vsphere-volume-dynamic-provisioner
+		pv.kubernetes.io/bound-by-controller<span class="o">=</span>yes
+		pv.kubernetes.io/provisioned-by<span class="o">=</span>kubernetes.io/vsphere-volume
+StorageClass:	sc_zone_a
+Status:		Bound
+Claim:      default/pvc-3
+Reclaim Policy:	Delete
+Access Modes:	RWO
+Capacity:	1Mi
+Message:
+Source:
+    Type:	vSphereVolume <span class="o">(</span>a Persistent Disk resource <span class="k">in </span>vSphere<span class="o">)</span>
+    VolumePath:	<span class="o">[</span>vsanDatastore-1] e4d0895c-3a18-ef1e-cbee-020037a3a334/k8s-dynamic-pvc-3264d346-4b9f-11e9-ab0c-0050569a14a9.vmdk
+    FSType:	ext4
+</code></pre>
+</div>
+
+<p><strong>Note:</strong>
+In this example, the Volume could also get placed on sharedVMFSDatastore since it will still be accessible to all nodes in zone-a.</p>
+
+<p><strong>Note:</strong>
+When a pod that uses such a Persistent Volume Claim is created, the Kubernetes pod controller automatically schedules it on one of the Kubernetes nodes in the Volume’s zone. This is described more in the Kubernetes documentation of <a href="https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/#topology-awareness">topology aware scheduling.</a></p>
+
+  
+
+    <div class="tags">
+        
+    </div>
+
+    
+
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12 footer">
+            <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
+            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+             Site last generated:
+            Apr 5, 2019</div>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+    </div>
+
+</body>
+
+</html>
