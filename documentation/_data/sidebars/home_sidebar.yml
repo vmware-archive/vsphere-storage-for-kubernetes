@@ -25,6 +25,9 @@ entries:
         - title: Static Provisioning
           url: /persistent-vols-claims.html
           output: web
+    - title: Zone Support
+      url: /zones.html
+      output: web
     - title: Versions
       url: /versions.html
       output: web

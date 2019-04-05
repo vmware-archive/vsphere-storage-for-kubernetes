@@ -2,7 +2,7 @@
 title: Prerequisites
 ---
 
-Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider. Refer to [the versions list](/versions.html) for features supported in each version.
+Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider. Refer to [the versions list](/vsphere-storage-for-kubernetes/documentation/versions.html) for features supported in each version.
 
 ## Kubernetes
 
@@ -16,7 +16,7 @@ Following is the list of prerequisites for running Kubernetes with vSphere Cloud
 
 ### Permissions
 
-* vCenter user with required [set of privileges](/vcp-roles.html).
+* vCenter user with required [set of privileges](/vsphere-storage-for-kubernetes/documentation/vcp-roles.html).
 
 ## VMs
 

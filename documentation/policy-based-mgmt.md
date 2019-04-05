@@ -90,7 +90,7 @@ parameters:
     cachereservation: "20"
 ```
 
-The K8s user can also specify the datastore in the `StorageClass` as shown in the below example. The volume will be created on the datastore specified in the `StorageClass`. This field is optional, if not specified as shown in the above example, the volume will be created on the datastore specified in the `vsphere.conf` config file used to [initialize the vSphere Cloud Provider](/existing.html).
+The K8s user can also specify the datastore in the `StorageClass` as shown in the below example. The volume will be created on the datastore specified in the `StorageClass`. This field is optional, if not specified as shown in the above example, the volume will be created on the datastore specified in the `vsphere.conf` config file used to [initialize the vSphere Cloud Provider](/vsphere-storage-for-kubernetes/documentation/existing.html).
 
 ```yaml
 $ cat vsphere-volume-sc-vsancapabilities.yaml
@@ -213,7 +213,7 @@ Source:
 No events.
 ```
 
-_VMDKs are created inside a folder named `kubevols` in the datastore which is mentioned in the `vsphere.conf` vSphere Cloud Provider configuration file. The vSphere Cloud Provider config file is created [during setup](/existing.html) of Kubernetes cluster on vSphere._
+_VMDKs are created inside a folder named `kubevols` in the datastore which is mentioned in the `vsphere.conf` vSphere Cloud Provider configuration file. The vSphere Cloud Provider config file is created [during setup](/vsphere-storage-for-kubernetes/documentation/existing.html) of Kubernetes cluster on vSphere._
 
 ## Define a Pod using the PVC
 

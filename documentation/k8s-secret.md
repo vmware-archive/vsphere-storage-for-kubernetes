@@ -8,7 +8,7 @@ vSphere credentials can be protected from being exposed as clear text by using K
 
 ## Config file changes
 
-Create a `vsphere.conf` file with `secret-name` and `secret-namespace` defined instead of `username` and `password` as is detailed [here](/existing.html#supported-parameters).
+Create a `vsphere.conf` file with `secret-name` and `secret-namespace` defined instead of `username` and `password` as is detailed [here](/vsphere-storage-for-kubernetes/documentation/existing.html#supported-parameters).
 
 ```sh
 [Global]
@@ -72,4 +72,4 @@ The vSphere Cloud Provider will authenticate with the vCenter using the Kubernet
 
 ## Using SAML auth
 
-Note: _vSphere credentials can also be encrypted using **SAML token authentication**, Please refer documentation for [SAML token authentication](/vsphere-storage-for-kubernetes/documentation//vsphere-storage-for-kubernetes/documentation/saml-token-authentication.md) using vCenter SSO API._
+Note: _vSphere credentials can also be encrypted using **SAML token authentication**, Please refer documentation for [SAML token authentication](/vsphere-storage-for-kubernetes/documentation/saml-token-authentication.md) using vCenter SSO API._

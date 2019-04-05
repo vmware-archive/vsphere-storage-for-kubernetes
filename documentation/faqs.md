@@ -33,6 +33,9 @@ Yes, Using resource pool and maintaining the VMs from each Kubernetes cluster in
 ## Can Kubernetes Cluster access storage from another vCenter?
 Yes. vSphere supports shared storage across multiple vCenters. User can use shared storage in multiple Kubernetes Clusters.
 
+## Does vSphere Cloud Provider support Kubernetes Zones?
+Yes. See [zone support](/vsphere-storage-for-kubernetes/documentation/zones.html) for more details.
+
 ## Which Operating System are supported?
 VCP is validated on Photon, Ubuntu, Core OS, RHEL. please check this [section](/vsphere-storage-for-kubernetes/documentation/prerequisites.html) for details.
 

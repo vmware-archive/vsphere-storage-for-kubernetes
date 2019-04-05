@@ -3,7 +3,7 @@ title: Volumes
 ---
 A Pod can specify vsphereVolume as Kubernetes Volumes and then vSphere VMDK is mounted as Volume into your Pod. The contents of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastores.
 
-All the example yamls can be found [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere) unless otherwise specified. Please download these examples.
+All the example yamls can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) unless otherwise specified. Please download these examples.
 
 Here is an example of how to create a VMDK file and how a Pod can use it.
 

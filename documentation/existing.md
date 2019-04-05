@@ -4,11 +4,11 @@
 
 ## Prerequisites
 
-Please refer to the [prerequisites](/prerequisites.html) page for the required environment setup piror to following the steps below. After the prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider for Kubernetes.
+Please refer to the [prerequisites](/vsphere-storage-for-kubernetes/documentation/prerequisites.html) page for the required environment setup piror to following the steps below. After the prerequisites are met, follow below-mentioned steps to enable vSphere Cloud Provider for Kubernetes.
 
 ## Permissions
 
-The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented [here](/vcp-roles.html).
+The first step is to create and assign roles to the vSphere Cloud Provider user and vSphere entities. Please refer Roles and Privileges documented [here](/vsphere-storage-for-kubernetes/documentation/vcp-roles.html).
 
 _Note: If the vCenter Administrator account is going to be used by vSphere Cloud Provider, then this step can be skipped._
 
@@ -56,7 +56,7 @@ Below is the summary of supported parameters in the `vsphere.conf` file
 * `user` is the vCenter username for vSphere Cloud Provider.
 * `password` is the password for vCenter user specified with `user`.
 
-*Note: If you don't want to store your password and username in plain text, see [this section](/existing.html#securing-vsphere-username-and-password) and use the below two parameters instead*
+*Note: If you don't want to store your password and username in plain text, see [this section](/vsphere-storage-for-kubernetes/documentation/existing.html#securing-vsphere-username-and-password) and use the below two parameters instead*
 
 * `secret-name` K8s secret name - used if you wish to store your vSphere credentials in a K8s `secret`
 * `secret-namespace` K8s secret namepsace - used if you wish to store your vSphere credentials in a K8s `secret`
@@ -380,4 +380,4 @@ systemctl restart kube-apiserver.service
 
 ## Securing vSphere username and password
 
-If exposing vSphere username and password in plain text is a security concern, the username and password can be put in a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/). This feature is available as of Kubernetes release v1.11 and more information is [available here](/k8s-secret.html).
+If exposing vSphere username and password in plain text is a security concern, the username and password can be put in a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/). This feature is available as of Kubernetes release v1.11 and more information is [available here](/vsphere-storage-for-kubernetes/documentation/k8s-secret.html).
