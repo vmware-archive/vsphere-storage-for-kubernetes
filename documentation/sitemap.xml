@@ -6,121 +6,121 @@
   
   
   <url>
-    <loc>http://0.0.0.0:4000/bestpractices.html</loc>
+    <loc>/bestpractices.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/contactus.html</loc>
+    <loc>/contactus.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/existing.html</loc>
+    <loc>/existing.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/faqs.html</loc>
+    <loc>/faqs.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/guestbook.html</loc>
+    <loc>/guestbook.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/high-availability.html</loc>
+    <loc>/high-availability.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/</loc>
+    <loc>/</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/k8s-secret.html</loc>
+    <loc>/k8s-secret.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/known-issues.html</loc>
+    <loc>/known-issues.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/kubernetes-upgrade.html</loc>
+    <loc>/kubernetes-upgrade.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/kubernetes-volumes.html</loc>
+    <loc>/kubernetes-volumes.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/maximum-scale-limit.html</loc>
+    <loc>/maximum-scale-limit.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/minio.html</loc>
+    <loc>/minio.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/mongodb.html</loc>
+    <loc>/mongodb.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/js/mydoc_scroll.html</loc>
+    <loc>/js/mydoc_scroll.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/overview.html</loc>
+    <loc>/overview.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/persistent-vols-claims.html</loc>
+    <loc>/persistent-vols-claims.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/policy-based-mgmt.html</loc>
+    <loc>/policy-based-mgmt.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/prerequisites.html</loc>
+    <loc>/prerequisites.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/saml-token-authentication.html</loc>
+    <loc>/saml-token-authentication.html</loc>
   </url>
   
   
@@ -130,37 +130,37 @@
   
   
   <url>
-    <loc>http://0.0.0.0:4000/statefulsets.html</loc>
+    <loc>/statefulsets.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/storageclass.html</loc>
+    <loc>/storageclass.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/troubleshooting.html</loc>
+    <loc>/troubleshooting.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/vcp-roles.html</loc>
+    <loc>/vcp-roles.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/versions.html</loc>
+    <loc>/versions.html</loc>
   </url>
   
   
   
   <url>
-    <loc>http://0.0.0.0:4000/zones.html</loc>
+    <loc>/zones.html</loc>
   </url>
   
   
