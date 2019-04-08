@@ -106,7 +106,7 @@ Events:
   -----------------------------------------------------------
   1m          1m      1   persistentvolume-controller  Normal  Provisioning Succeeded
 
-  Successfully provisioned volume pvc-83295256-f8e0-11e6-8263-005056b2349c using Kubernetes.io/vsphere-volume
+  Successfully provisioned volume pvc-83295256-f8e0-11e6-8263-005056b2349c using kubernetes.io/vsphere-volume
 ```
 
 Persistent Volume is automatically created and is bounded to this pvc.
