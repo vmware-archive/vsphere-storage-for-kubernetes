@@ -70,7 +70,7 @@ spec:
   template:
     metadata:
       annotations:
-        pod.alpha.Kubernetes.io/initialized: "true"
+        pod.alpha.kubernetes.io/initialized: "true"
       labels:
         app: minio
     spec:
@@ -102,7 +102,7 @@ spec:
   - metadata:
       name: data
       annotations:
-        volume.beta.Kubernetes.io/storage-class: miniosc
+        volume.beta.kubernetes.io/storage-class: miniosc
     spec:
       accessModes:
         - ReadWriteOnce
