@@ -17,6 +17,7 @@ Zones and Regions are marked by creating and applying Tags in vCenter. The Tags 
 See the vCenter documentation [here](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcenterhost.doc/GUID-E8E854DD-AA97-4E0C-8419-CE84F93C4058.html) for details on how to create and associate Tags.
 
 Let us say we have a vCenter inventory with two Clusters. To mark the two clusters as two zones, "zone-a" and "zone-b", and to mark the entire Datacenter as a region, "vc1-region", the steps would look like this.
+
 ```
 Datacenter (vc1-region)
     |
@@ -38,6 +39,7 @@ Datacenter (vc1-region)
          |-- vsanDatastore-2
     |-- sharedVMFSDatastore
 ```
+
 1. Create two tag categories, say "k8s-zone" and "k8s-region"
 2. Create zone tags, say "zone-a" and "zone-b" in the "k8s-zone" tag category
 3. Create region tags, say "vc1-region" in the "k8s-region" tag category
@@ -97,10 +99,13 @@ spec:
     volumePath: "[vsanDatastore-2] volumes/myDisk.vmdk"
     fsType: ext4
 ```
+
 ```
 $ kubectl create -f vsphere-volume-pv.yaml
 ```
 **Note** the "zone-b" label applied to the Persistent Volume
+
+
 ```
 $ kubectl describe pv vol-1
 Name:       vol-1
@@ -224,8 +229,10 @@ Source:
     FSType:	ext4
 ```
 
-#### Note:
+Note:
+
 In this example, the Volume could also get placed on sharedVMFSDatastore since it will still be accessible to all nodes in zone-a.
 
-#### Note:
+Note:
+
 When a pod that uses such a Persistent Volume Claim is created, the Kubernetes pod controller automatically schedules it on one of the Kubernetes nodes in the Volume's zone. This is described more in the Kubernetes documentation of [topology aware scheduling.](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/#topology-awareness)
