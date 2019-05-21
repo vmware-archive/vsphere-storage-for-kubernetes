@@ -544,7 +544,7 @@ Source:
 </code></pre>
 </div>
 
-<p>A <a href="/vsphere-storage-for-kubernetes/documentation/storageclass.html">dynamically created Volume</a> in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of “zone-a__zone-b” as shown here.</p>
+<p>A <a href="https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/storageclass.html">dynamically created Volume</a> in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of “zone-a__zone-b” as shown here.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
@@ -590,9 +590,9 @@ Access Modes:   RWO
 No events.
 </code></pre>
 </div>
-<p><strong>Note</strong> the “zone-a__zone-b” label for the dynamically created volume
-<code class="highlighter-rouge">
-$ kubectl describe pv pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
+<p><strong>Note</strong> the “zone-a__zone-b” label for the dynamically created volume</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe pv pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
 Name:		pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
 Labels:		failure-domain.beta.kubernetes.io/region=vc1-region
             failure-domain.beta.kubernetes.io/zone=zone-a__zone-b
@@ -606,13 +606,14 @@ Source:
     Type:	vSphereVolume (a Persistent Disk resource in vSphere)
     VolumePath:	[sharedVMFSDatastore] kubevols/k8s-dynamic-pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9.vmdk
     FSType:	ext4
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="specifying-zone-for-a-volume">Specifying zone for a Volume</h2>
 
-<p>When creating a Volume dynamically, the required zone for the Volume can be specified as <code class="highlighter-rouge">allowedTopologies</code> in a Storage Class.
-<code class="highlighter-rouge">
-$ cat dynamic.yaml
+<p>When creating a Volume dynamically, the required zone for the Volume can be specified as <code class="highlighter-rouge">allowedTopologies</code> in a Storage Class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat dynamic.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -625,7 +626,8 @@ allowedTopologies:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
     - zone-a
-</code></p>
+</code></pre>
+</div>
 
 <p>When a Persistent Volume is created based on this storage class, it is placed on a datastore that is accessible to all nodes in zone-a. In the sample vCenter inventory shown above, this Volume gets placed on vsanDatastore-1.</p>
 
