@@ -80,7 +80,7 @@ To understand the configuration mentioned in these YAMLs please refer this [link
 
 Execute following commands to deploy Sharded MongoDB Cluster on Kubernetes with vSphere Cloud Provider.
 
-**Create StaogeClass**
+**Create StorageClass**
 
 ```
 kubectl create -f https://raw.githubusercontent.com/vmware/kubernetes/kube-examples/kube-examples/mongodb-shards/storageclass.yaml
