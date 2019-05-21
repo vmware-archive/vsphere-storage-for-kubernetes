@@ -218,6 +218,12 @@
                     
                     
                     
+                    
+                    
+                    <li><a href="zones.html">Zone support</a></li>
+                    
+                    
+                    
                 </ul>
             </li>
             
@@ -423,7 +429,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: miniosc
-provisioner: Kubernetes.io/vsphere-volume
+provisioner: kubernetes.io/vsphere-volume
 parameters:
     diskformat: thin
  
@@ -480,7 +486,7 @@ spec:
   template:
     metadata:
       annotations:
-        pod.alpha.Kubernetes.io/initialized: "true"
+        pod.alpha.kubernetes.io/initialized: "true"
       labels:
         app: minio
     spec:
@@ -512,7 +518,7 @@ spec:
   - metadata:
       name: data
       annotations:
-        volume.beta.Kubernetes.io/storage-class: miniosc
+        volume.beta.kubernetes.io/storage-class: miniosc
     spec:
       accessModes:
         - ReadWriteOnce
@@ -596,7 +602,7 @@ http://10.160.132.97:30000/minio/login
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2019 VMWare. All rights reserved. <br />
- Site last generated: Feb 21, 2019 <br />
+ Site last generated: May 20, 2019 <br />
 <p><img src="images/company_logo.png" alt="Company logo"/></p>
                 </div>
             </div>

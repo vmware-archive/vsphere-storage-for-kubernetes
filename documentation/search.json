@@ -254,6 +254,17 @@
 "url": "vcp-roles.html",
 "summary": ""
 }
+,
+
+
+
+{
+"title": "Zone support in vSphere Cloud Provider",
+"tags": "",
+"keywords": "",
+"url": "zones.html",
+"summary": ""
+}
 
 
 
