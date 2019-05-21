@@ -433,9 +433,9 @@ $('#toc').on('click', 'a', function() {
 
 <p>See the vCenter documentation <a href="https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcenterhost.doc/GUID-E8E854DD-AA97-4E0C-8419-CE84F93C4058.html">here</a> for details on how to create and associate Tags.</p>
 
-<p>Let us say we have a vCenter inventory with two Clusters. To mark the two clusters as two zones, “zone-a” and “zone-b”, and to mark the entire Datacenter as a region, “vc1-region”, the steps would look like this.
-<code class="highlighter-rouge">
-Datacenter (vc1-region)
+<p>Let us say we have a vCenter inventory with two Clusters. To mark the two clusters as two zones, “zone-a” and “zone-b”, and to mark the entire Datacenter as a region, “vc1-region”, the steps would look like this.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Datacenter (vc1-region)
     |
     |-- Cluster-1 (zone-a)
          |-- Host-1
@@ -454,12 +454,16 @@ Datacenter (vc1-region)
          |-- Host-6
          |-- vsanDatastore-2
     |-- sharedVMFSDatastore
-</code>
-1. Create two tag categories, say “k8s-zone” and “k8s-region”
-2. Create zone tags, say “zone-a” and “zone-b” in the “k8s-zone” tag category
-3. Create region tags, say “vc1-region” in the “k8s-region” tag category
-4. Apply the “vc1-region” tag to the Datacenter
-5. Apply the “zone-a” tag to Cluster-1 and “zone-b” tag to Cluster-2.</p>
+</code></pre>
+</div>
+
+<ol>
+  <li>Create two tag categories, say “k8s-zone” and “k8s-region”</li>
+  <li>Create zone tags, say “zone-a” and “zone-b” in the “k8s-zone” tag category</li>
+  <li>Create region tags, say “vc1-region” in the “k8s-region” tag category</li>
+  <li>Apply the “vc1-region” tag to the Datacenter</li>
+  <li>Apply the “zone-a” tag to Cluster-1 and “zone-b” tag to Cluster-2.</li>
+</ol>
 
 <p>This completes the steps required to mark zones in vCenter. The second part is to configure each Kubernetes node to look for these zone labels at startup.</p>
 
@@ -517,12 +521,13 @@ spec:
     fsType: ext4
 </code></pre>
 </div>
+
 <div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl create -f vsphere-volume-pv.yaml
 </code></pre>
 </div>
-<p><strong>Note</strong> the “zone-b” label applied to the Persistent Volume
-<code class="highlighter-rouge">
-$ kubectl describe pv vol-1
+<p><strong>Note</strong> the “zone-b” label applied to the Persistent Volume</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ kubectl describe pv vol-1
 Name:       vol-1
 Labels:	    failure-domain.beta.kubernetes.io/region=vc1-region
             failure-domain.beta.kubernetes.io/zone=zone-b
@@ -536,7 +541,8 @@ Source:
     Type:	vSphereVolume (a Persistent Disk resource in vSphere)
     VolumePath:	[vsanDatastore-2] volumes/myDisk.vmdk
     FSType:	ext4
-</code></p>
+</code></pre>
+</div>
 
 <p>A <a href="/vsphere-storage-for-kubernetes/documentation/storageclass.html">dynamically created Volume</a> in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of “zone-a__zone-b” as shown here.</p>
 
@@ -644,10 +650,12 @@ Source:
 </code></pre>
 </div>
 
-<h4 id="note">Note:</h4>
+<p>Note:</p>
+
 <p>In this example, the Volume could also get placed on sharedVMFSDatastore since it will still be accessible to all nodes in zone-a.</p>
 
-<h4 id="note-1">Note:</h4>
+<p>Note:</p>
+
 <p>When a pod that uses such a Persistent Volume Claim is created, the Kubernetes pod controller automatically schedules it on one of the Kubernetes nodes in the Volume’s zone. This is described more in the Kubernetes documentation of <a href="https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/#topology-awareness">topology aware scheduling.</a></p>
 
   
