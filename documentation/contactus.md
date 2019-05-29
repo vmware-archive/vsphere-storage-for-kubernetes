@@ -4,6 +4,5 @@ title: Contact Us
 
 Please reach us via:
 
-* [hatchway@vmware.com](hatchway@vmware.com)
-* [Issues](https://github.com/vmware/kubernetes/issues)
-* [sig-vmware Kubernetes Slack](https://kubernetes.slack.com/messages/sig-vmware) channel
+* File bugs as a Github [Issue](https://github.com/vmware/vsphere-storage-for-kubernetes/issues)
+* For troubleshooting help and setup, visit the `#sig-vmware` [Kubernetes Slack](https://kubernetes.slack.com/messages/sig-vmware) channel

@@ -161,7 +161,7 @@ scsicontrollertype = pvscsi # Defines the SCSI controller in use on the VMs - le
 
 ### On the Kubernetes masters
 
-Add following flags to the `kubelet` service configuration (usually in the `systemd` config file), as well as the `controller-manager` and `API server` container manifest files on the master node (usually in `/etc/kubernetes/manifests`).
+Add following flags to the `kubelet` service configuration (usually in the `systemd` config file), as well as the `controller-manager` and `api-server` container manifest files on the master node (usually in `/etc/kubernetes/manifests`).
 
 ```sh
 --cloud-provider=vsphere
@@ -176,7 +176,7 @@ The `kubelet` service usually runs as a `systemd` service and it's file can be f
 --cloud-provider=vsphere --cloud-config=/etc/kubernetes/vsphere.conf
 ```
 
-An example configuration would be like this:
+An example configuration of the complete `systemd` service file would be like this:
 
 ```yaml
 [Unit]
@@ -214,14 +214,27 @@ WantedBy=multi-user.target
 
 #### Container manifests
 
-The files you need to edit are usually located at `/etc/kubernetes/manifests/kube-apiserver.json` and `/etc/kubernetes/manifests/kube-controller-manager.json`. You will need to add the following to the `command` section:
+We need to add the `cloud` config flags into the container manifests for the API Server and the Controller Manager.
+
+Depending on your kubernetes version, the files you need to edit are either `json` or `yaml`, but the path is the same.
+
+They will usually located at `/etc/kubernetes/manifests/kube-apiserver.json`/`.yaml` and `/etc/kubernetes/manifests/kube-controller-manager.json`/`.yaml`. You will need to add the following to the `command` section:
+
+`JSON:`
 
 ```json
 "--cloud-provider=vsphere",
 "--cloud-config=/etc/kubernetes/vsphere.conf"
 ```
 
-An example configuration would be like below:
+`YAML:`
+
+```json
+  - --cloud-provider=vsphere
+  - --cloud-config=/etc/kubernetes/vsphere.conf
+```
+
+You can see the sections added to a `JSON` configuration below:
 
 ```json
 {
@@ -266,7 +279,7 @@ Add following flags to the `kubelet` service configuration (usually in the `syst
 --cloud-provider=vsphere
 ```
 
-On worker nodes, we do not require the `vsphere.conf` config file hence the `--cloud-config=` flag is not needed.
+On worker nodes, unless using `zones`, we do not require the `vsphere.conf` config file hence the `--cloud-config=` flag is not needed.
 
 #### Systemd services
 
@@ -311,6 +324,53 @@ KillMode=process
 [Install]
 WantedBy=multi-user.target
 ```
+
+### Update all node ProviderID fields
+
+We need to make sure the K8s `ProviderID` is set on all nodes in the cluster to ensure volumes are mounted into the right node.
+
+This can be checked by running the below:
+
+```sh
+kubectl get nodes -o json | jq '.items[]|[.metadata.name, .spec.providerID, .status.nodeInfo.systemUUID]'
+```
+
+If the output is empty, you will need to run the following script:
+
+On a machine with [`govc`](https://github.com/vmware/govmomi/tree/master/govc)  `jq`, and `kubectl` installed (usually the master node), run the following script to set the `ProviderID` from vCenter to each node:
+
+```sh
+#!/bin/bash
+
+export GOVC_USERNAME='<user>'
+export GOVC_INSECURE=1
+export GOVC_PASSWORD='<password>'
+export GOVC_URL='<server>'
+DATACENTER='Coop'
+FOLDER='<path>'
+# In my case I'm using a prefix for the VM's, so grep'ing is necessary.
+# You can remove it if the folder you are using only contains the machines you need.
+VM_PREFIX='<prefix>'
+IFS=$'\n'
+for vm in $(./govc ls "/$DATACENTER/vm/$FOLDER" | grep $VM_PREFIX); do
+  MACHINE_INFO=$(./govc vm.info -json -dc=$DATACENTER -vm.ipath="/$vm" -e=true)
+  # My VMs are created on vmware with upper case names, so I need to edit the names with awk
+  VM_NAME=$(jq -r ' .VirtualMachines[] | .Name' <<< $MACHINE_INFO | awk '{print tolower($0)}')
+  # UUIDs come in lowercase, upper case then
+  VM_UUID=$( jq -r ' .VirtualMachines[] | .Config.Uuid' <<< $MACHINE_INFO | awk '{print toupper($0)}')
+  echo "Patching $VM_NAME with UUID:$VM_UUID"
+  # This is done using dry-run to avoid possible mistakes, remove when you are confident you got everything right.
+  kubectl patch node $VM_NAME -p "{\"spec\":{\"providerID\":\"vsphere://$VM_UUID\"}}"
+done
+```
+
+At this point, if you query the `ProviderID` again, they should be populated, test with the following command:
+
+```sh
+kubectl get nodes -o json | jq '.items[]|[.metadata.name, .spec.providerID, .status.nodeInfo.systemUUID]'
+```
+
+This time you should see the `ProviderID` output for each node.
 
 ### Restart the services
 
