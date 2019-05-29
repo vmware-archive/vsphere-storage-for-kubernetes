@@ -13,7 +13,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: miniosc
-provisioner: Kubernetes.io/vsphere-volume
+provisioner: kubernetes.io/vsphere-volume
 parameters:
     diskformat: thin
 
@@ -70,7 +70,7 @@ spec:
   template:
     metadata:
       annotations:
-        pod.alpha.Kubernetes.io/initialized: "true"
+        pod.alpha.kubernetes.io/initialized: "true"
       labels:
         app: minio
     spec:
@@ -102,7 +102,7 @@ spec:
   - metadata:
       name: data
       annotations:
-        volume.beta.Kubernetes.io/storage-class: miniosc
+        volume.beta.kubernetes.io/storage-class: miniosc
     spec:
       accessModes:
         - ReadWriteOnce
@@ -164,4 +164,7 @@ Type:			NodePort
 NodePort:		<unset>	30000/TCP
 ```
 
-Use the following URL to access Minio: `http://10.160.132.97:30000/minio/login`
+Use the following URL to access Mnio
+```
+http://10.160.132.97:30000/minio/login
+```

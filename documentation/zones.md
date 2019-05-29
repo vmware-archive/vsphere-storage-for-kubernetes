@@ -128,7 +128,7 @@ Source:
     FSType:	ext4
 ```
 
-A [dynamically created Volume](/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html) in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of "zone-a__zone-b" as shown here.
+A [dynamically created Volume](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/storageclass.html) in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of "zone-a__zone-b" as shown here.
 
 ```yaml
 $ cat vsphere-volume-sc-fast.yaml
