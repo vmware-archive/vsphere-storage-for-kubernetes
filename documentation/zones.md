@@ -52,7 +52,7 @@ This completes the steps required to mark zones in vCenter. The second part is t
 
 ## Kubernetes Setup
 
-Add the zone and region `Tag` category names in `vsphere.conf` of each Kubernetes node. Note that the value is the Tag category names, "k8s-region" and "k8s-zone" and not the actual Tag names, the are: `vc1-region`, `zone-a` or `zone-b`.
+Add the zone and region vSphere `Tag Category` names in `vsphere.conf` of each Kubernetes node. Note that the value is the `Tag Category` names, "k8s-region" and "k8s-zone" and not the actual `Tag` names, the tag names themselves are: `vc1-region`, `zone-a` or `zone-b`.
 
 ```sh
 /etc/kubernetes/vsphere.conf
