@@ -10,7 +10,9 @@ With the introduction of zones in Kubernetes, the cloud provider can express the
 
 vSphere Cloud Provider added Zones support since Kubernetes version 1.14.
 
-## Mark Zones and Regions in vCenter
+## vCenter Setup
+
+### Tag Zones and Regions in vCenter
 
 Zones and Regions are marked by creating and applying Tags in vCenter. The Tags can be applied to a Datacenter, Cluster or ESX Host. Tags are inherited from the parent and can be overridden on the child in this hierarchy. So a Tag applied to a Datacenter is inherited by all Clusters and Hosts in that Datacenter, and a Tag applied to a Cluster overrides any Tags that it might inherit from its parent Datacenter.
 
@@ -18,7 +20,7 @@ See the vCenter documentation [here](https://docs.vmware.com/en/VMware-vSphere/6
 
 Let us say we have a vCenter inventory with two Clusters. To mark the two clusters as two zones, "zone-a" and "zone-b", and to mark the entire Datacenter as a region, "vc1-region", the steps would look like this.
 
-```
+```text
 Datacenter (vc1-region)
     |
     |-- Cluster-1 (zone-a)
@@ -48,9 +50,11 @@ Datacenter (vc1-region)
 
 This completes the steps required to mark zones in vCenter. The second part is to configure each Kubernetes node to look for these zone labels at startup.
 
-6. Add the zone and region Tag category names in `vsphere.conf` of each Kubernetes node. Note that the value is the Tag category names, "k8s-region" and "k8s-zone" and not the actual Tag names, "vc1-region", "zone-a" or "zone-b".
+## Kubernetes Setup
 
-```
+Add the zone and region vSphere `Tag Category` names in `vsphere.conf` of each Kubernetes node. Note that the value is the `Tag Category` names, "k8s-region" and "k8s-zone" and not the actual `Tag` names, the tag names themselves are: `vc1-region`, `zone-a` or `zone-b`.
+
+```sh
 /etc/kubernetes/vsphere.conf
 
 [Labels]
@@ -58,12 +62,12 @@ This completes the steps required to mark zones in vCenter. The second part is t
     zone = "k8s-zone"
 ```
 
-7. Restart all the services on Kubernetes master
-8. Restart kubelet on all the Kubernetes nodes.
+* Restart all the services on Kubernetes master.
+* Restart kubelet on all the Kubernetes nodes.
 
 The Kubernetes nodes now have labels showing the zone to which it belongs.
 
-```
+```sh
 $ kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\tregion: "}{.metadata.labels.failure-domain\.beta\.kubernetes\.io/region}{"\tzone: "}{.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone}{"\n"}{end}'
 
 k8s-master	region: vc1-region	zone: zone-a
@@ -72,9 +76,10 @@ k8s-node2	region: vc1-region	zone: zone-a
 k8s-node3	region: vc1-region	zone: zone-b
 k8s-node4	region: vc1-region	zone: zone-b
 ```
-#### Note:
-The [Labels] section with region/zone entries in `vsphere.conf` file acts as a feature flag for zone support in vSphere Cloud Provider. If these entries are not present in the `vsphere.conf` file then vSphere Cloud Provider does not recognize Zones in vCenter.
 
+**Note:**
+
+The [Labels] section with region/zone entries in `vsphere.conf` file acts as a feature flag for zone support in vSphere Cloud Provider. If these entries are not present in the `vsphere.conf` file then vSphere Cloud Provider does not recognize Zones in vCenter.
 
 ## Zone for Volume
 
@@ -82,7 +87,7 @@ When a Volume is created in such an environment it gets automatically labelled w
 
 In the above sample vCenter inventory, when a Volume is created on vsanDatastore-2, it gets the "zone-b" label associated with it.
 
-```
+```yaml
 $ cat vsphere-volume-pv.yaml
 
 apiVersion: v1
@@ -100,13 +105,13 @@ spec:
     fsType: ext4
 ```
 
+```sh
+kubectl create -f vsphere-volume-pv.yaml
 ```
-$ kubectl create -f vsphere-volume-pv.yaml
-```
+
 **Note** the "zone-b" label applied to the Persistent Volume
 
-
-```
+```sh
 $ kubectl describe pv vol-1
 Name:       vol-1
 Labels:	    failure-domain.beta.kubernetes.io/region=vc1-region
@@ -125,7 +130,7 @@ Source:
 
 A [dynamically created Volume](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/storageclass.html) in such an environment will always be placed on a datastore that is shared across all the Kubernetes nodes. In the sample vCenter inventory shown above, the Volume is placed on sharedVMFSDatastore. Since the Volume is visible for pods in both the zones, it gets the zone label of "zone-a__zone-b" as shown here.
 
-```
+```yaml
 $ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -136,10 +141,12 @@ parameters:
   diskformat: thin
   fstype: ext3
 ```
+
+```sh
+kubectl create -f vsphere-volume-sc-fast.yaml
 ```
-$ kubectl create -f vsphere-volume-sc-fast.yaml
-```
-```
+
+```yaml
 $ cat vsphere-volume-pvcsc.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -154,10 +161,12 @@ spec:
     requests:
       storage: 2Gi
 ```
+
+```sh
+kubectl create -f vsphere-volume-pvcsc.yaml
 ```
-$ kubectl create -f vsphere-volume-pvcsc.yaml
-```
-```
+
+```sh
 $ kubectl describe pvc pvcsc001
 Name:           pvcsc001
 Namespace:      default
@@ -169,9 +178,10 @@ Capacity:       2Gi
 Access Modes:   RWO
 No events.
 ```
+
 **Note** the "zone-a__zone-b" label for the dynamically created volume
 
-```
+```sh
 $ kubectl describe pv pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
 Name:		pvc-1ee83e2b-4b9b-11e9-ab0c-0050569a14a9
 Labels:		failure-domain.beta.kubernetes.io/region=vc1-region
@@ -188,11 +198,11 @@ Source:
     FSType:	ext4
 ```
 
-## Specifying zone for a Volume
+## Specifying the Zone for a Volume
 
 When creating a Volume dynamically, the required zone for the Volume can be specified as `allowedTopologies` in a Storage Class.
 
-```
+```yaml
 $ cat dynamic.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -210,7 +220,7 @@ allowedTopologies:
 
 When a Persistent Volume is created based on this storage class, it is placed on a datastore that is accessible to all nodes in zone-a. In the sample vCenter inventory shown above, this Volume gets placed on vsanDatastore-1.
 
-```
+```sh
 $ kubectl describe pv pvc-3264d346-4b9f-11e9-ab0c-0050569a14a9
 Name:		pvc-3264d346-4b9f-11e9-ab0c-0050569a14a9
 Labels:		failure-domain.beta.kubernetes.io/region=vc1-region
@@ -231,10 +241,8 @@ Source:
     FSType:	ext4
 ```
 
-Note:
-
+**Note:**
 In this example, the Volume could also get placed on sharedVMFSDatastore since it will still be accessible to all nodes in zone-a.
 
-Note:
-
+**Note:**
 When a pod that uses such a Persistent Volume Claim is created, the Kubernetes pod controller automatically schedules it on one of the Kubernetes nodes in the Volume's zone. This is described more in the Kubernetes documentation of [topology aware scheduling.](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/#topology-awareness)

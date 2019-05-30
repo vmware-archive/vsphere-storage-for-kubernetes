@@ -2,8 +2,7 @@
 title: vSphere Storage for Kubernetes
 ---
 
-
-## Introduction 
+## Introduction
 
 Containers have changed the way applications are packaged and deployed. Not only containers are efficient from an infrastructure utilization point of view, but they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. This user guide outlines integration of vSphere storage with Kubernetes. 
 

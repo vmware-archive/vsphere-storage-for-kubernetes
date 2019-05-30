@@ -1,38 +1,47 @@
 ---
-title: Persistent Volumes & Persistent Volumes Claims
+title: Static Provisioning
 ---
 
-In case of Kubernetes Volumes, once the Pod is deleted the specification of the volume in the Pod is also lost. Even though VMDK file persists but from Kubernetes's perspective the volume is deleted.
+## Introduction
 
-Persistent Volumes API resource solves this problem where PVs have lifecycle independent of the Pods and not created when Pod is spawned. PVs are units of storage provisioned in advance, they are Kubernetes objects backed by vSphere storage. PVs are created, deleted using kubectl commands.
+In the case of Kubernetes `Volumes`, once the `Pod` is deleted the specification of the volume in the `Pod` is also lost. Even though `VMDK` file persists, but from Kubernetes perspective the volume is deleted.
 
-In order to use these PVs user needs to create PersistentVolumeClaims which is nothing but a request for PVs. A claim must specify the access mode and storage capacity, once a claim is created PV is automatically bound to this claim. Kubernetes will bind a PV to PVC based on access mode and storage capacity but claim can also mention volume name, selectors and volume class for a better match.
-This design of PV-PVCs not only abstract storage provisioning and consumption but also ensures security through access control.
+The `PersistentVolumes` API solves this problem where `PVs` have a lifecycle independent of the `Pods` and are not dependant on a `Pod` to persist. `PVs` are units of storage provisioned in advance, they are Kubernetes objects backed by vSphere storage. `PVs` are created and deleted using `kubectl` commands.
 
-**Note:**
+In order to use these `PVs` the user needs to create `PersistentVolumeClaims` which is simply a request for some storage. A `PVC` must specify the `access mode` and `storage capacity`, once a `PVC` is created a `PV` is automatically bound to this claim. Kubernetes will bind a `PV` to `PVC` based on the `access mode` and `storage capacity`. The `PVC` can also mention `volume name`, `selectors` and `volume class` for a better match.
 
-All the example yamls can be found [here](https://github.com/Kubernetes/kubernetes/tree/master/examples/volumes/vsphere) unless otherwise specified. Please download these examples.
+This design of `PV` to `PVC` mappings not only abstracts storage provisioning and consumption but also ensures security through access control.
 
-Here is an example of how to use PV and PVC to add persistent storage to your Pods.
+## Manually provisioning volumes
 
-**Create VMDK**
+Here is an example of how to use `PVs` and `PVCs` to add persistent storage to your `Pods`.
 
-First ssh into ESX and then use following command to create vmdk,
+### Create vSphere VMDK
 
-```
-vmkfstools -c 2G /vmfs/volumes/datastore1/volumes/myDisk.vmdk
-```
+#### Via govc (preferred)
 
-Or use govc:
+Requests a 2GB `VMDK` be created on the `datastore1` datastore in a folder called `volumes` with a name of `myDisk.vmdk`:
 
-```
+```sh
 govc datastore.disk.create -ds datastore1 -size 2G volumes/myDisk.vmdk
 ```
 
-**Create Persistent Volume**
+#### Via ESXi CLI
 
+SSH into an ESXi host as `root` and use following command to create a 2GB `VMDK` (this assumes your vSphere datastore is called `datastore1` and you want to create the `VMDK` in the folder `volumes`):
+
+```sh
+vmkfstools -c 2G /vmfs/volumes/datastore1/volumes/myDisk.vmdk
 ```
-#vsphere-volume-pv.yaml
+
+## Create a PersistentVolume
+
+### Define the PersistentVolume
+
+As you can see below, we call the `PV` "`pv0001`" and pass in the `VMDK` path to the `volumePath` parameter.
+
+```yaml
+$ cat vsphere-volume-pv.yaml
 
 apiVersion: v1
 kind: PersistentVolume
@@ -49,23 +58,26 @@ spec:
     fsType: ext4
 ```
 
-In the above example, datastore1 is located in the root folder. If datastore is the member of Datastore Cluster or located in sub folder, then folder path needs to be provided in the VolumePath as mentioned below.
+In the above example, `datastore1` is located in the root folder of vCenter. If the datastore is the member of a `Datastore Cluster` or located in subfolder, then the folder path needs to be provided in the `volumePath` as shown below.
 
-```
+```yaml
 vsphereVolume:
-    VolumePath:	"[DatastoreCluster/datastore1] volumes/myDisk"
+  volumePath: "[DatastoreCluster/datastore1] volumes/myDisk"
 ```
 
+### Import the PersistentVolume
 
-**Create the persistent volume**
+Import the `PersistentVolume` definition we created above into our Kubernetes cluster using `kubectl`:
 
+```sh
+kubectl create -f vsphere-volume-pv.yaml
 ```
-$ kubectl create -f vsphere-volume-pv.yaml
-```
 
-**Verify persistent volume is created**
+### Verify the PersistentVolume
 
-```
+Verify the `PV` we imported above was created correctly:
+
+```sh
 $ kubectl describe pv pv0001
 Name:		pv0001
 Labels:		<none>
@@ -82,10 +94,14 @@ Source:
 No events.
 ```
 
-**Create Persistent Volume Claim**
+## Create a PersistentVolumeClaim
 
-```
-#vsphere-volume-pvc.yaml
+### Define the PersistentVolumeClaim
+
+Create a `PVC` to consume the `PV` created above - in this example the `PVC` simply requests 2GB of storage:
+
+```yaml
+$ cat vsphere-volume-pvc.yaml
 
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -99,15 +115,19 @@ spec:
       storage: 2Gi
 ```
 
-**Create the persistent volume claim**
+### Import the PersistentVolumeClaim
 
-```
-$ kubectl create -f vsphere-volume-pvc.yaml
+Import the `PVC` definition from above into our Kubernetes cluster:
+
+```sh
+kubectl create -f vsphere-volume-pvc.yaml
 ```
 
-**Verify persistent volume claim is created**
+### Verify the PersistentVolumeClaim
 
-```
+Ensure the `PVC` we created has been assigned a `PV` - the `Status` should show `Bound` and the `Volume` field should show the `PV` name from above, in this case `pv0001`.
+
+```sh
 $ kubectl describe pvc pvc0001
 Name:		pvc0001
 Namespace:	default
@@ -119,10 +139,14 @@ Access Modes:	RWO
 No events.
 ```
 
-**Create Pod which uses Persistent Volume Claim**
+## Create a Pod using the PVC
 
-```
-#vpshere-volume-pvcpod.yaml
+### Define the Pod
+
+Create a simple `Pod` the consumes the `PVC` created above by name `pvc0001`:
+
+```yaml
+$ cat vsphere-volume-pvcpod.yaml
 
 apiVersion: v1
 kind: Pod
@@ -141,16 +165,22 @@ spec:
       claimName: pvc0001
 ```
 
-**Create the pod**
+### Import the Pod
 
-```
-$ kubectl create -f vsphere-volume-pvcpod.yaml
+Import the `Pod` definition from above into our Kubernetes cluster:
+
+```sh
+kubectl create -f vsphere-volume-pvcpod.yaml
 ```
 
-**Verify pod is created**
+### Verify the Pod
 
-```
+Make sure the `PV` was bound to the pod correctly by ensuring the `STATUS` is set to `Running`:
+
+```sh
 $ kubectl get pod pvpod
 NAME      READY     STATUS    RESTARTS   AGE
 pvpod       1/1     Running   0          48m
 ```
+
+You have successfully manually provisioned a Kubernetes volume on vSphere.

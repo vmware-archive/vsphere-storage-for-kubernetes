@@ -2,61 +2,50 @@
 title: Prerequisites
 ---
 
-Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider:
+Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider. Refer to [the versions list](/vsphere-storage-for-kubernetes/documentation/versions.html) for features supported in each version.
 
-* Kubernetes version - v1.6.5 and above
+## Kubernetes
 
-Following table summarizes key features introduced in vSphere Cloud Provider in each Kubernetes release
+* Kubernetes version - v1.6.5+
 
-<table>
-<thead>
-<tr>
-  <th>Kubernetes Release</th>
-  <th>vSphere Cloud Provider feature</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>v1.11.0</td>
-  <td>Added a mechanism in vSphere Cloud Provider to get credentials from Kubernetes secrets, rather than the plain text vsphere.conf file<br>SAML token authentication support</td>
-</tr>
-<tr>
-  <td>v1.9.0 </td>
-  <td>Multi vCenter Support</td>
-</tr>
-<tr>
-  <td>v1.8.2</td>
-  <td>Performance improvement for large scale deployment</td>
-</tr>
-<tr>
-  <td>v1.8.0</td>
-  <td>vSphere Cloud Provider refactoring for better debuggability, logging and code maintenance</td>
-</tr>
-<tr>
-  <td>v1.7.0</td>
-  <td>Integration with vSphere Storage Policy Based Management (SPBM) for dynamic volume provisioning.<br>Enhanced vSphere Cloud Provider debuggabilty via integration with metrices exposed for Kubernetes storage APIs.</td>
-</tr>
-<tr>
-  <td>v1.6.5</td>
-  <td>Integration with vSphere HA</td>
-</tr>
-<tr>
-  <td>v1.6.3</td>
-  <td>Dynamic volume provisioning using vSAN storage capabilities</td>
-</tr>
-</tbody>
-</table>
-
+## vSphere
 
 * vSphere version - 6.0.x (Virtual Hardware 11) and above. (**Note:** Standalone ESX is not supported.)
+* vSAN, VMFS and NFS supported.
+  * vSAN support is limited to one cluster in one vCenter.
 
-* Container Host operating systems -
-    - Photon - v1.0 GA
-    - Ubuntu - v16.04
-    - CoreOs - v4.11.2
-    - Centos  - v7.3
-    - RHEL OS -  v7.4
-    - SLES - v12 SP3
+### Permissions
+
+* vCenter user with required [set of privileges](/vsphere-storage-for-kubernetes/documentation/vcp-roles.html).
+
+## VMs
+
+* All node VMs must be placed in a vSphere VM folder.
+  * Create a VM folder following the instructions mentioned in this [link](https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html) and move Kubernetes Node VMs to this folder.
+
+* The `disk.EnableUUID` parameter must be set to `TRUE` for each Node VM.
+  * This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. For each of the virtual machine nodes that will be participating in the Kubernetes cluster, follow the steps below using [govc.](#tooling)
+  * Set disk.EnableUUID to true for all VMs:
+
+    ```sh
+    govc vm.change -e="disk.enableUUID=1" -vm='vm name here'
+    ```
+
+_Note: If Kubernetes node VMs are created from a template VM then `disk.EnableUUID=1` can be set on the template VM - VMs cloned from this template, will automatically inherit this property._
+
+### Operating System
+
+* Kubernetes host operating systems:
+  * Photon OS - v1.0 GA
+  * Ubuntu - 16.04, 18.04
+  * CoreOS - v4.11.2
+  * Centos  - v7.3
+  * RHEL OS -  v7.4
+  * SLES - v12 SP3
+
+* VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this [link](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html) for instructions on installing VMware tools.
+
+## Tooling
 
 * [govc](https://github.com/vmware/govmomi/releases) v0.18 and above
 
@@ -67,17 +56,3 @@ configuration:
         export GOVC_USERNAME='vCenter User'
         export GOVC_PASSWORD='vCenter Password'
         export GOVC_INSECURE=1
-
-* vSphere setup to deploy the Kubernetes cluster.
-   - For Kubernetes version 1.9.x and above: vSphere Cloud Provider supports Kubernetes cluster spanning across multiple vCenters.
-   - For Kubernetes version 1.8.x and below: vSphere Cloud Provider supports Kubernetes cluster deployed only in one vCenter.
-* vSphere supported storage.
-    - It can be HCI offering such as VMware vSAN or block and file storage offerings like VMFS and NFS.
-    - With Kubernetes version 1.9.x if user wants to use multiple vCenters then vSAN storage can not be used. vSAN is limited to one cluster in one vCenter deployment.
-* vCenter user with required set of privileges.
-* VMware Tools needs to be installed on the guest operating system on each Node VM. Please refer this [link](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.html.hostclient.doc/GUID-ED3ECA21-5763-4919-8947-A819A17980FB.html) for instruction on installing VMware tools.
-* Node VM name requirements needed only until Kuberneters version 1.8.x.
-    - VM names can not begin with numbers.
-    - VM names can not have capital letters, any special characters except `.` and `-`.
-    - VM names can not be shorter than 3 chars and longer than 63
-* The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. Please refer this [section.](/vsphere-storage-for-kubernetes/documentation/existing.html#enable-disk-uuid-on-node-virtual-machines)

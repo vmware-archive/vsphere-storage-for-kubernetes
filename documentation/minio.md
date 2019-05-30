@@ -3,12 +3,12 @@ title: Deploying S3 Stateful Containers - Minio
 ---
 
 This case study describes the process to deploy distributed Minio server on Kubernetes. This example uses the official Minio Docker image from Docker Hub.
- 
-**Create Minio Storage class**
 
-``` 
+## Create Minio StorageClass
+
+```yaml
 #minio-sc.yaml
- 
+
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -16,22 +16,22 @@ metadata:
 provisioner: kubernetes.io/vsphere-volume
 parameters:
     diskformat: thin
- 
+
 ```
 
 Creating the storage class:
 
-```
-$ kubectl create -f minio-sc.yaml
+```sh
+kubectl create -f minio-sc.yaml
 ```
 
-**Create Minio headless Service**
+## Create Minio Headless Service
 
 Headless Service controls the domain within which StatefulSets are created. The domain managed by this Service takes the form: $(service name).$(namespace).svc.cluster.local (where “cluster.local” is the cluster domain), and the pods in this domain take the form: $(pod-name-{i}).$(service name).$(namespace).svc.cluster.local. This is required to get a DNS resolvable URL for each of the pods created within the Statefulset.
 
 This is the Headless service description.
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -49,17 +49,17 @@ spec:
 
 Create the headless service
 
-```
+```sh
 $ kubectl create -f https://github.com/vmware/kubernetes/tree/kube-examples/kube-examples/minio/distributed/minio-distributed-headless-service.yaml?raw=true
 service "minio" created
 ```
 
-**Create Minio StatefulSet**
+## Create Minio StatefulSet
 
 A StatefulSet provides a deterministic name and a unique identity to each pod, making it easy to deploy stateful distributed applications. To launch distributed Minio user need to pass drive locations as parameters to the minio server command. Then the user need to run the same command on all the participating pods. StatefulSets offer a perfect way to handle this requirement.
 This is the Statefulset description.
 
-```
+```yaml
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
@@ -113,22 +113,22 @@ spec:
 
 Create the Statefulset
 
-``` 
+```sh
 $ kubectl create -f https://github.com/vmware/kubernetes/tree/kube-examples/kube-examples/minio/distributed/minio-distributed-statefulset.yaml?raw=true
 statefulset "minio" created
 ```
 
-**Create service and expose it to external traffic using NodePort**
- 
+## Expose Service using NodePort
+
 Now that a Minio statefulset running, user may either want to access it internally (within the cluster) or expose it as a Service onto an external (outside of the cluster, maybe public internet) IP address, depending on the use case. This can be achieved using Services.
 
 There are 3 major service types — default type is ClusterIP, which exposes a service to connection from inside the cluster. NodePort and LoadBalancer are two types that expose services to external traffic.
- 
+
 In this example, we expose the Minio Deployment by using NodePort. This is the service description.
 
-``` 
+```yaml
 #minio_NodePort.yaml
- 
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -142,23 +142,23 @@ spec:
     app: minio
 ```
 
-```
+```sh
 $ kubectl create -f minio_NodePort.yaml
 service "minio-service" created
-``` 
- 
-**Access Minio** 
- 
+```
+
+## Access Minio
+
 Find the IP addresses of master nodes
 
-```
+```sh
 $ kubectl describe node master | grep Addresses
 Addresses:		10.160.132.97,10.160.132.97,master
-``` 
- 
-Find the NodePort 							
-
 ```
+
+Find the NodePort
+
+```sh
 $ kubectl describe service minio-service | grep NodePort
 Type:			NodePort
 NodePort:		<unset>	30000/TCP

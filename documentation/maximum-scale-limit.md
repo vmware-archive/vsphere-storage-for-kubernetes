@@ -1,9 +1,8 @@
 ---
 title: Maximum scale supported by VCP
 ---
-**Maximum scale validated - 1000 nodes Kubernetes cluster**
 
-**Test Scenario**
+## Test Scenario
 
 1. Create a kubernetes cluster with 1000 worker nodes and enabling vSphere Cloud Provider (VCP) on all of them.
 2. Create a statefulset(nginx) with persistent volume dynamically provisioned where provisioner is vsphere-volume.
@@ -19,7 +18,7 @@ title: Maximum scale supported by VCP
 
 The following infrastructure configuration is used to validate the scale limits for VCP.
 
-**Node CPU and Memory Capacity Allocation**
+## Node CPU and Memory Capacity Allocation
 
 To handle workload for 1000 node Kubernetes cluster master node is configured to use 8 cpus and 8 GB memory.
 
@@ -35,7 +34,7 @@ Worker nodes are allocated 2 GB and 2 CPUs.
 **Note:** CPU/Memory allocation for nodes can be adjusted based on the workload requirement. Above is the minimum required allocation.
 
 
-**Configure CPU and Memory Requests for Kubernetes System Pods**
+## Configure CPU and Memory Requests for Kubernetes System Pods
 
 It is recommended to set guaranteed CPU and Memory reservation for Kubernetes System Pods so that these pods does not go out of resources.
 
@@ -85,7 +84,7 @@ Allocated resources:
   5060m (63%)   0 (0%)      6710Mi (85%)     170Mi (2%)
 ```
 
-**Flannel Network Configuration**
+## Flannel Network Configuration
 
 Most of the deployment uses 17.0.0.0/24 as the default flannel network setting. This allows registering only 254 nodes. To deploy more than 254 nodes flannel network should be set to 17.0.0.0/8.
 

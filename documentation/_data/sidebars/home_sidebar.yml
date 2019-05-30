@@ -2,46 +2,34 @@
 
 entries:
 - title: Sidebar
-  product: Menu
+  product: Navigation
   levels: three
   folders:
 
-  - title: Get Started
+  - title: vSphere Cloud Provider
     output: web
     folderitems:
     - title: Introduction
       url: /index.html
       output: web
-  - title: vSphere Cloud Provider
-    output: web
-    folderitems:
     - title: Overview
       url: /overview.html
       output: web
       subfolders:
-      - title: Kubernetes Storage Support
+      - title: Provisioning Methods
         output: web
         subfolderitems:
-        - title: Volumes
-          url: /kubernetes-volumes.html
+        - title: Dynamic Provisioning (Recommended)
+          url: /policy-based-mgmt.html
           output: web
-        - title: Persistent Volumes & Persistent Volumes Claims
+        - title: Static Provisioning
           url: /persistent-vols-claims.html
           output: web
-        - title: Dynamic Provisioning & Storage Class
-          url: /storageclass.html
-          output: web
-        - title: StatefulSets
-          url: /statefulsets.html
-          output: web
-        - title: Zone support
-          url: /zones.html
-          output: web
-    - title: Storage Policy Based Management for Dynamic Provisioning
-      url: /policy-based-mgmt.html
+    - title: Zone Support
+      url: /zones.html
       output: web
-    - title: High Availability of Kubernetes Cluster
-      url: /high-availability.html
+    - title: Versions
+      url: /versions.html
       output: web
   - title: Deployment
     output: web
@@ -49,45 +37,55 @@ entries:
       - title: Prerequisites
         url: /prerequisites.html
         output: web
-      - title: Configurations on existing Kubernetes Cluster
+      - title: Configuration
         url: /existing.html
         output: web
-      - title: SAML token authentication
-        url: /saml-token-authentication.html
-        output: web
-      - title: Customize roles and privileges
+      - title: Permissions
         url: /vcp-roles.html
         output: web
-      - title: Best Practices
-        url: /bestpractices.html
-        output: web
-      - title: Kubernetes upgrade with VCP
+  - title: Upgrades
+    output: web
+    folderitems:
+      - title: Upgrade to v1.9.x
         url: /kubernetes-upgrade.html
         output: web
-      - title: Maximum supported scale limit
+  - title: Troubleshooting
+    output: web
+    folderitems:
+    - title: FAQs
+      url: /faqs.html
+      output: web
+    - title: Known Issues
+      url: /known-issues.html
+      output: web
+    - title: Logs and debugging
+      url: /troubleshooting.html
+      output: web
+  - title: Appendices
+    output: web
+    folderitems:
+      - title: Scaling Limits
         url: /maximum-scale-limit.html
         output: web
-      - title: Troubleshooting
-        url: /troubleshooting.html
+      - title: SAML Authentication
+        url: /saml-token-authentication.html
         output: web
-  - title: Applications & Examples
-    output: web
-    folderitems:
-        - title: Running Stateful application - Guestbook app
-          url: /guestbook.html
+      - title: Securing Credentials
+        url: /k8s-secret.html
+        output: web
+      - title: High Availability of Kubernetes Cluster
+        url: /high-availability.html
+        output: web
+        subfolders:
+        - title: Example Applications
           output: web
-        - title: Running MongoDB on vSphere
-          url: /mongodb.html
-          output: web
-        - title: Deploying S3 Stateful containers - Minio
-          url: /minio.html
-          output: web
-  - title: Miscellaneous
-    output: web
-    folderitems:
-        - title: FAQs
-          url: /faqs.html
-          output: web
-        - title: Known Issues
-          url: /known-issues.html
-          output: web
+          subfolderitems:
+          - title: Guestbook
+            url: /guestbook.html
+            output: web
+          - title: Minio
+            url: /minio.html
+            output: web
+          - title: MongoDB
+            url: /mongodb.html
+            output: web

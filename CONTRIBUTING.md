@@ -8,9 +8,9 @@ questions about the CLA process, please refer to our [FAQ](https://cla.vmware.co
 
 ## Community
 
-## Getting Started
+### Getting Started
 
-## Contribution Flow
+#### Contribution Flow
 
 This is a rough outline of what a contributor's workflow looks like:
 
@@ -29,7 +29,7 @@ git commit -a
 git push origin my-new-feature
 ```
 
-### Staying In Sync With Upstream
+#### Staying In Sync With Upstream
 
 When your branch gets out of sync with the vmware/master branch, use the following to update:
 
@@ -40,7 +40,7 @@ git pull --rebase upstream master
 git push --force-with-lease origin my-new-feature
 ```
 
-### Updating pull requests
+#### Updating pull requests
 
 If your PR fails to pass CI or needs changes based on code review, you'll most likely want to squash these changes into
 existing commits.
@@ -66,9 +66,25 @@ git push --force-with-lease origin my-new-feature
 Be sure to add a comment to the PR indicating your new changes are ready to review, as GitHub does not generate a
 notification when you git push.
 
+#### Running the site locally
+
+Build the Docker container, navigate to the root directory of the repo and execute:
+
+```sh
+docker build vsphere-storage-for-k8s .
+```
+
+Run the container:
+
+```sh
+docker run -p 4000:4000 -v /host/path/to/vsphere-storage-for-kubernetes/documentation:/src vsphere-storage-for-k8s:latest serve --host 0.0.0.0
+```
+
+Access the site via [`http://localhost:4000`](http://localhost:4000).
+
 ### Code Style
 
-### Formatting Commit Messages
+#### Formatting Commit Messages
 
 We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/).
 

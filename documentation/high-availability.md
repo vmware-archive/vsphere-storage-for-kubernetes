@@ -8,7 +8,8 @@ But what happens if the node/host is a VM and the physical host fails? vSphere H
  
 Applications running on Kubernetes on vSphere can take advantage of vSphere Availability ensuring resilient and highly available applications.
  
-**Node VM Failure:**
+## Node VM Failure
+
 Node VM failure will cause Kubernetes to recreate a new pod to run the containers. vSphere Cloud Provider will mount the disk to a live node and unmount disk from the dead node automatically. The validation description is as follows:
 						
 * Shutdown one Kubernetes node VM. This will cause Kubernetes to remove the node VM from the Kubernetes cluster.
@@ -19,7 +20,8 @@ Node VM failure will cause Kubernetes to recreate a new pod to run the container
 									
 * Fix the issue of the node VM (if any) and power it on. Kubernetes will add the node back to the original cluster and it will be available for new pod creation. 
  
-**Physical Host Failure:**
+## Physical Host Failure
+
 Powering off one of the ESXi hosts will cause the vSphere Availability to restart the node on one of the running ESXi servers. The node in Kubernetes cluster will temporarily change to UNKNOWN. After less than two minutes, the node will be available in the cluster. No pod recreation is required. 
  
 
