@@ -271,6 +271,21 @@ You can see the sections added to a `JSON` configuration below:
                 ],
 ```
 
+In addition, in accordance with the [official cloud provider configuration guide](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#kubeadm), it is necessary to mount the config file to the corresponding apiserver and controller-manager containers. To do that, the manifest files should also have amendments as follows:
+
+   volumeMounts:
+   ...
+   - mountPath: /etc/kubernetes/vsphere.conf
+     name: vsphere-config
+     readOnly: true
+
+and in the volume definitions:
+
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/vsphere.conf
+    name: vsphere-config
+
 ### On the Kubernetes workers
 
 Add following flags to the `kubelet` service configuration (usually in the `systemd` config file).
