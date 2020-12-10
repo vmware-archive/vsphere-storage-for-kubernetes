@@ -1,5 +1,6 @@
 ---
 title: Dynamic Provisioning and StorageClass API
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 With PV and PVCs one can only provision storage statically i.e. PVs first needs to be created before a Pod claims it. However, with StorageClass API Kubernetes enables dynamic volume provisioning. This avoids pre-provisioning of storage and storage is provisioned automatically when a user requests it.
@@ -31,10 +32,10 @@ Let us look at an example of how to use StorageClass for dynamic provisioning.
 $ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
-metadata: 
+metadata:
   name: fast
 provisioner: kubernetes.io/vsphere-volume
-parameters: 
+parameters:
   datastore: VSANDatastore
   diskformat: thin
   fstype: ext3

@@ -1,5 +1,6 @@
 ---
 title: vSphere Cloud Provider
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Overview
@@ -30,7 +31,7 @@ A vSphere datastore is an abstraction which hides storage details (such as LUNs)
 * **vSAN** is a hyper-converged infrastructure storage which provides excellent performance as well as reliability. vSAN is a simple storage system with management features like policy driven administration.
 * **VMFS** (Virtual Machine File System) is a cluster file system that allows virtualization to scale beyond a single node for multiple VMware ESX servers. VMFS increases resource utilization by providing shared access to pool of storage.
 * **NFS** (Network File System) is a distributed file protocol to access storage over network like local storage. vSphere supports NFS as backend to store virtual machines files.
-* **VVOL** (Virtual Volumes) - Virtual Volumes datastore represents a storage container in vCenter Server and vSphere Web Client. 
+* **VVOL** (Virtual Volumes) - Virtual Volumes datastore represents a storage container in vCenter Server and vSphere Web Client.
 
 ## Kubernetes storage support
 

@@ -1,6 +1,9 @@
 ---
 title: FAQs
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
+
+{{site.data.alerts.warning}}Following FAQs are only applicable to in-tree vSphere Cloud Provider and in-tree vSphere Volume Plugin. For information about vSphere CSI Driver please visit https://vsphere-csi-driver.sigs.k8s.io/ {{site.data.alerts.end}}
 
 ## What is the biggest Kubernetes cluster it has been tested for?
 It has been tested on 1000 node Kubernetes cluster so far. Please refer to this [section](/vsphere-storage-for-kubernetes/documentation/maximum-scale-limit.html) for details about recommended configuration.
@@ -55,6 +58,7 @@ Proposal is available [here](https://github.com/gnufied/community/blob/91b410281
 
 ## Is ReadWriteMany volume supported with vSphere Cloud Provider?
 ReadWriteMany volume is not supported by vSphere Cloud Provider.
+ReadWriteMany volumes are supported using the Container Storage Interface (CSI) as the new standard/driver that sits between vSphere and Kubernetes distributions: https://vsphere-csi-driver.sigs.k8s.io/
 
 ## Is it mandatory to have all the node VMs in the same datastore?
 It is not mandatory to keep all node VMs on the same datastore. But make sure node VM has access to volumes datastores.

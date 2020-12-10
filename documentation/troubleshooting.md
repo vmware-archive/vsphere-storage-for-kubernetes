@@ -1,13 +1,14 @@
 ---
 title: Troubleshooting
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 To troubleshoot issues with Kuberenetes cluster deployment, please visit [https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/)
 
 ## Logs to inspect
 Following logs are needed to debug VCP issues
- 
+
  * Controller-Manager logs
- * API-server logs 
+ * API-server logs
  * Kubelet logs
 
 ### Controller-Manager Logs
@@ -108,7 +109,7 @@ spec:
 After increasing the log level, Kubelet needs to be restarted. When Kubelet is restarted, the API server and Controller-Manager Pods are also restarted with updated manifest files. To restart the Kubelet use following command.
 
 ```
-systemctl restart kubelet 
+systemctl restart kubelet
 ```
 
 ## Details of a specific Resource

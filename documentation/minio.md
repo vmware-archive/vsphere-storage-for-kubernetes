@@ -1,5 +1,6 @@
 ---
 title: Deploying S3 Stateful Containers - Minio
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 This case study describes the process to deploy distributed Minio server on Kubernetes. This example uses the official Minio Docker image from Docker Hub.

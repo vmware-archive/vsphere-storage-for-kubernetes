@@ -1,7 +1,8 @@
 ---
 title: Running Stateful application - Guestbook App
---- 
- 
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
+---
+
 Guestbook is PHP application with Redis as backend. In this section, we will demonstrate how to use  Kubernetes deployed on vSphere to run Guestbook Application with persistent storage. At the end of this demo, a sample guestbook app will be available inside Kubernetes where the data is resident inside VMDKs managed by vSphere.
 
 The data in the VMDK is independent of the lifecycle of the pods and persists even if pods are deleted.
@@ -28,7 +29,7 @@ All the dynamically provisioned volumes will be created in the kubevols director
 Create the guestbook app consuming the claims
 
 ```sh
-kubectl create -f guestbook-all-in-one.yaml 
+kubectl create -f guestbook-all-in-one.yaml
 ```
 
 Verify Guestbook Application
@@ -44,15 +45,15 @@ redis-master-1145698066-2hbbk 1/1   Running    0     43m
 redis-slave-5845680045-3ffdg  1/1   Running    0     43m
 ```
 
-Get the port on which the front end is accessible 
+Get the port on which the front end is accessible
 
 ```sh
 $ kubectl describe service frontend | grep NodePort
 Type: NodePort
-NodePort: <unset> 31531/TCP 
+NodePort: <unset> 31531/TCP
 ```
 
-Check the nodes on which the frontend is running 
+Check the nodes on which the frontend is running
 
 Get the IP address of one of the nodes (This can also be obtained from vCenter)
 Also possible from vCenter or the console output kube-up
@@ -120,7 +121,7 @@ kubectl create -f guestbook-all-in-one.yaml
 
 ## Lifecycle of a Volume
 
-To test the persistence, delete the guestbook and recreate it using the same volumes, the old messages on the guest book should show up. 
+To test the persistence, delete the guestbook and recreate it using the same volumes, the old messages on the guest book should show up.
 
 ```sh
 kubectl delete -f guestbook-all-in-one.yaml

@@ -1,10 +1,11 @@
 ---
 title: vSphere Storage for Kubernetes
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Introduction
 
-Containers have changed the way applications are packaged and deployed. Not only containers are efficient from an infrastructure utilization point of view, but they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. This user guide outlines integration of vSphere storage with Kubernetes. 
+Containers have changed the way applications are packaged and deployed. Not only containers are efficient from an infrastructure utilization point of view, but they also provide strong isolation between process on same host. They are lightweight and once packaged can run anywhere. This user guide outlines integration of vSphere storage with Kubernetes.
 
 ## Persistent Storage in Container World
 
@@ -20,4 +21,3 @@ Although it is relatively easy to run stateless Microservices using container te
 Kubernetes provides abstractions to ensure that the storage details are separated from allocation and usage of storage.
 
 Please refer [Kubernetes documentation](https://kubernetes.io/docs/concepts/storage/volumes/) for details.
-

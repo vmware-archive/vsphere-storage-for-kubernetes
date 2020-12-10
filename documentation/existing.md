@@ -1,5 +1,6 @@
 ---
   title: vSphere Cloud Provider Configuration
+  summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Prerequisites
@@ -77,13 +78,13 @@ Below is the summary of supported parameters in the `vsphere.conf` file
 * `default-datastore` is the default datastore used for dynamic volume provisioning.
   * If the datastore is located in storage folder or datastore is the member of datastore cluster, make sure to specify full datastore path.
     * For a datastore located in a datastore cluster, specify the datastore as shown below:
-        
+
         ```sh
         datastore = "DatastoreCluster/datastore1"
         ```
 
     * For a datastore located in a storage folder, specify datastore as shown below
-        
+
         ```sh
         datastore = "DatastoreStorageFolder/datastore1"
         ```

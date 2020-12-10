@@ -1,5 +1,6 @@
 ---
 title: Zone support in vSphere Cloud Provider
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Introduction
@@ -134,10 +135,10 @@ A [dynamically created Volume](https://vmware.github.io/vsphere-storage-for-kube
 $ cat vsphere-volume-sc-fast.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
-metadata: 
+metadata:
   name: fast
 provisioner: kubernetes.io/vsphere-volume
-parameters: 
+parameters:
   diskformat: thin
   fstype: ext3
 ```

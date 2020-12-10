@@ -1,5 +1,6 @@
 ---
 title: Maximum scale supported by VCP
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Test Scenario
@@ -87,4 +88,3 @@ Allocated resources:
 ## Flannel Network Configuration
 
 Most of the deployment uses 17.0.0.0/24 as the default flannel network setting. This allows registering only 254 nodes. To deploy more than 254 nodes flannel network should be set to 17.0.0.0/8.
-

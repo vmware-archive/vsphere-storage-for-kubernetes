@@ -1,5 +1,6 @@
 ---
 title: Version Features
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 The following table summarizes key features introduced in vSphere Cloud Provider in each Kubernetes release

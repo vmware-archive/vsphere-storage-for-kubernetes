@@ -1,5 +1,6 @@
 ---
 title: StatefulSets
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 StatefulSets are valuable for applications which require any stable identifiers or stable storage. vSphere Cloud Provider supports StatefulSets and vSphere volumes can be consumed by StatefulSets.

@@ -1,5 +1,6 @@
 ---
   title: SAML token authentication
+  summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 As of Kubernetes [release 1.11](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0), the vSphere Cloud Provider includes support for SAML token authentication using the vCenter [SSO API](https://code.vmware.com/apis/34/vcenter-sso).

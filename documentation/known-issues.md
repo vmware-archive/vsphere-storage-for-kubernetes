@@ -1,5 +1,6 @@
 ---
 title: Known Issues
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 This section lists the major known issues with Kubernetes vSphere Cloud Provider (VCP). For complete list of issues please check our Github issues(https://github.com/vmware/kubernetes/issues) page. If you notice an issue not listed in Github issues page, please do file a bug on the [Github repo](https://github.com/vmware/kubernetes/issues)
 

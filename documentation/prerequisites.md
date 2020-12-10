@@ -1,5 +1,6 @@
 ---
 title: Prerequisites
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 Following is the list of prerequisites for running Kubernetes with vSphere Cloud Provider. Refer to [the versions list](/vsphere-storage-for-kubernetes/documentation/versions.html) for features supported in each version.

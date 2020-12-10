@@ -1,5 +1,6 @@
 ---
 title: Static Provisioning
+summary: "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 ---
 
 ## Introduction
