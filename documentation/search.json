@@ -6,7 +6,7 @@
 "tags": "",
 "keywords": "",
 "url": "bestpractices.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -17,7 +17,7 @@
 "tags": "",
 "keywords": "",
 "url": "contactus.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -28,7 +28,7 @@
 "tags": "",
 "keywords": "",
 "url": "existing.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -39,7 +39,7 @@
 "tags": "",
 "keywords": "",
 "url": "faqs.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -50,7 +50,7 @@
 "tags": "",
 "keywords": "",
 "url": "guestbook.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -61,7 +61,7 @@
 "tags": "",
 "keywords": "",
 "url": "high-availability.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -72,7 +72,7 @@
 "tags": "",
 "keywords": "",
 "url": "",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -83,7 +83,7 @@
 "tags": "",
 "keywords": "",
 "url": "k8s-secret.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -94,7 +94,7 @@
 "tags": "",
 "keywords": "",
 "url": "known-issues.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -105,7 +105,7 @@
 "tags": "",
 "keywords": "",
 "url": "kubernetes-upgrade.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -116,7 +116,7 @@
 "tags": "",
 "keywords": "",
 "url": "kubernetes-volumes.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -127,7 +127,7 @@
 "tags": "",
 "keywords": "",
 "url": "maximum-scale-limit.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -138,7 +138,7 @@
 "tags": "",
 "keywords": "",
 "url": "minio.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -149,7 +149,7 @@
 "tags": "",
 "keywords": "",
 "url": "mongodb.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -171,7 +171,7 @@
 "tags": "",
 "keywords": "",
 "url": "overview.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -182,7 +182,7 @@
 "tags": "",
 "keywords": "",
 "url": "persistent-vols-claims.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -193,7 +193,7 @@
 "tags": "",
 "keywords": "",
 "url": "policy-based-mgmt.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -204,7 +204,7 @@
 "tags": "",
 "keywords": "",
 "url": "prerequisites.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -215,7 +215,7 @@
 "tags": "",
 "keywords": "",
 "url": "saml-token-authentication.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -230,7 +230,7 @@
 "tags": "",
 "keywords": "",
 "url": "statefulsets.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -241,7 +241,7 @@
 "tags": "",
 "keywords": "",
 "url": "storageclass.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -252,7 +252,7 @@
 "tags": "",
 "keywords": "",
 "url": "troubleshooting.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -263,7 +263,7 @@
 "tags": "",
 "keywords": "",
 "url": "vcp-roles.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -274,7 +274,7 @@
 "tags": "",
 "keywords": "",
 "url": "versions.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 ,
 
@@ -285,7 +285,7 @@
 "tags": "",
 "keywords": "",
 "url": "zones.html",
-"summary": ""
+"summary": "This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver."
 }
 
 

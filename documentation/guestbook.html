@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
+<meta name="description" content="This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.">
 <meta name="keywords" content=" ">
 <title>Running Stateful application - Guestbook App | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
@@ -198,12 +198,6 @@
                     
                     
                     
-                    
-                    
-                    <li><a href="zones.html">Zone support</a></li>
-                    
-                    
-                    
                 </ul>
             </li>
             
@@ -387,6 +381,8 @@
 <div class="post-content">
 
    
+    <div class="summary">This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.</div>
+   
 
     
 
@@ -446,7 +442,7 @@ All the dynamically provisioned volumes will be created in the kubevols director
 
 <p>Create the guestbook app consuming the claims</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f guestbook-all-in-one.yaml 
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>kubectl create -f guestbook-all-in-one.yaml
 </code></pre>
 </div>
 
@@ -467,7 +463,7 @@ redis-slave-5845680045-3ffdg  1/1   Running    0     43m
 
 <div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl describe service frontend | grep NodePort
 Type: NodePort
-NodePort: &lt;<span class="nb">unset</span>&gt; 31531/TCP 
+NodePort: &lt;<span class="nb">unset</span>&gt; 31531/TCP
 </code></pre>
 </div>
 
@@ -569,9 +565,9 @@ NodePort:      &lt;<span class="nb">unset</span>&gt; 32400/TCP
     <div class="row">
         <div class="col-lg-12 footer">
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
-            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+            <div style="float:right;"></div>&copy;2020 VMWare. All rights reserved.<br />
              Site last generated:
-            May 30, 2019</div>
+            Dec 10, 2020</div>
         </div>
     </div>
 </footer>

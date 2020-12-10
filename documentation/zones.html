@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
+<meta name="description" content="This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.">
 <meta name="keywords" content=" ">
 <title>Zone support in vSphere Cloud Provider | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
@@ -381,6 +381,8 @@
 <div class="post-content">
 
    
+    <div class="summary">This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.</div>
+   
 
     
 
@@ -550,10 +552,10 @@ Source:
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">$ cat vsphere-volume-sc-fast.yaml</span>
 <span class="s">apiVersion</span><span class="pi">:</span> <span class="s">storage.k8s.io/v1</span>
 <span class="s">kind</span><span class="pi">:</span> <span class="s">StorageClass</span>
-<span class="s">metadata</span><span class="pi">:</span> 
+<span class="s">metadata</span><span class="pi">:</span>
   <span class="s">name</span><span class="pi">:</span> <span class="s">fast</span>
 <span class="s">provisioner</span><span class="pi">:</span> <span class="s">kubernetes.io/vsphere-volume</span>
-<span class="s">parameters</span><span class="pi">:</span> 
+<span class="s">parameters</span><span class="pi">:</span>
   <span class="s">diskformat</span><span class="pi">:</span> <span class="s">thin</span>
   <span class="s">fstype</span><span class="pi">:</span> <span class="s">ext3</span>
 </code></pre>
@@ -678,9 +680,9 @@ When a pod that uses such a Persistent Volume Claim is created, the Kubernetes p
     <div class="row">
         <div class="col-lg-12 footer">
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
-            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+            <div style="float:right;"></div>&copy;2020 VMWare. All rights reserved.<br />
              Site last generated:
-            May 30, 2019</div>
+            Dec 10, 2020</div>
         </div>
     </div>
 </footer>

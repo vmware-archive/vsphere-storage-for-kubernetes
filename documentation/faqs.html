@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
+<meta name="description" content="This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.">
 <meta name="keywords" content=" ">
 <title>FAQs | vSphere Storage for Kubernetes</title>
 <link rel="stylesheet" href="css/syntax.css">
@@ -198,12 +198,6 @@
                     
                     
                     
-                    
-                    
-                    <li><a href="zones.html">Zone support</a></li>
-                    
-                    
-                    
                 </ul>
             </li>
             
@@ -387,6 +381,8 @@
 <div class="post-content">
 
    
+    <div class="summary">This documentation is not applicable to vSphere CSI Driver. Please visit https://vsphere-csi-driver.sigs.k8s.io/ for information about vSphere CSI Driver.</div>
+   
 
     
 
@@ -421,7 +417,9 @@ $('#toc').on('click', 'a', function() {
 
     
 
-  <h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for">What is the biggest Kubernetes cluster it has been tested for?</h2>
+  <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning: </b>Following FAQs are only applicable to in-tree vSphere Cloud Provider and in-tree vSphere Volume Plugin. For information about vSphere CSI Driver please visit https://vsphere-csi-driver.sigs.k8s.io/ </div>
+
+<h2 id="what-is-the-biggest-kubernetes-cluster-it-has-been-tested-for">What is the biggest Kubernetes cluster it has been tested for?</h2>
 <p>It has been tested on 1000 node Kubernetes cluster so far. Please refer to this <a href="/vsphere-storage-for-kubernetes/documentation/maximum-scale-limit.html">section</a> for details about recommended configuration.</p>
 
 <h2 id="can-vsphere-cloud-provider-support-kubernetes-cluster-spanning-across-multiple-vcenters-esxi-clusters-and-datacenters">Can vSphere Cloud Provider support Kubernetes Cluster spanning across multiple vCenters, ESXi Clusters and Datacenters?</h2>
@@ -473,7 +471,8 @@ If volume needs to be retained, then reclaim policy needs to be changed from “
 Proposal is available <a href="https://github.com/gnufied/community/blob/91b41028182a5291b4eccbf88f8065f66b2b7eed/contributors/design-proposals/grow-volume-size.md">here</a>. vSphere Cloud Provider does not support resize of volume. Please track this <a href="https://github.com/vmware/kubernetes/issues/168">issue</a>.</p>
 
 <h2 id="is-readwritemany-volume-supported-with-vsphere-cloud-provider">Is ReadWriteMany volume supported with vSphere Cloud Provider?</h2>
-<p>ReadWriteMany volume is not supported by vSphere Cloud Provider.</p>
+<p>ReadWriteMany volume is not supported by vSphere Cloud Provider.
+ReadWriteMany volumes are supported using the Container Storage Interface (CSI) as the new standard/driver that sits between vSphere and Kubernetes distributions: https://vsphere-csi-driver.sigs.k8s.io/</p>
 
 <h2 id="is-it-mandatory-to-have-all-the-node-vms-in-the-same-datastore">Is it mandatory to have all the node VMs in the same datastore?</h2>
 <p>It is not mandatory to keep all node VMs on the same datastore. But make sure node VM has access to volumes datastores.</p>
@@ -501,9 +500,9 @@ Customize hardware -&gt; VM Options -&gt; Configuration Parameters -&gt; Edit Co
     <div class="row">
         <div class="col-lg-12 footer">
             <div style="float:left;"><img style="max-width:150px;" src="images/company_logo.png" alt="Company logo"/></div>
-            <div style="float:right;"></div>&copy;2019 VMWare. All rights reserved.<br />
+            <div style="float:right;"></div>&copy;2020 VMWare. All rights reserved.<br />
              Site last generated:
-            May 30, 2019</div>
+            Dec 10, 2020</div>
         </div>
     </div>
 </footer>
